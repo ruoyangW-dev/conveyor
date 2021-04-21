@@ -26,7 +26,7 @@ export const FormGroup = ({ labelStr, htmlFor, error, children, className, requi
   let labelComp
   let customLabelContent
   let labelStrContent
-  if (customLabel){
+  if (customLabel){ 
     customLabelContent = customLabel({ labelStr, required })
     labelComp = customLabelContent
   }
