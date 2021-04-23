@@ -13,7 +13,7 @@ import { Popover, PopoverContent } from '../Popover'
 
 const errorBuilder = ({ error, id }) => error.map(r => <div key={`${r}-${id}-error`}>{r}<br /></div>)
 
-export const FormGroup = ({ labelStr, htmlFor, error, children, className, required, customError = null, customLabel = null, LabelInfoComponent }) => {
+export const FormGroup = ({ labelStr, htmlFor, error, children, className, required, customError = null, customLabel = null, LabelInfoComponent, node }) => {
   let errorComp
   if (!customError && error) {
     errorComp = <div className='invalid-feedback'>{errorBuilder({ error, id: htmlFor })}</div>
@@ -34,7 +34,7 @@ export const FormGroup = ({ labelStr, htmlFor, error, children, className, requi
     labelStrContent = <label htmlFor={htmlFor}>{`${labelStr} ${required ? ' *' : ''}`}</label>
     labelComp = labelStrContent
   }
-  if (LabelInfoComponent) {
+  if (LabelInfoComponent && !node) {
     if (customLabel)
       popoverContent['labelValue'] = customLabelContent
     else if (labelStr) 
@@ -86,7 +86,7 @@ const CustomErrorComponent = ({ error, id }) =>
  */
 
 // TODO: get classname for invalid from new react-datepicker
-export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, isClearable, required, customInput, customError, customLabel, LabelInfoComponent }) => {
+export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, isClearable, required, customInput, customError, customLabel, LabelInfoComponent, node }) => {
   let date
   if (value) {
     date = new Date(value)
@@ -99,7 +99,8 @@ export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, is
     <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-date'
       customError={R.defaultTo(CustomErrorComponent, customError)}
       customLabel={customLabel}
-      LabelInfoComponent={LabelInfoComponent}>
+      LabelInfoComponent={LabelInfoComponent}
+      node={node}>
       <div className='date-picker-container'>
         <DatePicker
           placeholderText='Click to select a date'
@@ -150,7 +151,7 @@ export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, is
  */
 
 // TODO: get classname for invalid from new react-datepicker
-export const InputDateTime = ({ onChange, id, labelStr, error, value, dateFormat, timeFormat, isClearable, useUTC, required, customInput, customError, customLabel, LabelInfoComponent }) => {
+export const InputDateTime = ({ onChange, id, labelStr, error, value, dateFormat, timeFormat, isClearable, useUTC, required, customInput, customError, customLabel, LabelInfoComponent, node }) => {
   if (!value) {
     value = ''
   }
@@ -165,6 +166,7 @@ export const InputDateTime = ({ onChange, id, labelStr, error, value, dateFormat
           customError={R.defaultTo(CustomErrorComponent, customError)}
           customLabel={customLabel}
           LabelInfoComponent={LabelInfoComponent}
+          node={node}
       >
           <div className='date-picker-container'>
               <DatePicker
@@ -220,11 +222,12 @@ const inputStringTypeMap = {
  * @property { boolean } spellCheck
  */
 
-export const InputString = ({ type, onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, spellCheck, LabelInfoComponent }) => (
+export const InputString = ({ type, onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, spellCheck, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-string'
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     <input
       autoFocus={autoFocus}
       type={inputStringTypeMap[type]}
@@ -256,11 +259,12 @@ export const InputString = ({ type, onChange, id, labelStr, error, value, classN
  * @property { boolean } autoFocus; update isAutoFocusInput() when changing
  */
 
-export const InputPassword = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent }) => (
+export const InputPassword = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-password'
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     <input
       autoFocus={autoFocus}
       type='password'
@@ -296,7 +300,7 @@ const MAX_SQL_INT_SIZE = Math.pow(2, 31) - 1
 
 const MIN_SQL_INT_SIZE = - Math.pow(2, 31)
 
-export const InputInt = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent }) => {
+export const InputInt = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent, node }) => {
   if (value > MAX_SQL_INT_SIZE || value < MIN_SQL_INT_SIZE) {
     error = R.append('Number too large.', error)
   }
@@ -304,7 +308,8 @@ export const InputInt = ({ onChange, id, labelStr, error, value, className, requ
     <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-int'
       customError={R.defaultTo(null, customError)}
       customLabel={customLabel}
-      LabelInfoComponent={LabelInfoComponent}>
+      LabelInfoComponent={LabelInfoComponent}
+      node={node}>
       <input
         autoFocus={autoFocus}
         type='number'
@@ -327,11 +332,12 @@ export const InputInt = ({ onChange, id, labelStr, error, value, className, requ
   )
 }
 
-export const InputCurrency = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent }) => (
+export const InputCurrency = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-currency'
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     <div className='input-group'>
       <div className='input-group-prepend'>
         <span className='input-group-text'>$</span>
@@ -374,11 +380,12 @@ export const InputCurrency = ({ onChange, id, labelStr, error, value, className,
  * @property { boolean } spellCheck
  */
 
-export const InputTextArea = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, spellCheck, LabelInfoComponent }) => (
+export const InputTextArea = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, spellCheck, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-textarea'
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     <textarea
       autoFocus={autoFocus}
       className={`${className}${error ? ' is-invalid' : ''}`}
@@ -409,11 +416,12 @@ export const InputTextArea = ({ onChange, id, labelStr, error, value, className,
  * @property { function } customLabel
  */
 
-export const InputRadio = ({ onChange, id, labelStr, error, value, className, options, inline, required, customInput, customError, customLabel, LabelInfoComponent }) => (
+export const InputRadio = ({ onChange, id, labelStr, error, value, className, options, inline, required, customInput, customError, customLabel, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-radio'
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     {options.map((option, idx) => (
       <div key={`radio-${idx}-${id}`} className={`${className} ${inline ? ' form-check-inline' : ''}`}>
         <input
@@ -445,12 +453,13 @@ export const InputRadio = ({ onChange, id, labelStr, error, value, className, op
  * @property { function } customLabel
  */
 
-export const InputFile = ({ onChange, error, id, labelStr, className, required, customInput, customError, customLabel, LabelInfoComponent }) => {
+export const InputFile = ({ onChange, error, id, labelStr, className, required, customInput, customError, customLabel, LabelInfoComponent, node }) => {
   return (
     <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-file'
       customError={R.defaultTo(null, customError)}
       customLabel={customLabel}
-      LabelInfoComponent={LabelInfoComponent}>
+      LabelInfoComponent={LabelInfoComponent}
+      node={node}>
       <input
         type='file'
         onChange={onChange}
@@ -480,11 +489,12 @@ export const InputFile = ({ onChange, error, id, labelStr, className, required, 
  * @property { function } customLabel
  */
 
-export const InputSwitch = ({ onChange, value, inline, id, className, labelStr, error, required, customInput, customError, customLabel, LabelInfoComponent }) => (
+export const InputSwitch = ({ onChange, value, inline, id, className, labelStr, error, required, customInput, customError, customLabel, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-switch'
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     <div key={`checkbox-${id}`} className={`${className} ${inline ? ' form-check-inline' : ''}`}>
       &nbsp;<Switch
         onChange={evt => {
@@ -563,11 +573,12 @@ export const InputCheckbox = ({ onChange, value, id, className, labelStr, error,
  * @property { function } customLabel
  */
 
-export const InputSelect = ({ labelStr, id, error, className, isClearable, isMulti, value, options, onChange, noOptionsMessage, onMenuOpen, required, customInput, customError, customLabel, LabelInfoComponent }) => (
+export const InputSelect = ({ labelStr, id, error, className, isClearable, isMulti, value, options, onChange, noOptionsMessage, onMenuOpen, required, customInput, customError, customLabel, LabelInfoComponent, node }) => (
   <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-select'
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
-    LabelInfoComponent={LabelInfoComponent}>
+    LabelInfoComponent={LabelInfoComponent}
+    node={node}>
     <Select
       className={className}
       classNamePrefix='select'
@@ -633,6 +644,7 @@ export const InputCreatableStringSelect = ({
       customError={R.defaultTo(CustomErrorComponent, customError)}
       customLabel={customLabel}
       LabelInfoComponent={LabelInfoComponent}
+      node={node}
     >
       <CreatableSelect
         className={className}
