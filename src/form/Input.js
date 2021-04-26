@@ -145,6 +145,7 @@ export const InputCore = ({
         schema,
         modelName,
         fieldName,
+        node,
         value,
         error,
         inline,
@@ -167,6 +168,7 @@ const InputInnerCore = ({
   schema,
   modelName,
   fieldName,
+  node,
   value,
   error,
   inline,
@@ -194,7 +196,9 @@ const InputInnerCore = ({
     required: R.prop('required', schema.getField(modelName, fieldName)),
     customInput,
     autoFocus,
-    onKeyDown
+    onKeyDown,
+    LabelInfoComponent: R.path(['components', 'labelInfo'], schema.getField(modelName, fieldName)),
+    node
   }
   const enumChoices = schema.getEnumChoices(modelName, fieldName)
   const enumChoiceOrder = schema.getEnumChoiceOrder(modelName, fieldName)
