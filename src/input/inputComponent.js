@@ -21,8 +21,6 @@ export const FormGroup = ({ labelStr, htmlFor, error, children, className, requi
     errorComp = customError({ error, id: htmlFor })
   }
 
-  const popoverContent = {'Content': <PopoverContent><LabelInfoComponent /></PopoverContent>}
-
   let labelComp
   let customLabelContent
   let labelStrContent
@@ -35,6 +33,7 @@ export const FormGroup = ({ labelStr, htmlFor, error, children, className, requi
     labelComp = labelStrContent
   }
   if (LabelInfoComponent && !node) {
+    const popoverContent = {'Content': <PopoverContent><LabelInfoComponent /></PopoverContent>}
     if (customLabel)
       popoverContent['labelValue'] = customLabelContent
     else if (labelStr) 
