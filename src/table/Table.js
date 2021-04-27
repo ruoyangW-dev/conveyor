@@ -426,7 +426,7 @@ const TRList = ({
     })
 }
 
-const TBody = ({
+export const TBody = ({
   schema,
   modelName,
   data, // ordered list
