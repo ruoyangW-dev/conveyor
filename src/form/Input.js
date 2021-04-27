@@ -198,7 +198,7 @@ const InputInnerCore = ({
     autoFocus,
     onKeyDown,
     LabelInfoComponent: R.path(['components', 'labelInfo'], schema.getField(modelName, fieldName)),
-    node
+    customProps
   }
   const enumChoices = schema.getEnumChoices(modelName, fieldName)
   const enumChoiceOrder = schema.getEnumChoiceOrder(modelName, fieldName)
