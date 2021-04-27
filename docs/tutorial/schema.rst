@@ -17,7 +17,7 @@ Schema Overview
 
 ( DEF ) = "Default"; usually does not need to be changed; has a default display value (derived from modelName/fieldName); (default created by conveyor-schema)
 
-.. code-block:: json
+.. code-block:: hjson
 
     {
         <modelName>: {
