@@ -9,6 +9,7 @@ export const TFoot = ({
   fieldOrder,
   summary,
   fromIndex,
+  buttonColumnExists,
   customProps,
 }) => {
   const getSummaryPath = fieldName => fromIndex ? [modelName, fieldName] : [parentModelName, parentFieldName, fieldName]
@@ -45,7 +46,8 @@ export const TFoot = ({
             fromIndex,
             customProps,
             getSummaryPath,
-            checkFooterField
+            checkFooterField,
+            buttonColumnExists
           }}
         />
       </tr>
@@ -63,8 +65,12 @@ const ThFootList = ({
   fromIndex,
   customProps,
   getSummaryPath,
-  checkFooterField
+  checkFooterField,
+  buttonColumnExists
 }) => {
+  if (buttonColumnExists) {
+    fieldOrder.push(null)
+  }
   return fieldOrder.map((fieldName, idx) => {
     if (fromIndex === true) {
      if (

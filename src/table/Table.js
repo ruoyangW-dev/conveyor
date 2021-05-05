@@ -357,7 +357,8 @@ const TRList = ({
   parentNode,
   fromIndex,
   customProps,
-  onEditCancel
+  onEditCancel,
+  buttonColumnExists
 }) => {
   return data.map((node, idx) => {
     const editable = schema.isRowEditable({
@@ -390,11 +391,7 @@ const TRList = ({
           customProps
         }}
       />
-      {showButtonColumn({
-        deletable,
-        editable: tableEditable,
-        detailField
-      }) && (
+      {buttonColumnExists && (
         <td key={`${node.id}-edit-delete`}>
           {
             <TableButtonCell
@@ -445,7 +442,8 @@ export const TBody = ({
   selectOptions,
   parentNode,
   fromIndex,
-  customProps
+  customProps,
+  buttonColumnExists
 }) => {
   const actions = schema.getActions(modelName)
   const onEditCancel = R.path(['edit', 'onTableEditCancel'], actions)
@@ -472,7 +470,8 @@ export const TBody = ({
           parentNode,
           fromIndex,
           customProps,
-          onEditCancel
+          onEditCancel,
+          buttonColumnExists
         }}
       />
     </tbody>
@@ -533,6 +532,7 @@ export const Table = ({
     fieldOrder,
     customProps
   })
+  const buttonColumnExists = showButtonColumn({ deletable, editable, detailField})
 
   return (
     <React.Fragment>
@@ -572,7 +572,8 @@ export const Table = ({
             tableEditable: editable,
             parentNode,
             fromIndex,
-            customProps
+            customProps,
+            buttonColumnExists
           }}
         />
         <Foot
@@ -585,6 +586,7 @@ export const Table = ({
             summary,
             fromIndex,
             customProps,
+            buttonColumnExists
           }}
         />
       </table>
