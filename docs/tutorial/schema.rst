@@ -1,5 +1,3 @@
-.. _tutorial/schema:
-
 Schema Overview
 ---------------
 
@@ -58,6 +56,8 @@ Schema Overview
                     displayName: (DEF) str or function # Provides how the field should be displayed. Called by schema.getFieldLabel({ modelName, fieldName, node, data, customProps }). Called at DefaultDetailLabel, DefaultDetailM2MTableTitle, DefaultDetailM2MFieldLabel, ReviewTable, , RemoveDetail, InputCore, InputInnerCore, FieldImageModal, formatFilter, and THList.
                     noDataDisplayValue: (DEF) str or function # Value to display when a field has no data. Called by schema.getNoDataDisplayValue({ modelName, node, customProps }). Returned from <Table> and used as props inside of <Field> for different field types.
                     detailAttribute: (O) bool # For custom/virtual fields; unnecessary if 'type' specified; Ensures that field doesn't appear with other tables, but rather other detail attributes. Located in schemaJSON.modelName.fieldName.detailAttribute.
+                    showFooter: (O) bool # If true and 'summary' not null, a table footer row displays the summary provided. Located at schemaJSON.modelName.fields.fieldName.showFooter. Displayed at <TFoot> component
+                    
                     type: (AG) str # When type is a string, it provides the type of a simple type such as string, int, or date.
                     OR
                     type: Obj{ # When type is an object, provides the type of a more complicated type such as a relationship or enum.
@@ -67,10 +67,11 @@ Schema Overview
                         tableFields: (R) [str] # List of fields on the target model to display when displaying a table on the detail page. Found at schemaJSON.modelName.fields.fieldName.type.tableFields. Passed as props to <DetailValue>.
 
                     }
-                    choices: (AG) Obj { # If this is a choice field, maps out valeus & their labels
+                    choices: (AG) Obj { # If this is a choice field, maps out values & their labels and overrides default. Called by schema.getEnumLabel({ modelName, fieldName, value? }) and schema.getEnumChoices(modelName, fieldName). Called by getRowFields, <FieldEnum>, and <InputInnerCore> components
                         'choice_value' : 'choice_label'
 
                     }
+                    choiceOrder: list # Defines order choices display. Called by schema.getEnumChoiceOrder(modelName, fieldName). Used in <InputInnerCore> component
                     displayConditions: (O) {
                         detail: # A function that evaluates to true or false to determine if the field will display on a detail page. Called by schema.shouldDisplayDetail({ modelName, fieldName, node, customProps }). Determines whether <DetailAttributeList> returns a component or null
                         index: # A function that evaluates to true or false to determine if the field will display in an index table. Called by shouldDisplayIndex({ modelName, fieldName, node, customProps }. Determines whether <ThFootList>, <THList>, and <TDList> returns a component or null
@@ -115,6 +116,12 @@ Schema Overview
                 indexTitle: function # Index title override component. Called by schema.getIndexTitleOverride(modelName). Overrides <IndexTitle> component.
                 indexPage: function # Index page override component. Called by schema.getIndexPageOverride(modelName). Overrides <IndexPage> component.
 
+            }
+            deleteModal: {
+                rows: {
+                    fieldName: function # Overrides display component of delete Detail modal. Located at schemaJSON.modelName.deleteModal.rows.key where key = fieldname, id, or __typename. Overrides getRowFields component.
+                }
+                headers: function # Overrides header display component of delete Detail modal. Located in schemaJSON.nodeModelName.deleteModal.headers. Used in <ReviewTable> component.
             }
 
         }
