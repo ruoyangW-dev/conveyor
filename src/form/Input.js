@@ -58,7 +58,8 @@ const Input = ({
   formStack,
   autoFocus,
   onKeyDown,
-  customProps
+  customProps,
+  isCreate = false
 }) => {
   const InputOverride = schema.getInputOverride(modelName, fieldName)
   const ChosenInput = useOverride(InputOverride, InputCore)
@@ -85,6 +86,7 @@ const Input = ({
       autoFocus,
       onKeyDown,
       customProps,
+      isCreate
     }} />
   )
 }
@@ -124,7 +126,8 @@ export const InputCore = ({
   customInput,  // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
-  customProps
+  customProps,
+  isCreate
 }) => {
   if (disabled) {
       const label = schema.getFieldLabel({
@@ -158,6 +161,7 @@ export const InputCore = ({
         autoFocus,
         onKeyDown,
         customProps,
+        isCreate
       }} />
       {fieldHelp && <small className='help-text'>{fieldHelp}</small>}
     </div>
@@ -180,7 +184,8 @@ const InputInnerCore = ({
   customInput,  // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
-  customProps
+  customProps,
+  isCreate
 }) => {
   const inputType = schema.getType(modelName, fieldName)
 
@@ -198,7 +203,7 @@ const InputInnerCore = ({
     autoFocus,
     onKeyDown,
     LabelInfoComponent: R.path(['components', 'labelInfo'], schema.getField(modelName, fieldName)),
-    customProps
+    isCreate
   }
   const enumChoices = schema.getEnumChoices(modelName, fieldName)
   const enumChoiceOrder = schema.getEnumChoiceOrder(modelName, fieldName)
