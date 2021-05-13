@@ -1,5 +1,6 @@
 export { default as Index } from './Index'
 export { default as Alerts } from './Alerts'
+export { DarkModeToggle } from './DarkModeToggle'
 export { default as Create } from './form/Create'
 export { default as CreateButton } from './CreateButton'
 export { default as Detail, DefaultDetailTableTitleWrapper } from './Detail'
