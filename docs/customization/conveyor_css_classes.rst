@@ -61,6 +61,9 @@ Alerts					‘conv-alerts’
 *CreateButton*
 CreateButton				‘conv-create-button’
 
+*DarkModeToggle*
+DarkModeToggle          'conv-dark-mode-toggle'
+
 *Popover*
 Popover and PopoverContent have passable className args.
 Popover				‘conv-popover’
