@@ -104,7 +104,7 @@ const FieldInputList = ({
             autoFocus,
             onKeyDown,
             customProps,
-            isCreate: true
+            showPopover: true
           }}
         />
       </div>

@@ -59,7 +59,7 @@ const Input = ({
   autoFocus,
   onKeyDown,
   customProps,
-  isCreate = false
+  showPopover = false
 }) => {
   const InputOverride = schema.getInputOverride(modelName, fieldName)
   const ChosenInput = useOverride(InputOverride, InputCore)
@@ -86,7 +86,7 @@ const Input = ({
       autoFocus,
       onKeyDown,
       customProps,
-      isCreate
+      showPopover
     }} />
   )
 }
@@ -127,7 +127,7 @@ export const InputCore = ({
   autoFocus,
   onKeyDown,
   customProps,
-  isCreate
+  showPopover
 }) => {
   if (disabled) {
       const label = schema.getFieldLabel({
@@ -161,7 +161,7 @@ export const InputCore = ({
         autoFocus,
         onKeyDown,
         customProps,
-        isCreate
+        showPopover
       }} />
       {fieldHelp && <small className='help-text'>{fieldHelp}</small>}
     </div>
@@ -185,7 +185,7 @@ const InputInnerCore = ({
   autoFocus,
   onKeyDown,
   customProps,
-  isCreate
+  showPopover
 }) => {
   const inputType = schema.getType(modelName, fieldName)
 
@@ -203,7 +203,7 @@ const InputInnerCore = ({
     autoFocus,
     onKeyDown,
     LabelInfoComponent: R.path(['components', 'labelInfo'], schema.getField(modelName, fieldName)),
-    isCreate
+    showPopover
   }
   const enumChoices = schema.getEnumChoices(modelName, fieldName)
   const enumChoiceOrder = schema.getEnumChoiceOrder(modelName, fieldName)
