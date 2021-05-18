@@ -1,5 +1,5 @@
-@import './index';
-@import '../../../bootstrap/scss/bootstrap';
+//@import './index';
+//@import '../../../bootstrap/scss/bootstrap';
 
 .conv-delete-modal-table {
   @extend .mt-2;
@@ -33,6 +33,20 @@
   @extend .mb-3;
 }
 
+.conv-disabled-input {
+  > div {
+    @extend .disabled-input-padding;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    > div {
+      @extend .border, .rounded, .disabled-input-value;
+      padding: 7px 7px 7px 12px;
+      background-color: #E0E0E0;
+      min-height: 40px;
+    }
+  }
+}
+
 .conv-btn-group {
   @extend .btn-group;
 }
@@ -50,4 +64,7 @@
 }
 .conv-text-danger {
   @extend .text-danger;
+}
+.conv-help-text {
+  @extend .help-text;
 }

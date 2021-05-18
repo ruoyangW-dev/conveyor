@@ -35,8 +35,8 @@ export const DisabledInput = ({ value, label }) => (
     {
       // TODO: Move into css files
     }
-    <div className='disabled-input-padding' style={{ paddingBottom: '10px', paddingTop: '10px' }} >
-      <div style={{ padding: '7px 7px 7px 12px', backgroundColor: '#E0E0E0', minHeight: '40px' }} className='border rounded primary disabled-input-value'>
+    <div>
+      <div>
         {value}
       </div>
     </div>
@@ -159,7 +159,7 @@ export const InputCore = ({
         onKeyDown,
         customProps,
       }} />
-      {fieldHelp && <small className='help-text'>{fieldHelp}</small>}
+      {fieldHelp && <small className='conv-help-text'>{fieldHelp}</small>}
     </div>
   )
 }
