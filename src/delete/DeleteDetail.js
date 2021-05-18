@@ -103,9 +103,9 @@ const ReviewTable = ({ schema, table, customProps }) => {
     modelName: R.propOr('', '__typename', R.head(table)), data: table, customProps
   })
   return (
-    <div className={'mt-2 conv-delete-modal-table conv-delete-modal-table-'+nodeModelName}>
-      <h5 className='d-inline'>{tableDisplayName}</h5>
-      <table className='table table-striped table-bordered'>
+    <div className={'conv-delete-modal-table conv-delete-modal-table-'+nodeModelName}>
+      <h5>{tableDisplayName}</h5>
+      <table>
         <tbody>
           <HeaderRow {...{
             headers
@@ -149,15 +149,15 @@ export const DeleteDetail = ({
           {...{ schema, table, customProps }}
         />
       ))}
-      <div className='modal-footer justify-content-center mt-3'>
-        <div className='btn-group'>
+      <div className='conv-modal-footer'>
+        <div className='conv-btn-group'>
           <button
-            className='btn btn-small btn-outline-secondary '
+            className='conv-btn-outline-secondary '
             data-dismiss='modal'
             onClick={() => onCancelDelete()}
           >Cancel</button>
           <button
-            className='btn btn-small btn-outline-danger '
+            className='conv-btn-outline-danger '
             data-dismiss='modal'
             onClick={() => onDelete({
               id: id,
@@ -193,14 +193,14 @@ export const RemoveDetail = ({
         <strong>{`Do you want to remove ${name} from ${parentField}?`}</strong>
         {` Note: ${name} will not be deleted, but the relationship will be cut.`}
       </span>
-      <div className='modal-footer justify-content-center mt-3'>
-        <div className='btn-group'>
+      <div className='conv-modal-footer'>
+        <div className='conv-btn-group'>
           <button
-            className='btn btn-small btn-outline-secondary '
+            className='conv-btn-outline-secondary '
             data-dismiss='modal'
           >Cancel</button>
           <button
-            className='btn btn-small btn-outline-danger '
+            className='conv-btn-outline-danger '
             data-dismiss='modal'
             onClick={() => onRemove({
               modelName: parentModelName,

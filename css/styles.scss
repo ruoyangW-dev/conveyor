@@ -1,0 +1,53 @@
+@import './index';
+@import '../../../bootstrap/scss/bootstrap';
+
+.conv-delete-modal-table {
+  @extend .mt-2;
+  h5 {
+    @extend .d-inline;
+  }
+  table {
+    @extend .table, .table-striped, .table-bordered;
+  }
+}
+.conv-modal-footer {
+  @extend .modal-footer, .justify-content-center, .mt-3;
+}
+
+.conv-breadcrumbs {
+  ol {
+    @extend .breadcrumb;
+  }
+}
+.conv-breadcrumb-item {
+  @extend .breadcrumb-item;
+}
+
+.conv-create {
+  @extend .container;
+}
+.conv-create-btn-group {
+  @extend .btn-group, .mt-2, .mb-3;
+}
+.conv-create-field {
+  @extend .mb-3;
+}
+
+.conv-btn-group {
+  @extend .btn-group;
+}
+.conv-btn-outline-secondary {
+  @extend .btn, .btn-sm, .btn-outline-secondary;
+}
+.conv-btn-outline-danger {
+  @extend .btn, .btn-sm, .btn-outline-danger;
+}
+.conv-btn-success {
+  @extend .btn, .btn-success;
+}
+.conv-btn {
+  @extend .btn;
+}
+.conv-text-danger {
+  @extend .text-danger;
+}

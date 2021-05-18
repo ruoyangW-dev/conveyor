@@ -15,13 +15,15 @@ ImageLinkModal			‘conv-image-modal’ ‘conv-image-modal-loading’ or ‘con
 
 *DeleteDetail and RemoveDetail*
 DeleteDetail RemoveDetail 		‘conv-delete-modal’ ‘conv-delete-modal-table’  ‘conv-delete-modal-table-{modelName}’ (where modelName refers to the model displayed by the table, not the class to be deleted.)
+                                'conv-delete-modal-table-' 'conv-modal-footer'
 
-*Breadcrumbs
-‘conv-breadcrumbs’
+*Breadcrumbs*
+‘conv-breadcrumbs’ 'conv-breadcrumb-item'
 
 *Create*
 DefaultCreate				‘conv-create’ ‘conv-create-{modelName}’
-CreatePage				‘conv-create-page’ ‘conv-create-page-{modelName}’
+CreatePage				‘conv-create-page’ ‘conv-create-page-{modelName}’ 'conv-create-btn-group' 'conv-text-danger'
+FieldInputList          'conv-create-field'
 
 *Input*
 InputCore				‘conv-input’ ‘conv-input-model-{modelName}’
@@ -109,3 +111,11 @@ RelTooltip				‘conv-rel-tooltip’
 *TreeTable*
 ToggleContainer			‘conv-toggle-container-tooltip’(for the tooltip) ‘conv-toggle-container-component’ (for tooltip contents)
 renderRow               'conv-tree-table-header' 'conv-tree-table-header-label'
+
+
+*Supporting css classes used throughout*
+'conv-btn-group'                    (group of buttons)
+'conv-btn-outline-secondary'        (cancel button)
+'conv-btn-outline-danger'           (delete/remove button)
+'conv-btn-success'                  (submit/confirm button)
+'conv-btn'                          (cancel button)
