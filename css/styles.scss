@@ -107,6 +107,24 @@
   padding-bottom: 10px;
 }
 
+.conv-alerts {
+  @extend .alerts;
+}
+.conv-alert {
+  @extend .alert, .fade, .show;
+  button {
+    @extend .close;
+  }
+}
+
+.conv-create-button {
+  @extend .btn, .btn-sm, .btn-outline-success;
+}
+
+.conv-dark-mode-indicator {
+  @extend .d-inline, .mode-indicator, .ml-auto;
+}
+
 .conv-btn-group {
   @extend .btn-group;
 }

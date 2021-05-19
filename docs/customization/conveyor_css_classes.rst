@@ -62,13 +62,13 @@ Table                   'conv-table' 'conv-table-{modelName}' 'conv-no-data-disp
 'conv-formatted-th'
 
 *Alerts*
-Alerts					‘conv-alerts’
+Alerts					‘conv-alerts’ `conv-alert`
 
 *CreateButton*
 CreateButton				‘conv-create-button’
 
 *DarkModeToggle*
-DarkModeToggle          'conv-dark-mode-toggle'
+DarkModeToggle          'conv-dark-mode-toggle' 'conv-dark-mode-indicator'
 
 *Popover*
 Popover and PopoverContent have passable className args.

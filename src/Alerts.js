@@ -1,14 +1,14 @@
 import React from 'react'
 
 export const Alerts = ({ alerts, dismissAlert }) => (
-  <div className='alerts conv-alerts'>
+  <div className='conv-alerts'>
     {alerts.map((alert, idx) => (
       <div
         key={`alert-${idx}`}
-        className={`alert fade show alert-${alert.type}`} role='alert'
+        className={`conv-alert alert-${alert.type}`} role='alert'
       >
         {alert.message}
-        <button type='button' className='close' aria-label='Close' onClick={() => dismissAlert(alert)}>&times;</button>
+        <button type='button' aria-label='Close' onClick={() => dismissAlert(alert)}>&times;</button>
       </div>
     ))}
   </div>
