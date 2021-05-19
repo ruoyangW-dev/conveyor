@@ -47,14 +47,80 @@
   }
 }
 
+.conv-filter-comp-empty {
+  @extend .ml-1, .mt-1, .filter-padded;
+}
+.conv-filter-modal-button {
+  @extend .btn, .btn-sm, .btn-outline-primary;
+}
+.conv-filter-icon {
+  @extend .ml-2;
+}
+.conv-active-filters {
+  @extend .mb-2;
+  ul {
+    @extend .list-group;
+  }
+}
+.conv-no-active-filters {
+  @extend .list-group-item, .text-muted, .clickable-element;
+}
+.conv-format-filter {
+  @extend .list-group-item;
+}
+.conv-filter-fieldname-dropdown {
+  @extend .filter-fieldname-dropdown;
+  > div {
+    @extend .w-100;
+  }
+}
+.conv-filter-rest {
+  @extend .filter-rest, .align-middle;
+  > div {
+    @extend .w-100;
+  }
+}
+.conv-filter-close {
+  @extend .filter-close, .filter-padded, .align-middle;
+  button {
+    @extend .btn, .btn-sm, .btn-danger, .btn-block;
+  }
+}
+.conv-filter-buttons {
+  @extend .mt-3;
+  > div {
+    @extend .d-inline, .float-right;
+  }
+}
+.conv-add-filter-button {
+  @extend .btn, .btn-primary, .btn-sm;
+}
+.conv-filter-submit-button {
+  @extend .btn, .btn-success, .btn-sm;
+}
+
+.conv-table {
+  @extend .table, .table-striped, .table-bordered, .table-hover;
+}
+.conv-no-data-display {
+  @extend .no-data-display;
+  padding-bottom: 10px;
+}
+
 .conv-btn-group {
   @extend .btn-group;
+}
+.conv-btn-outline-primary {
+  @extend .btn, .btn-sm, .btn-outline-primary;
 }
 .conv-btn-outline-secondary {
   @extend .btn, .btn-sm, .btn-outline-secondary;
 }
 .conv-btn-outline-danger {
   @extend .btn, .btn-sm, .btn-outline-danger;
+}
+.conv-btn-outline-warning {
+  @extend .btn, .btn-sm, .btn-outline-warning;
 }
 .conv-btn-success {
   @extend .btn, .btn-success;

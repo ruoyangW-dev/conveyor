@@ -21,7 +21,7 @@ import {
 import { IndexPagination, DetailPagination } from '../Pagination'
 
 export const DetailViewButton = ({ modelName, id }) => (
-  <Link to={`/${modelName}/${id}`} className="btn btn-sm btn-outline-primary">
+  <Link to={`/${modelName}/${id}`} className="conv-btn-outline-primary">
     View
   </Link>
 )
@@ -29,7 +29,7 @@ export const DetailViewButton = ({ modelName, id }) => (
 export const DeleteButton = ({ modalId, onDeleteWarning, modelName, id }) => {
   return (
     <button
-      className="btn btn-sm btn-outline-danger"
+      className="conv-btn-outline-danger"
       data-toggle="modal"
       data-target={'#' + modalId}
       onClick={() => onDeleteWarning({ modelName, id })}
@@ -42,7 +42,7 @@ export const DeleteButton = ({ modalId, onDeleteWarning, modelName, id }) => {
 export const RemoveButton = ({ modalId }) => {
   return (
     <button
-      className="btn btn-sm btn-outline-warning"
+      className="conv-btn-outline-warning"
       data-toggle="modal"
       data-target={'#' + modalId}
     >
@@ -81,7 +81,7 @@ export const TableButtonGroup = ({
   const canRemove = !fromIndex && m2m && editable
   return (
     <React.Fragment>
-      <div className="btn-group">
+      <div className="conv-btn-group">
         {// If detailField is null then use the detailButton
           R.isNil(detailField) && <DetailViewButton {...{ modelName, id: node.id }} />}
         {editable && (
@@ -248,7 +248,7 @@ export const TableButtonCell = ({
 }) => {
   return isEditing(editData, modelName, node.id) ? (
     <div className="table-btn-group">
-      <div className="btn-group">
+      <div className="conv-btn-group">
         <EditSaveButton
           {...{
             onClick: evt => onEditSubmit({ modelName, id: node.id })
@@ -515,7 +515,7 @@ export const Table = ({
   }
   if (!fromIndex && data.length === 0) {
     const noDataDisplayValue = schema.getNoDataDisplayValue({ modelName: parentModelName, fieldName: parentFieldName, node: parentNode, customProps })
-    return <div className='no-data-display' style={{ paddingBottom: '10px' }}>{noDataDisplayValue}</div>
+    return <div className='conv-no-data-display'>{noDataDisplayValue}</div>
   }
 
   const deletable = schema.isTableDeletable({
@@ -536,7 +536,7 @@ export const Table = ({
 
   return (
     <React.Fragment>
-      <table className={"table table-striped table-bordered table-hover conv-table conv-table-" + modelName}>
+      <table className={"conv-table conv-table-" + modelName}>
         <Head
           {...{
             schema,

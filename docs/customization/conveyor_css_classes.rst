@@ -48,11 +48,15 @@ InputSelect				‘ conv-input-type-select’
 InputCreatableStringSelect		‘ conv-input-type-creatable-string-select’
 
 *Filter*
-FilterComp				‘conv-filter-comp’ ‘conv-filter-comp-{modelName}’
-formatFilter				‘conv-format-filter’
+FilterComp				‘conv-filter-comp’ ‘conv-filter-comp-{modelName}’ 'conv-filter-comp-empty'
+formatFilter				‘conv-format-filter’ 'conv-filter-fieldname-dropdown' 'conv-filter-rest' 'conv-filter-close'
 FilterModal				‘conv-filter-modal’ ‘conv-filter-modal-{modelName}
 FilterModalButton			‘conv-filter-modal-button’ ‘conv-filter-modal-button-{modelName}’
-ActiveFilters				‘conv-active-filters’ ‘conv-active-filters-{modelName}’
+ActiveFilters				‘conv-active-filters’ ‘conv-active-filters-{modelName}’ 'conv-no-active-filters'
+FilterButtons               'conv-filter-buttons' 'conv-add-filter-button' 'conv-filter-submit-button'
+
+*Table*
+Table                   'conv-table' 'conv-table-{modelName}' 'conv-no-data-display'
 
 *Header/Footer*
 'conv-formatted-th'
@@ -115,6 +119,7 @@ renderRow               'conv-tree-table-header' 'conv-tree-table-header-label'
 
 *Supporting css classes used throughout*
 'conv-btn-group'                    (group of buttons)
+'conv-btn-outline-primary'          (submit button)
 'conv-btn-outline-secondary'        (cancel button)
 'conv-btn-outline-danger'           (delete/remove button)
 'conv-btn-success'                  (submit/confirm button)
