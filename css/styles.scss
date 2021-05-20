@@ -125,6 +125,45 @@
   @extend .d-inline, .mode-indicator, .ml-auto;
 }
 
+.conv-detail-wrapper {
+  @extend .container;
+  > .div {
+    @extend .row;
+    > .div {
+      @extend .col;
+    }
+  }
+}
+.conv-detail-attributes {
+  @extend .row;
+}
+.conv-default-detail-page-title {
+  h2 {
+    @extend .d-inline;
+  }
+  > .div {
+    @extend .float-right;
+  }
+}
+.conv-title-label-container {
+  @extend .title-label-container;
+  h4 {
+    @extend .d-inline;
+  }
+}
+.conv-edit-title-label-container {
+  @extend .pl-2, .d-inline;
+}
+.conv-detail-label-wrapper {
+  @extend .col-sm-3, .text-sm-right;
+}
+.conv-detail-value-wrapper {
+  @extend .col-sm-9;
+}
+.conv-detail-edit-wrapper {
+  @extend .detail-edit, .d-inline-block;
+}
+
 .conv-btn-group {
   @extend .btn-group;
 }
@@ -151,4 +190,7 @@
 }
 .conv-help-text {
   @extend .help-text;
+}
+.conv-float-right {
+  @extend .float-right;
 }
