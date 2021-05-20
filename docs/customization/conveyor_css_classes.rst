@@ -93,6 +93,11 @@ EditCancelButton			‘conv-edit-cancel-button’
 *Index*
 DefaultIndex				‘conv-index’ ‘conv-index-{modelName
 DefaultIndexTitle			‘conv-default-index-title’ ‘conv-default-index-title-{modelName}’
+PageNotFound            'conv-page-not-found'
+
+*Modal*
+ImageModal              'conv-image-modal' 'conv-image-modal-loading' 'conv-image-modal-loaded'
+Modal                   'conv-modal' 'conv-modal-header' 'conv-modal-body'
 
 *Pagination*
 Pagination				‘conv-pagination’

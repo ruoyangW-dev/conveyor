@@ -127,9 +127,9 @@
 
 .conv-detail-wrapper {
   @extend .container;
-  > .div {
+  > div {
     @extend .row;
-    > .div {
+    > div {
       @extend .col;
     }
   }
@@ -141,7 +141,7 @@
   h2 {
     @extend .d-inline;
   }
-  > .div {
+  > div {
     @extend .float-right;
   }
 }
@@ -175,6 +175,44 @@
 }
 .conv-file-delete {
   @extend .text-center;
+}
+
+.conv-index {
+  @extend .container;
+}
+.conv-page-not-found {
+  @extend .text-center, .mt-5;
+}
+.conv-default-index-title {
+  @extend .title-label-container;
+  h3 {
+    @extend .d-inline;
+  }
+}
+
+.conv-image-modal {
+  @extend .text-center;
+}
+.conv-modal {
+  @extend .modal, .fade;
+  > div {
+    @extend .modal-dialog, .modal-lg;
+    > div {
+      @extend .modal-content;
+    }
+  }
+}
+.conv-modal-header {
+  @extend .modal-header;
+  h5 {
+    @extend .modal-title;
+  }
+  button {
+    @extend .close;
+  }
+}
+.conv-modal-body {
+  @extend .modal-body;
 }
 
 .conv-btn-group {

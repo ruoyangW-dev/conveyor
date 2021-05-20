@@ -152,7 +152,7 @@ export const DefaultDetailAttribute = ({
 
     return (
       <React.Fragment>
-        <dt className='col-sm-3 text-sm-right'>
+        <dt className='conv-detail-label-wrapper'>
           <DetailLabel {...{ schema, modelName, fieldName, node, customProps }} />
         </dt>
         <dd className='conv-detail-value-wrapper'>

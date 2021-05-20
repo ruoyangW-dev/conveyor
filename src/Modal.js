@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import PrintButton from './PrintButton'
 
 export const Modal = ({ id, title, className='', children }) => (
-  <div className={'modal fade conv-modal '+className} id={id} tabIndex={-1}>
-    <div className='modal-dialog modal-lg'>
-      <div className='modal-content'>
-        <div className='modal-header'>
-          <h5 className='modal-title'>{title}</h5>
-          <button type='button' className='close' data-dismiss='modal'>&times;</button>
+  <div className={'conv-modal '+className} id={id} tabIndex={-1}>
+    <div className='modal-dialog'>
+      <div>
+        <div className='conv-modal-header'>
+          <h5>{title}</h5>
+          <button type='button' data-dismiss='modal'>&times;</button>
         </div>
-        <div className='modal-body'>
+        <div className='conv-modal-body'>
           {children}
         </div>
       </div>
@@ -22,11 +22,11 @@ const ImageModal = ({ id, title, className, url }) => {
   let child
   if (!url) {
     child = (
-      <div className='text-center conv-image-modal conv-image-modal-loading'>{'...generating image'}</div>
+      <div className='conv-image-modal conv-image-modal-loading'>{'...generating image'}</div>
     )
   } else {
     child = (
-      <div className='text-center conv-image-modal conv-image-modal-loaded'>
+      <div className='conv-image-modal conv-image-modal-loaded'>
         <div>
           <a href={url} target='_blank' rel='noopener noreferrer'>
             <img className='img-fluid' src={`${url}?ts=${Date.now()}`} />
