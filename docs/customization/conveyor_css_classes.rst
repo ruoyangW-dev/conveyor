@@ -100,8 +100,8 @@ ImageModal              'conv-image-modal' 'conv-image-modal-loading' 'conv-imag
 Modal                   'conv-modal' 'conv-modal-header' 'conv-modal-body'
 
 *Pagination*
-Pagination				‘conv-pagination’
-GotoTooltip				‘conv-goto-tooltip’
+Pagination				‘conv-pagination’ 'conv-pagination-span'
+GotoTooltip				‘conv-goto-tooltip’ 'conv-goto-tooltip-invalid' 'conv-goto-tooltip-input'
 
 *PrintButton*
 PrintButton				‘conv-print-button’

@@ -215,6 +215,29 @@
   @extend .modal-body;
 }
 
+.conv-pagination {
+  @extend .pagination;
+}
+.conv-pagination-span {
+  @extend .ml-2, .my-auto;
+}
+.conv-goto-tooltip {
+  @extend .goto-tooltip;
+}
+.conv-goto-tooltip-invalid {
+  @extend .mb-2, .goto-tooltip-invalid;
+}
+.conv-goto-tooltip-input {
+  @extend .d-flex;
+  > div {
+    @extend .mr-2, .float-left;
+  }
+}
+
+.conv-print-button {
+  @extend .btn btn-sm, .btn-outline-success;
+}
+
 .conv-btn-group {
   @extend .btn-group;
 }
