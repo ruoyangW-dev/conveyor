@@ -164,6 +164,19 @@
   @extend .detail-edit, .d-inline-block;
 }
 
+.conv-edit-cancel-button {
+  @extend .btn, .btn-sm, .btn, .mt-1;
+}
+.conv-edit-save-button {
+  @extend .btn, .btn-sm, .btn-success, .mt-1;
+}
+.conv-edit-button {
+  @extend .btn, .btn-sm, .btn-outline-success;
+}
+.conv-file-delete {
+  @extend .text-center;
+}
+
 .conv-btn-group {
   @extend .btn-group;
 }

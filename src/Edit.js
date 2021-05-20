@@ -24,14 +24,14 @@ export const FileDelete = ({ id, fieldName, onFileDelete }) => {
     <React.Fragment>
       <FileDeleteIcon {...{ modalId }}/>
       <Modal {...{ id: modalId, title: 'Are you sure you want to delete this file?', className: 'conv-delete-file-modal' }}>
-        <div className='text-center conv-file-delete'>
-          <div className='btn-group'>
+        <div className='conv-file-delete'>
+          <div className='conv-btn-group'>
             <button
-              className='btn btn-small btn-outline-secondary'
+              className='conv-btn-outline-secondary'
               data-dismiss='modal'
             >Cancel</button>
             <button
-              className='btn btn-sm btn-outline-danger'
+              className='conv-btn-outline-danger'
               data-dismiss='modal'
               onClick={onFileDelete}
             >Confirm Delete</button>
@@ -61,7 +61,7 @@ export const isFieldEditing = (editData, modelName, id, fieldName) => {
 const EditButton = ({ onClick }) => {
   return (
     <button
-      className='btn btn-sm btn-outline-success conv-edit-button'
+      className='conv-edit-button'
       onClick={onClick}>
             Edit
     </button>
@@ -85,7 +85,7 @@ export const TableEditButton = ({ schema, modelName, id, fieldName, node }) => {
 
 export const EditSaveButton = ({ onClick }) => {
   return (
-    <button className='btn btn-sm btn-success mt-1 conv-edit-save-button'
+    <button className='conv-edit-save-button'
       onClick={onClick}
     >Save</button>
   )
@@ -93,7 +93,7 @@ export const EditSaveButton = ({ onClick }) => {
 
 export const EditCancelButton = ({ onClick }) => {
   return (
-    <button className='btn btn-sm btn mt-1 conv-edit-cancel-button'
+    <button className='conv-edit-cancel-button'
       onClick={onClick}
     >Cancel</button>
   )
