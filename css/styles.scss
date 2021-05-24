@@ -251,6 +251,27 @@
   @extend .dropdown-item;
 }
 
+.conv-tab-nav-pills {
+  @extend .nav, .nav-pills;
+}
+.conv-tab-fields {
+  @extend .mt-3;
+}
+
+.conv-rel-tooltip-content {
+  @extend .table, .table-sm, .table-bordered, .table-striped, .tooltip-table;
+}
+
+.conv-tree-table-header {
+  display: flex;
+}
+.conv-tree-table-header-label {
+  flexGrow: 1;
+}
+.conv-toggle-container-component {
+  @extend .clickable-element;
+}
+
 .conv-btn-group {
   @extend .btn-group;
 }

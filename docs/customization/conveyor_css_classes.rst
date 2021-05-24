@@ -113,7 +113,7 @@ Highlight               'conv-highlight'
 
 *Tabs*
 TabFields				‘conv-tab-fields’
-RecursiveTab				‘conv-recursive-tab’
+RecursiveTab				‘conv-recursive-tab’ 'conv-tab-nav-pills'
 
 *Tooltip*
 RelTooltipContent			‘conv-rel-tooltip-content’
