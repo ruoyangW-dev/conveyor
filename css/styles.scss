@@ -235,7 +235,20 @@
 }
 
 .conv-print-button {
-  @extend .btn btn-sm, .btn-outline-success;
+  @extend .btn, .btn-sm, .btn-outline-success;
+}
+
+.conv-search {
+  @extend .mr-3, .dropdown, .form-inline;
+}
+.conv-search-box {
+  @extend .form-control, .border-secondary, .dropdown-toggle;
+}
+.conv-search-dropdown {
+  @extend .dropdown-menu, .dropdown-menu-right;
+}
+.conv-dropdown-item {
+  @extend .dropdown-item;
 }
 
 .conv-btn-group {

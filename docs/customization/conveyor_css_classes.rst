@@ -107,7 +107,7 @@ GotoTooltip				‘conv-goto-tooltip’ 'conv-goto-tooltip-invalid' 'conv-goto-to
 PrintButton				‘conv-print-button’
 
 *Search*
-Search					‘conv-search’ ‘conv-search-dropdown’ (for dropdown) 'conv-dropdown-item' 'conv-search-dropdown-model-label'
+Search					‘conv-search’ 'conv-search-box' ‘conv-search-dropdown’ (for dropdown) 'conv-dropdown-item' 'conv-search-dropdown-model-label'
 Highlight               'conv-highlight'
 
 
