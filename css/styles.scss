@@ -1,5 +1,10 @@
-//@import './index';
-//@import '../node_modules/bootstrap/scss/bootstrap';
+/**
+* TOP LEVEL FILE
+* Rebuild index.css by running: sass styles.scss > index.css
+*/
+
+@import './styling';
+@import '../node_modules/bootstrap/scss/bootstrap';
 
 .conv-delete-modal-table {
   @extend .mt-2;
