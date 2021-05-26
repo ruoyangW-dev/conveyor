@@ -14,8 +14,8 @@ const GotoTooltip = ({
   canGoto,
 }) => {
   return (
-    <div id={`${modelName}${fieldName ? '-' + fieldName : ''}-pg-tooltip`} className='conv-goto-tooltip'>
-      {canGoto ? null : <div className='conv-goto-tooltip-invalid'>Please enter a valid page number.</div>}
+    <div id={`${modelName}${fieldName ? '-' + fieldName : ''}-pg-tooltip`} className='goto-tooltip'>
+      {canGoto ? null : <div className='goto-tooltip-invalid'>Please enter a valid page number.</div>}
       <div className='conv-goto-tooltip-input'>
         <div>
           <FlexibleInput {...{

@@ -101,7 +101,7 @@ Modal                   'conv-modal' 'conv-modal-header' 'conv-modal-body'
 
 *Pagination*
 Pagination				‘conv-pagination’ 'conv-pagination-span'
-GotoTooltip				‘conv-goto-tooltip’ 'conv-goto-tooltip-invalid' 'conv-goto-tooltip-input'
+GotoTooltip				‘goto-tooltip’ 'conv-goto-tooltip-input'
 
 *PrintButton*
 PrintButton				‘conv-print-button’
@@ -116,7 +116,7 @@ TabFields				‘conv-tab-fields’
 RecursiveTab				‘conv-recursive-tab’
 
 *Tooltip*
-RelTooltipContent			‘conv-rel-tooltip-content’
+RelTooltipContent			‘tooltip-table’
 RelTooltip				‘conv-rel-tooltip’
 
 *TreeTable*

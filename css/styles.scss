@@ -216,11 +216,10 @@
 .conv-pagination-span {
   @extend .ml-2, .my-auto;
 }
-.conv-goto-tooltip {
-  @extend .goto-tooltip;
-}
-.conv-goto-tooltip-invalid {
-  @extend .mb-2, .goto-tooltip-invalid;
+.goto-tooltip-invalid {
+  @extend .mb-2;
+  color: #ff5555;
+  font-size: 14px;
 }
 .conv-goto-tooltip-input {
   @extend .d-flex;
@@ -253,8 +252,15 @@
   @extend .mt-3;
 }
 
-.conv-rel-tooltip-content {
-  @extend .table, .table-sm, .table-bordered, .table-striped, .tooltip-table;
+.tooltip-table {
+  @extend .table, .table-sm, .table-bordered, .table-striped;
+  margin: 0px !important;
+}
+.tooltip-table td:nth-child(1) {
+  font-weight: bold;
+}
+.tooltip-table td:nth-child(2) {
+  text-align: left;
 }
 
 .conv-tree-table-header {

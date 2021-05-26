@@ -132,11 +132,6 @@ body {
   max-width: 200px;
 }
 
-.goto-tooltip-invalid {
-  color: #ff5555;
-  font-size: 14px;
-}
-
 .zero-space {
   margin: 0% !important;
   padding: 0% !important;
