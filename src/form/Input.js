@@ -159,7 +159,7 @@ export const InputCore = ({
         onKeyDown,
         customProps,
       }} />
-      {fieldHelp && <small className='conv-help-text'>{fieldHelp}</small>}
+      {fieldHelp && <small className='help-text'>{fieldHelp}</small>}
     </div>
   )
 }

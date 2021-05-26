@@ -26,7 +26,7 @@ CreatePage				‘conv-create-page’ ‘conv-create-page-{modelName}’ 'conv-cr
 FieldInputList          'conv-create-field'
 
 *Input*
-InputCore				‘conv-input’ ‘conv-input-model-{modelName}’ 'conv-help-text'
+InputCore				‘conv-input’ ‘conv-input-model-{modelName}’
 DisabledInput				‘conv-disabled-input’
 
 *InputComponents*
