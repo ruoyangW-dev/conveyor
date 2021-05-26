@@ -107,7 +107,7 @@ export const DefaultDetailAttribute = ({
           <DetailLabel {...{ schema, modelName, fieldName, node, customProps }} />
         </dt>
         <dd className='conv-detail-value-wrapper'>
-          <div className='conv-detail-edit-wrapper'>
+          <div className='detail-edit'>
             <EditInput {...{
               schema,
               modelName,
@@ -202,7 +202,7 @@ export const DetailCreateButton = ({ schema, targetModelName, path, targetInvers
 
 export const DefaultDetailTableTitleWrapper = ({ children }) => {
   return (
-    <div className='conv-title-label-container'>
+    <div className='title-label-container'>
       <h4>
         {children}
       </h4>
@@ -251,7 +251,7 @@ export const DefaultDetailM2MTableTitle = ({
   const editable = schema.isFieldEditable({ modelName, fieldName, node, customProps })
 
   return (
-    <div className='conv-title-label-container'>
+    <div className='title-label-container'>
       <h4>
         {collapsable && <CollapseTableButton {...{
           modelName,
@@ -291,7 +291,7 @@ export const DefaultDetailM2MFieldLabel = ({
   const creatable = schema.isCreatable({ modelName: targetModelName, parentNode: node, customProps })
   const required = R.prop('required', schema.getField(modelName, fieldName))
   const Label = () => (
-    <div className='conv-title-label-container'>
+    <div className='title-label-container'>
       <h4>{schema.getFieldLabel({ modelName, fieldName, node, customProps })}</h4>
       { required && ' *'}
       { creatable && <DetailCreateButton {...{

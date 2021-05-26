@@ -115,7 +115,7 @@
 }
 
 .conv-dark-mode-indicator {
-  @extend .d-inline, .mode-indicator, .ml-auto;
+  @extend .d-inline, .ml-auto;
 }
 
 .conv-detail-wrapper {
@@ -138,8 +138,8 @@
     @extend .float-right;
   }
 }
-.conv-title-label-container {
-  @extend .title-label-container;
+.title-label-container {
+  margin-bottom: 10px;
   h4 {
     @extend .d-inline;
   }
@@ -153,8 +153,10 @@
 .conv-detail-value-wrapper {
   @extend .col-sm-9;
 }
-.conv-detail-edit-wrapper {
-  @extend .detail-edit, .d-inline-block;
+.detail-edit {
+  @extend .d-inline-block;
+  width: 300px;
+  margin-right: 10px;
 }
 
 .conv-edit-cancel-button {

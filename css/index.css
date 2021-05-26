@@ -103,11 +103,6 @@ body {
   padding-bottom: 10px;
 }
 
-.detail-edit {
-    width: 300px;
-    margin-right: 10px;
-}
-
 .table-btn-group {
     padding-bottom: 30px;
 }
@@ -197,10 +192,6 @@ body {
 
 .conv-create-button {
   margin-left: 10px;
-}
-
-.title-label-container {
-  margin-bottom: 10px;
 }
 
 .clickable-element {

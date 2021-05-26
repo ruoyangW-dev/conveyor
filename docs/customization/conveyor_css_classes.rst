@@ -81,8 +81,8 @@ Wrapper				‘conv-detail-wrapper’ ‘conv-detail-wrapper-{modelName}’
 DefaultDetailPageTitle		‘conv-default-detail-page-title’ ‘conv-default-detail-page-title-{modelName}’
 DefaultDetailTable			‘conv-detail-table’ ‘conv-detail-table-{modelName}’
 DefaultDetailAttribute(s Container)	‘conv-detail-attributes’ ‘conv-detail-attributes-{modelName}’ (as close as formatting let it be)
-DefaultDetailM2MTableTitle  DefaultDetailM2MFieldLabel DefaultDetailTableTitleWrapper    'conv-title-label-container' 'conv-edit-title-label-container'
-DefaultDetailAttribute      'conv-detail-label-wrapper' 'conv-detail-value-wrapper' 'conv-detail-edit-wrapper'
+DefaultDetailM2MTableTitle  DefaultDetailM2MFieldLabel DefaultDetailTableTitleWrapper    'conv-edit-title-label-container'
+DefaultDetailAttribute      'conv-detail-label-wrapper' 'conv-detail-value-wrapper'
 
 *Edit*
 FileDelete				‘conv-delete-file-modal’ ‘conv-file-delete’
