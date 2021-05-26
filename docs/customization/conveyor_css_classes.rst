@@ -56,13 +56,13 @@ ActiveFilters				‘conv-active-filters’ ‘conv-active-filters-{modelName}’
 FilterButtons               'conv-filter-buttons' 'conv-add-filter-button' 'conv-filter-submit-button'
 
 *Table*
-Table                   'conv-table' 'conv-table-{modelName}' 'conv-no-data-display'
+Table                   'conv-table' 'conv-table-{modelName}'
 
 *Header/Footer*
 'conv-formatted-th'
 
 *Alerts*
-Alerts					‘conv-alerts’ `conv-alert`
+Alerts					`conv-alert`
 
 *CreateButton*
 CreateButton				‘conv-create-button’

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Alerts = ({ alerts, dismissAlert }) => (
-  <div className='conv-alerts'>
+  <div className='alerts'>
     {alerts.map((alert, idx) => (
       <div
         key={`alert-${idx}`}

@@ -515,7 +515,7 @@ export const Table = ({
   }
   if (!fromIndex && data.length === 0) {
     const noDataDisplayValue = schema.getNoDataDisplayValue({ modelName: parentModelName, fieldName: parentFieldName, node: parentNode, customProps })
-    return <div className='conv-no-data-display'>{noDataDisplayValue}</div>
+    return <div className='no-data-display'>{noDataDisplayValue}</div>
   }
 
   const deletable = schema.isTableDeletable({

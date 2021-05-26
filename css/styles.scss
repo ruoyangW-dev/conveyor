@@ -1,5 +1,5 @@
 //@import './index';
-@import '../node_modules/bootstrap/scss/bootstrap';
+//@import '../node_modules/bootstrap/scss/bootstrap';
 
 .conv-delete-modal-table {
   @extend .mt-2;
@@ -102,14 +102,7 @@
 .conv-table {
   @extend .table, .table-striped, .table-bordered, .table-hover;
 }
-.conv-no-data-display {
-  @extend .no-data-display;
-  padding-bottom: 10px;
-}
 
-.conv-alerts {
-  @extend .alerts;
-}
 .conv-alert {
   @extend .alert, .fade, .show;
   button {
