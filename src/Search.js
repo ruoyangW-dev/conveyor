@@ -54,7 +54,7 @@ export const Search = ({
   const showResults = queryText && entries.length > 0
   return (
     <div
-      className="mr-3 dropdown form-inline conv-search"
+      className="conv-search"
       onKeyPress={evt => {
         if (evt.key === 'Enter') {
           onTriggerSearch({ queryText })
@@ -64,7 +64,7 @@ export const Search = ({
       <FlexibleInput
         type={inputTypes.STRING_TYPE}
         id="searchbox"
-        className="form-control border-secondary dropdown-toggle"
+        className="conv-search-box"
         onChange={evt => {
           const triggeredActions = [onTextChange({ queryText: evt })]
           if (searchOnChange === true) {
@@ -82,7 +82,7 @@ export const Search = ({
       />
       {showResults && searchDropdown && (
         <div
-          className={`dropdown-menu dropdown-menu-right conv-search-dropdown ${entries.length > 0 &&
+          className={`conv-search-dropdown ${entries.length > 0 &&
             'show'}`}
         >
           {
@@ -90,7 +90,7 @@ export const Search = ({
             <Link
               key={entry.name}
               onClick={() => onLinkClick()}
-              className="dropdown-item conv-dropdown-item"
+              className="conv-dropdown-item"
               to={entry.detailURL}
             >
               <HighlightString

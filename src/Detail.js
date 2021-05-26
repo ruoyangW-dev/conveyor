@@ -22,7 +22,6 @@ import {
 import { Popover, PopoverContent } from './Popover'
 import Input from './form/Input'
 import { Link, Redirect } from 'react-router-dom'
-import '../css/index.css'
 import { inputTypes } from './consts'
 import { DeleteDetail } from './delete/DeleteDetail'
 import { FaAngleDown, FaAngleRight } from 'react-icons/fa'
@@ -103,11 +102,11 @@ export const DefaultDetailAttribute = ({
 
     return (
       <React.Fragment>
-        <dt className='col-sm-3 text-sm-right'>
+        <dt className='conv-detail-label-wrapper'>
           <DetailLabel {...{ schema, modelName, fieldName, node, customProps }} />
         </dt>
-        <dd className='col-sm-9'>
-          <div className='detail-edit d-inline-block pull-left'>
+        <dd className='conv-detail-value-wrapper'>
+          <div className='detail-edit'>
             <EditInput {...{
               schema,
               modelName,
@@ -152,10 +151,10 @@ export const DefaultDetailAttribute = ({
 
     return (
       <React.Fragment>
-        <dt className='col-sm-3 text-sm-right'>
+        <dt className='conv-detail-label-wrapper'>
           <DetailLabel {...{ schema, modelName, fieldName, node, customProps }} />
         </dt>
-        <dd className='col-sm-9'>
+        <dd className='conv-detail-value-wrapper'>
           <DetailValue {...{
             schema,
             modelName,
@@ -203,7 +202,7 @@ export const DetailCreateButton = ({ schema, targetModelName, path, targetInvers
 export const DefaultDetailTableTitleWrapper = ({ children }) => {
   return (
     <div className='title-label-container'>
-      <h4 className='d-inline'>
+      <h4>
         {children}
       </h4>
     </div>
@@ -252,7 +251,7 @@ export const DefaultDetailM2MTableTitle = ({
 
   return (
     <div className='title-label-container'>
-      <h4 className='d-inline'>
+      <h4>
         {collapsable && <CollapseTableButton {...{
           modelName,
           fieldName,
@@ -262,7 +261,7 @@ export const DefaultDetailM2MTableTitle = ({
         }}/>}
         {schema.getFieldLabel({ modelName, fieldName, node, customProps })}
       </h4>
-      {editable && <div className='pl-2 d-inline'>
+      {editable && <div className='conv-edit-title-label-container'>
         <TableEditButton {...{
           schema,
           modelName,
@@ -292,7 +291,7 @@ export const DefaultDetailM2MFieldLabel = ({
   const required = R.prop('required', schema.getField(modelName, fieldName))
   const Label = () => (
     <div className='title-label-container'>
-      <h4 className='d-inline'>{schema.getFieldLabel({ modelName, fieldName, node, customProps })}</h4>
+      <h4>{schema.getFieldLabel({ modelName, fieldName, node, customProps })}</h4>
       { required && ' *'}
       { creatable && <DetailCreateButton {...{
         schema,
@@ -529,9 +528,9 @@ export const DefaultDetailPageTitle = ({ schema, modelName, node, modalData, cus
   const HeaderLink = schema.getHasIndex(modelName) ? <Link to={'/' + modelName}>{model}</Link> : model
   return (
     <div className={'conv-default-detail-page-title conv-default-detail-page-title-' + modelName}>
-      <h2 className='d-inline'>{HeaderLink}:<b> {label}</b></h2>
+      <h2>{HeaderLink}:<b> {label}</b></h2>
       { schema.isDeletable({ modelName, node, customProps }) &&
-        <div className='float-right'>
+        <div className='conv-float-right'>
           <DeleteButton {...{ modalId, onDeleteWarning, modelName, id }} />
           <DeleteDetail {...{
             schema,
@@ -661,7 +660,7 @@ export const DetailFields = ({
 
   return (
     <React.Fragment>
-      <dl className={'row conv-detail-attributes conv-detail-attributes-' + modelName}>
+      <dl className={'conv-detail-attributes conv-detail-attributes-' + modelName}>
         <DetailAttributeList
           {...{
             schema,
@@ -704,9 +703,9 @@ export const DetailFields = ({
 }
 
 const Wrapper = ({ children, modelName }) => (
-  <div className={'container conv-detail-wrapper conv-detail-wrapper-' + modelName}>
-    <div className='row'>
-      <div className='col'>
+  <div className={'conv-detail-wrapper conv-detail-wrapper-' + modelName}>
+    <div>
+      <div>
         {children}
       </div>
     </div>
@@ -739,7 +738,7 @@ export const DefaultDetail = ({
   const DetailPage = useOverride(DetailPageOverride, DefaultDetailPage)
 
   if (R.isEmpty(node)) {
-    return <div className='container conv-detail-wrapper conv-detail-wrapper-loading'>Loading...</div>
+    return <div className='conv-detail-wrapper conv-detail-wrapper-loading'>Loading...</div>
   }
 
   if (node === null) {

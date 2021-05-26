@@ -20,19 +20,19 @@ const FilterButtons = ({
   clearFilters,
   addFilter
 }) => (
-  <div className='mt-3'>
+  <div className='conv-filter-buttons'>
     <button
-      className='btn btn-primary btn-sm'
+      className='conv-add-filter-button'
       onClick={() => addFilter({ modelName })}
     >+ Add Rule</button>
-    <div className='d-inline float-right'>
-      <div className='btn-group'>
+    <div>
+      <div className='conv-btn-group'>
         <button
-          className='btn btn-success btn-sm'
+          className='conv-filter-submit-button'
           onClick={() => onFilterSubmit({ modelName })}
         >Apply</button>
         <button
-          className='btn btn-outline-danger btn-sm'
+          className='conv-btn-outline-danger'
           onClick={() => {
             clearFilters({ modelName })
             onFilterSubmit({ modelName })
@@ -71,9 +71,9 @@ const formatFilter = ({
     ? { label: null, value: null }
     : toOptions(filterOrder[index])
   return (
-    <li key={`${index}-${modelName}-${fieldName}-format-filter`} className='list-group-item conv-format-filter'>
+    <li key={`${index}-${modelName}-${fieldName}-format-filter`} className='conv-format-filter'>
       <div className='filter-fieldname-dropdown'>
-        <div className='w-100'>
+        <div>
           <FlexibleInput {...{
             type: inputTypes.SELECT_TYPE,
             onChange: evt => onChange({
@@ -92,8 +92,8 @@ const formatFilter = ({
           }}/>
         </div>
       </div>
-      <div className='filter-rest align-middle'>
-        <div className='w-100'>
+      <div className='filter-rest'>
+        <div>
           <FilterComp {...{
             fieldName,
             modelName,
@@ -109,9 +109,8 @@ const formatFilter = ({
           }}/>
         </div>
       </div>
-      <div className='filter-close filter-padded align-middle'>
+      <div className='filter-close filter-padded'>
         <button
-          className='btn btn-sm btn-danger btn-block'
           onClick={() => deleteFilter({ modelName, index })}
         >X</button>
       </div>
@@ -135,12 +134,12 @@ const ActiveFilters = ({
   filterInputs,
   customProps
 }) => (
-  <div id={'active-filters-' + modelName} className={"mb-2 conv-active-filters conv-active-filters-" + modelName}>
-    <ul className="list-group">
+  <div id={'active-filters-' + modelName} className={"conv-active-filters conv-active-filters-" + modelName}>
+    <ul>
       {R.isEmpty(filterOrder) || R.isNil(filterOrder) ? (
         <li
           key="no-active-filters"
-          className="list-group-item text-muted clickable-element"
+          className="conv-no-active-filters clickable-element"
           onClick={() => addFilter({ modelName })}
         >
           Add a rule to get started...
@@ -224,13 +223,13 @@ export const FilterModal = ({
 
 export const FilterModalButton = ({ modelName, filtersAreActive }) => (
   <button
-    className={'btn btn-sm btn-outline-primary conv-filter-modal-button conv-filter-modal-button-' + modelName}
+    className={'conv-filter-modal-button conv-filter-modal-button-' + modelName}
     data-toggle='modal'
     data-target={'#filter-' + modelName}
   >
     Filter
     <FaFilter
-      className={`filter-icon-${filtersAreActive ? 'active' : 'inactive'} ml-2`}
+      className={`filter-icon-${filtersAreActive ? 'active' : 'inactive'} conv-filter-icon`}
       color={filtersAreActive ? 'lightgreen' : 'black'}
     />
   </button>
@@ -338,7 +337,7 @@ export const FilterComp = ({
   selectOptions
 }) => {
   if (R.isNil(fieldName) || R.isEmpty(fieldName)) {
-    return <div className='ml-1 mt-1 filter-padded'>Select a field</div>
+    return <div className='filter-padded'>Select a field</div>
   }
   const value = R.prop('value', filterInput)
   const operator = R.prop('operator', filterInput)

@@ -28,8 +28,8 @@ export const DefaultIndexTitle = ({
   const filtersAreActive = R.path([modelName, 'filter', 'filtersAreActive'], tableView)
 
   return (
-    <div className={'title-label-container conv-default-index-title conv-default-index-title-' + modelName}>
-      <h3 className='d-inline'>
+    <div className={'conv-default-index-title conv-default-index-title-' + modelName}>
+      <h3>
         {schema.getModelLabelPlural({ modelName, data, customProps })}
       </h3>
       {filterable && <FilterModal {...{
@@ -50,7 +50,7 @@ export const DefaultIndexTitle = ({
 }
 
 const PageNotFound = () => (
-  <div id='page-not-found' className='text-center mt-5'>
+  <div id='page-not-found' className='conv-page-not-found'>
     <h1>Page Not Found</h1>
   </div>
 )
@@ -92,7 +92,7 @@ export const DefaultIndex = ({
   }
 
   return (
-    <div className={'container conv-index conv-index-' + modelName}>
+    <div className={'conv-index conv-index-' + modelName}>
       <IndexTitle
         {...{
           schema,
@@ -154,7 +154,7 @@ const Index = ({
     const actions = schema.getActions(modelName)
     const onCreateClick = R.path(['create', 'onIndexCreate'], actions)
     return (
-      <div className='container'>
+      <div className='conv-index'>
         <h1>
           {`No ${schema.getModelLabel({ modelName, data, customProps })} Exists`}
           <CreateButton {...{

@@ -1,0 +1,304 @@
+/**
+* TOP LEVEL FILE
+* Rebuild index.css by running: sass styles.scss > index.css
+*/
+
+@import './styling';
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.conv-delete-modal-table {
+  @extend .mt-2;
+  h5 {
+    @extend .d-inline;
+  }
+  table {
+    @extend .table, .table-striped, .table-bordered;
+  }
+}
+.conv-modal-footer {
+  @extend .modal-footer, .justify-content-center, .mt-3;
+}
+
+.conv-breadcrumbs {
+  ol {
+    @extend .breadcrumb;
+  }
+}
+.conv-breadcrumb-item {
+  @extend .breadcrumb-item;
+}
+
+.conv-create {
+  @extend .container;
+}
+.conv-create-btn-group {
+  @extend .btn-group, .mt-2, .mb-3;
+}
+.conv-create-field {
+  @extend .mb-3;
+}
+
+.disabled-input-value {
+  @extend .border, .rounded;
+  padding: 7px 7px 7px 12px;
+  background-color: #E0E0E0;
+  min-height: 40px;
+}
+
+.filter-padded {
+  @extend .ml-1, .mt-1;
+  padding-left: 10px;
+  padding-top: 4px;
+}
+.conv-filter-modal-button {
+  @extend .btn, .btn-sm, .btn-outline-primary;
+}
+.conv-filter-icon {
+  @extend .ml-2;
+}
+.conv-active-filters {
+  @extend .mb-2;
+  ul {
+    @extend .list-group;
+  }
+}
+.conv-no-active-filters {
+  @extend .list-group-item, .text-muted;
+}
+.conv-format-filter {
+  @extend .list-group-item;
+}
+.filter-fieldname-dropdown {
+  width: 25%;
+  float: left;
+  > div {
+    @extend .w-100;
+  }
+}
+.filter-rest {
+  @extend .align-middle;
+  width: 70%;
+  float: left;
+  > div {
+    @extend .w-100;
+  }
+}
+.filter-close {
+  @extend .align-middle;
+  width: 5%;
+  float: right;
+  button {
+    @extend .btn, .btn-sm, .btn-danger, .btn-block;
+  }
+}
+.conv-filter-buttons {
+  @extend .mt-3;
+  > div {
+    @extend .d-inline, .float-right;
+  }
+}
+.conv-add-filter-button {
+  @extend .btn, .btn-primary, .btn-sm;
+}
+.conv-filter-submit-button {
+  @extend .btn, .btn-success, .btn-sm;
+}
+
+.conv-table {
+  @extend .table, .table-striped, .table-bordered, .table-hover;
+}
+
+.conv-alert {
+  @extend .alert, .fade, .show;
+  button {
+    @extend .close;
+  }
+}
+
+.conv-create-button {
+  @extend .btn, .btn-sm, .btn-outline-success;
+}
+
+.conv-dark-mode-indicator {
+  @extend .d-inline, .ml-auto;
+}
+
+.conv-detail-wrapper {
+  @extend .container;
+  > div {
+    @extend .row;
+    > div {
+      @extend .col;
+    }
+  }
+}
+.conv-detail-attributes {
+  @extend .row;
+}
+.conv-default-detail-page-title {
+  h2 {
+    @extend .d-inline;
+  }
+  > div {
+    @extend .float-right;
+  }
+}
+.title-label-container {
+  margin-bottom: 10px;
+  h4 {
+    @extend .d-inline;
+  }
+}
+.conv-edit-title-label-container {
+  @extend .pl-2, .d-inline;
+}
+.conv-detail-label-wrapper {
+  @extend .col-sm-3, .text-sm-right;
+}
+.conv-detail-value-wrapper {
+  @extend .col-sm-9;
+}
+.detail-edit {
+  @extend .d-inline-block;
+  width: 300px;
+  margin-right: 10px;
+}
+
+.conv-edit-cancel-button {
+  @extend .btn, .btn-sm, .btn, .mt-1;
+}
+.conv-edit-save-button {
+  @extend .btn, .btn-sm, .btn-success, .mt-1;
+}
+.conv-edit-button {
+  @extend .btn, .btn-sm, .btn-outline-success;
+}
+.conv-file-delete {
+  @extend .text-center;
+}
+
+.conv-index {
+  @extend .container;
+}
+.conv-page-not-found {
+  @extend .text-center, .mt-5;
+}
+.conv-default-index-title {
+  @extend .title-label-container;
+  h3 {
+    @extend .d-inline;
+  }
+}
+
+.conv-image-modal {
+  @extend .text-center;
+}
+.conv-modal {
+  @extend .modal, .fade;
+  > div {
+    @extend .modal-dialog, .modal-lg;
+    > div {
+      @extend .modal-content;
+    }
+  }
+}
+.conv-modal-header {
+  @extend .modal-header;
+  h5 {
+    @extend .modal-title;
+  }
+  button {
+    @extend .close;
+  }
+}
+.conv-modal-body {
+  @extend .modal-body;
+}
+
+.conv-pagination {
+  @extend .pagination;
+}
+.conv-pagination-span {
+  @extend .ml-2, .my-auto;
+}
+.goto-tooltip-invalid {
+  @extend .mb-2;
+  color: #ff5555;
+  font-size: 14px;
+}
+.conv-goto-tooltip-input {
+  @extend .d-flex;
+  > div {
+    @extend .mr-2, .float-left;
+  }
+}
+
+.conv-print-button {
+  @extend .btn, .btn-sm, .btn-outline-success;
+}
+
+.conv-search {
+  @extend .mr-3, .dropdown, .form-inline;
+}
+.conv-search-box {
+  @extend .form-control, .border-secondary, .dropdown-toggle;
+}
+.conv-search-dropdown {
+  @extend .dropdown-menu, .dropdown-menu-right;
+}
+.conv-dropdown-item {
+  @extend .dropdown-item;
+}
+
+.conv-tab-nav-pills {
+  @extend .nav, .nav-pills;
+}
+.conv-tab-fields {
+  @extend .mt-3;
+}
+
+.tooltip-table {
+  @extend .table, .table-sm, .table-bordered, .table-striped;
+  margin: 0px !important;
+}
+.tooltip-table td:nth-child(1) {
+  font-weight: bold;
+}
+.tooltip-table td:nth-child(2) {
+  text-align: left;
+}
+
+.conv-tree-table-header {
+  display: flex;
+}
+.conv-tree-table-header-label {
+  flexGrow: 1;
+}
+
+.conv-btn-group {
+  @extend .btn-group;
+}
+.conv-btn-outline-primary {
+  @extend .btn, .btn-sm, .btn-outline-primary;
+}
+.conv-btn-outline-secondary {
+  @extend .btn, .btn-sm, .btn-outline-secondary;
+}
+.conv-btn-outline-danger {
+  @extend .btn, .btn-sm, .btn-outline-danger;
+}
+.conv-btn-outline-warning {
+  @extend .btn, .btn-sm, .btn-outline-warning;
+}
+.conv-btn-success {
+  @extend .btn, .btn-success;
+}
+.conv-btn {
+  @extend .btn;
+}
+.conv-text-danger {
+  @extend .text-danger;
+}
+.conv-float-right {
+  @extend .float-right;
+}
