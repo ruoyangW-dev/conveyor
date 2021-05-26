@@ -88,7 +88,7 @@ const ToggleContainer = ({ stateNode, toggleRow, children }) => {
   )
 }
 
-const Toggle = ({ stateNode, toggleRow, iconPath }) => {
+const Toggle = ({ stateNode, toggleRow }) => {
   let component
   switch (stateNode.toggle) {
     case toggleState.EXPAND:
@@ -112,7 +112,6 @@ const renderRow = ({
   tree,
   stateNode,
   toggleRow,
-  iconPath,
   columnFields,
   renderFieldProps,
   renderField,
@@ -139,7 +138,7 @@ const renderRow = ({
       >
         <div className="conv-tree-table-header" style={{ display: 'flex' }}>
           <Indentation {...{ depth: stateNode.depth }} />
-          <Toggle {...{ stateNode, toggleRow, iconPath }} />
+          <Toggle {...{ stateNode, toggleRow }} />
           <div
             className="conv-tree-table-header-label"
             style={{ flexGrow: 1 }}

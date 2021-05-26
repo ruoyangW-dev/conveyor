@@ -97,7 +97,7 @@ const FieldInputList = ({
       autoFocusAdded = true
     }
     return (
-      <div className="mb-3" key={`defaultCreatePage-${fieldName}`}>
+      <div className="conv-create-field" key={`defaultCreatePage-${fieldName}`}>
         <Input
           {...{
             schema,
@@ -181,13 +181,13 @@ export const DefaultCreatePage = ({
         />
       </div>
       {disableButtons && (
-        <p className="text-danger">
+        <p className="conv-text-danger">
           Cannot save or cancel until all subsequent creates are resolved.
         </p>
       )}
-      <div className="btn-group mt-2 mb-3">
+      <div className="conv-create-btn-group">
         <button
-          className="btn btn-success"
+          className="conv-btn-success"
           role="button"
           onClick={() => onSave({ modelName })}
           disabled={disableButtons}
@@ -195,7 +195,7 @@ export const DefaultCreatePage = ({
           Submit
         </button>
         <button
-          className="btn"
+          className="conv-btn"
           role="button"
           onClick={() => onCancel()}
           disabled={disableButtons}
@@ -225,7 +225,7 @@ export const DefaultCreate = ({
   }
 
   return (
-    <div className={'container conv-create conv-create-' + modelName}>
+    <div className={'conv-create conv-create-' + modelName}>
       <Breadcrumbs
         schema={schema}
         formStack={formStack}

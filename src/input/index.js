@@ -1,4 +1,3 @@
-import React from 'react'
 import { inputTypes } from '../consts'
 import * as R from 'ramda'
 import {

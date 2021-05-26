@@ -5,7 +5,7 @@ const CreateButton = ({ onClick }) => (
   <Link
     to="/Create"
     onClick={onClick}
-    className="btn btn-sm btn-outline-success conv-create-button"
+    className="conv-create-button"
     role="button"
     replace
   >

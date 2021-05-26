@@ -16,13 +16,7 @@ export const getRelSchemaEntry = ({ schema, modelName, fieldName }) => {
   return schema.getModel(fieldTargetModel)
 }
 
-const FieldString = ({
-  schema,
-  modelName,
-  fieldName,
-  node,
-  noDataDisplayValue
-}) => {
+const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
   const value = R.prop(fieldName, node)
   const displayString =
     R.isNil(value) || value === '' ? noDataDisplayValue : value
@@ -30,7 +24,7 @@ const FieldString = ({
   return <span className="text-area-display">{displayString}</span>
 }
 
-const FieldBoolean = ({ schema, modelName, fieldName, node }) => {
+const FieldBoolean = ({ fieldName, node }) => {
   const displayBool = R.propOr(false, fieldName, node) // need propOr(false...
   return <Switch checked={displayBool} />
 }
@@ -38,8 +32,6 @@ const FieldBoolean = ({ schema, modelName, fieldName, node }) => {
 // Render a link to the value. If the value does not start with any of the prefixes,
 // append the first prefix. Produces HTTPS URLs by default.
 const FieldLink = ({
-  schema,
-  modelName,
   fieldName,
   node,
   prefix = ['https://', 'http://'],
@@ -61,7 +53,7 @@ const FieldLink = ({
   return <a href={href}>{displayString}</a>
 }
 
-const FieldCurrency = ({ schema, modelName, fieldName, node }) => {
+const FieldCurrency = ({ fieldName, node }) => {
   const num = R.prop(fieldName, node)
   const displayString = new Intl.NumberFormat('en-US', {
     style: 'currency',

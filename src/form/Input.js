@@ -1,11 +1,8 @@
-/* global FileReader */
-
 import React from 'react'
 import * as R from 'ramda'
 import FlexibleInput from '../input/index'
 import { inputTypes } from '../consts'
 import { useOverride } from '../Utils'
-import { arrayBufferToStoreValue } from '../utils/fileConverters'
 import CreateButton from '../CreateButton'
 import { getRelSchemaEntry } from '../table/Field'
 
@@ -48,20 +45,8 @@ export const DisabledInput = ({ value, label }) => (
     {
       // TODO: Move into css files
     }
-    <div
-      className="disabled-input-padding"
-      style={{ paddingBottom: '10px', paddingTop: '10px' }}
-    >
-      <div
-        style={{
-          padding: '7px 7px 7px 12px',
-          backgroundColor: '#E0E0E0',
-          minHeight: '40px'
-        }}
-        className="border rounded primary disabled-input-value"
-      >
-        {value}
-      </div>
+    <div className="disabled-input-padding">
+      <div className="disabled-input-value">{value}</div>
     </div>
   </div>
 )
@@ -138,7 +123,6 @@ export const InputCore = ({
   schema,
   modelName,
   fieldName,
-  node,
   value,
   error,
   inline,
@@ -175,7 +159,6 @@ export const InputCore = ({
           schema,
           modelName,
           fieldName,
-          node,
           value,
           error,
           inline,
@@ -200,7 +183,6 @@ const InputInnerCore = ({
   schema,
   modelName,
   fieldName,
-  node,
   value,
   error,
   inline,
@@ -311,7 +293,7 @@ const InputInnerCore = ({
               inputType === inputTypes.ONE_TO_MANY_TYPE ||
               inputType === inputTypes.MANY_TO_MANY_TYPE,
             customLabel,
-            onMenuOpen: (evt) => onMenuOpen({ modelName, fieldName }),
+            onMenuOpen: () => onMenuOpen({ modelName, fieldName }),
             options
           }}
         />

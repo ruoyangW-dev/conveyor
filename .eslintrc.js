@@ -20,7 +20,8 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
-    '@typescript-eslint/explicit-function-return-type': ['warn']
+    '@typescript-eslint/explicit-function-return-type': ['off'],
+    '@typescript-eslint/explicit-module-boundary-types': ['off']
   },
   ignorePatterns: ['lib/**/*', 'docs/**/*', '__tests__/**/*']
 }

@@ -19,7 +19,6 @@ import {
 import { Popover, PopoverContent } from './Popover'
 import Input from './form/Input'
 import { Link, Redirect } from 'react-router-dom'
-import '../css/index.css'
 import { inputTypes } from './consts'
 import { DeleteDetail } from './delete/DeleteDetail'
 import { FaAngleDown, FaAngleRight } from 'react-icons/fa'
@@ -139,13 +138,13 @@ export const DefaultDetailAttribute = ({
 
     return (
       <React.Fragment>
-        <dt className="col-sm-3 text-sm-right">
+        <dt className="conv-detail-label-wrapper">
           <DetailLabel
             {...{ schema, modelName, fieldName, node, customProps }}
           />
         </dt>
-        <dd className="col-sm-9">
-          <div className="detail-edit d-inline-block pull-left">
+        <dd className="conv-detail-value-wrapper">
+          <div className="detail-edit">
             <EditInput
               {...{
                 schema,
@@ -163,14 +162,43 @@ export const DefaultDetailAttribute = ({
               {...{
                 onClick:
                   fieldType === 'file'
-                    ? (evt) => onFileSubmit({ modelName, fieldName, id })
-                    : (evt) => onEditSubmitClick({ modelName, fieldName, id })
+                    ? () => onFileSubmit({ modelName, fieldName, id })
+                    : () => onEditSubmitClick({ modelName, fieldName, id })
               }}
             />
             <EditCancelButton
               {...{
-                onClick: (evt) =>
-                  onEditCancelClick({ modelName, id, fieldName }),
+                onClick: () => onEditCancelClick({ modelName, id, fieldName }),
+                modelName,
+                id
+              }}
+            />
+            {R.type(fieldType) === 'Object' && creatable && (
+              <DetailCreateButton
+                {...{
+                  schema,
+                  modelName,
+                  fieldName,
+                  node,
+                  editData: fieldEditData,
+                  error,
+                  selectOptions
+                }}
+              />
+            )}
+          </div>
+          <div className="inline-btn-group">
+            <EditSaveButton
+              {...{
+                onClick:
+                  fieldType === 'file'
+                    ? () => onFileSubmit({ modelName, fieldName, id })
+                    : () => onEditSubmitClick({ modelName, fieldName, id })
+              }}
+            />
+            <EditCancelButton
+              {...{
+                onClick: () => onEditCancelClick({ modelName, id, fieldName }),
                 modelName,
                 id
               }}
@@ -198,12 +226,12 @@ export const DefaultDetailAttribute = ({
 
     return (
       <React.Fragment>
-        <dt className="col-sm-3 text-sm-right">
+        <dt className="conv-detail-label-wrapper">
           <DetailLabel
             {...{ schema, modelName, fieldName, node, customProps }}
           />
         </dt>
-        <dd className="col-sm-9">
+        <dd className="conv-detail-value-wrapper">
           <DetailValue
             {...{
               schema,
@@ -218,7 +246,32 @@ export const DefaultDetailAttribute = ({
           {editable && (
             <InlineEditButton
               {...{
-                onEditClick: (evt) =>
+                onEditClick: () =>
+                  onEdit({
+                    modelName,
+                    fieldName,
+                    id,
+                    value: R.prop(fieldName, node)
+                  })
+              }}
+            />
+          )}
+          {editable && isFileType && hasValue && (
+            <FileDelete
+              {...{
+                id,
+                fieldName,
+                node,
+                id,
+                tooltipData,
+                customProps
+              }}
+            />
+          )}
+          {editable && (
+            <InlineEditButton
+              {...{
+                onEditClick: () =>
                   onEdit({
                     modelName,
                     fieldName,
@@ -268,7 +321,7 @@ export const DetailCreateButton = ({
 export const DefaultDetailTableTitleWrapper = ({ children }) => {
   return (
     <div className="title-label-container">
-      <h4 className="d-inline">{children}</h4>
+      <h4>{children}</h4>
     </div>
   )
 }
@@ -347,7 +400,7 @@ export const DefaultDetailM2MTableTitle = ({
 
   return (
     <div className="title-label-container">
-      <h4 className="d-inline">
+      <h4>
         {collapsable && (
           <CollapseTableButton
             {...{
@@ -362,7 +415,7 @@ export const DefaultDetailM2MTableTitle = ({
         {schema.getFieldLabel({ modelName, fieldName, node, customProps })}
       </h4>
       {editable && (
-        <div className="pl-2 d-inline">
+        <div className="conv-edit-title-label-container">
           <TableEditButton
             {...{
               schema,
@@ -399,7 +452,7 @@ export const DefaultDetailM2MFieldLabel = ({
   const required = R.prop('required', schema.getField(modelName, fieldName))
   const Label = () => (
     <div className="title-label-container">
-      <h4 className="d-inline">
+      <h4>
         {schema.getFieldLabel({ modelName, fieldName, node, customProps })}
       </h4>
       {required && ' *'}
@@ -567,7 +620,7 @@ export const DefaultDetailTable = ({
           <div className="table-btn-padding">
             <EditSaveButton
               {...{
-                onClick: (evt) =>
+                onClick: () =>
                   onSaveClick({
                     modelName,
                     id,
@@ -577,7 +630,7 @@ export const DefaultDetailTable = ({
             />
             <EditCancelButton
               {...{
-                onClick: (evt) =>
+                onClick: () =>
                   onCancelClick({
                     modelName,
                     id,
@@ -705,11 +758,11 @@ export const DefaultDetailPageTitle = ({
         modelName
       }
     >
-      <h2 className="d-inline">
+      <h2>
         {HeaderLink}:<b> {label}</b>
       </h2>
       {schema.isDeletable({ modelName, node, customProps }) && (
-        <div className="float-right">
+        <div className="conv-float-right">
           <DeleteButton {...{ modalId, onDeleteWarning, modelName, id }} />
           <DeleteDetail
             {...{
@@ -734,15 +787,13 @@ const DetailAttributeList = ({
   id,
   node,
   modalData,
-  tableFields,
   descriptionList,
   editData,
   tooltipData,
   selectOptions,
   path,
   tableView,
-  customProps,
-  summary
+  customProps
 }) => {
   return descriptionList.map((fieldName) => {
     if (
@@ -788,7 +839,6 @@ const DetailTableList = ({
   node,
   modalData,
   tableFields,
-  descriptionList,
   editData,
   tooltipData,
   selectOptions,
@@ -867,9 +917,7 @@ export const DetailFields = ({
   return (
     <React.Fragment>
       <dl
-        className={
-          'row conv-detail-attributes conv-detail-attributes-' + modelName
-        }
+        className={'conv-detail-attributes conv-detail-attributes-' + modelName}
       >
         <DetailAttributeList
           {...{
@@ -913,11 +961,9 @@ export const DetailFields = ({
 }
 
 const Wrapper = ({ children, modelName }) => (
-  <div
-    className={'container conv-detail-wrapper conv-detail-wrapper-' + modelName}
-  >
-    <div className="row">
-      <div className="col">{children}</div>
+  <div className={'conv-detail-wrapper conv-detail-wrapper-' + modelName}>
+    <div>
+      <div>{children}</div>
     </div>
   </div>
 )
@@ -950,7 +996,7 @@ export const DefaultDetail = ({
 
   if (R.isEmpty(node)) {
     return (
-      <div className="container conv-detail-wrapper conv-detail-wrapper-loading">
+      <div className="conv-detail-wrapper conv-detail-wrapper-loading">
         Loading...
       </div>
     )

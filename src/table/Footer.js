@@ -55,8 +55,6 @@ export const TFoot = ({
 const ThFootList = ({
   schema,
   modelName,
-  parentModelName,
-  parentFieldName,
   fieldOrder,
   summary,
   fromIndex,

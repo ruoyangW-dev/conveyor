@@ -16,15 +16,15 @@ const GotoTooltip = ({
   return (
     <div
       id={`${modelName}${fieldName ? '-' + fieldName : ''}-pg-tooltip`}
-      className="goto-tooltip conv-goto-tooltip"
+      className="goto-tooltip"
     >
       {canGoto ? null : (
-        <div className="mb-2 goto-tooltip-invalid">
+        <div className="goto-tooltip-invalid">
           Please enter a valid page number.
         </div>
       )}
-      <div className="d-flex">
-        <div className="mr-2 float-left">
+      <div className="conv-goto-tooltip-input">
+        <div>
           <FlexibleInput
             {...{
               type: inputTypes.INT_TYPE,
@@ -38,9 +38,9 @@ const GotoTooltip = ({
             }}
           />
         </div>
-        <div className="float-right">
+        <div className="conv-float-right">
           <button
-            className="btn btn-success"
+            className="conv-btn-success"
             onClick={() =>
               onChangePage({
                 modelName,
@@ -139,7 +139,7 @@ export const Pagination = ({
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="pagination conv-pagination">
+      <ul className="conv-pagination">
         {hasFirst && (
           <PaginationLink
             {...{
@@ -200,7 +200,7 @@ export const Pagination = ({
           />
         )}
         {totalDataLength && amtPerPage && (
-          <span className="ml-2 my-auto">
+          <span className="conv-pagination-span">
             {(idx - 1) * amtPerPage + 1}-
             {Math.min(idx * amtPerPage, totalDataLength)} of {totalDataLength}
           </span>

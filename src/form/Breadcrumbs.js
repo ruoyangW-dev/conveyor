@@ -6,7 +6,7 @@ export const Breadcrumbs = ({ schema, formStack, customProps }) => {
   const index = R.prop('index', formStack)
   return (
     <nav aria-label="breadcrumbs" className="conv-breadcrumbs">
-      <ol className="breadcrumb">
+      <ol>
         {stack.map((crumb, idx) => {
           const modelName = R.prop('modelName', crumb)
           const actions = schema.getActions(modelName)
@@ -20,15 +20,12 @@ export const Breadcrumbs = ({ schema, formStack, customProps }) => {
           )
           return (
             <li
-              className={`breadcrumb-item ${index === idx && 'active'}`}
+              className={`conv-breadcrumb-item ${index === idx && 'active'}`}
               key={`create-breadcrumb-${idx}`}
             >
               {index === idx && modelDisplayName}
               {index !== idx && (
-                <a
-                  href="#"
-                  onClick={(evt) => onBreadcrumbClick({ index: idx })}
-                >
+                <a href="#" onClick={() => onBreadcrumbClick({ index: idx })}>
                   {modelDisplayName}
                 </a>
               )}
