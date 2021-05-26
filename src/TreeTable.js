@@ -16,9 +16,11 @@ export const formatCSS = (first, rest) => ({
 })
 
 const makeOnClick = (stateNode, toggleRow) => {
-  if (stateNode.toggle === toggleState.HIDDEN) { return false }
+  if (stateNode.toggle === toggleState.HIDDEN) {
+    return false
+  }
 
-  const onClick = e => {
+  const onClick = (e) => {
     e.stopPropagation()
     toggleRow(stateNode.id)
   }
@@ -26,8 +28,8 @@ const makeOnClick = (stateNode, toggleRow) => {
 }
 
 // returns only the nodes of tree.state to be rendered
-const filterTree = tree => {
-  const traverse = stateNode => {
+const filterTree = (tree) => {
+  const traverse = (stateNode) => {
     const retNode = { ...stateNode, children: [] } // initially exclude children
     if (stateNode.toggle === toggleState.EXPAND) {
       retNode.children = stateNode.children.map(traverse)
@@ -44,66 +46,86 @@ const Indentation = ({ depth }) => {
 }
 
 const ToggleContainer = ({ stateNode, toggleRow, children }) => {
-  if (stateNode.toggle === toggleState.HIDDEN) { return <React.Fragment>{children}</React.Fragment> }
+  if (stateNode.toggle === toggleState.HIDDEN) {
+    return <React.Fragment>{children}</React.Fragment>
+  }
 
   let tooltip = ''
-  if (stateNode.toggle === toggleState.MINIMIZE) { tooltip = 'Show' } else if (stateNode.toggle === toggleState.EXPAND) { tooltip = 'Hide' }
+  if (stateNode.toggle === toggleState.MINIMIZE) {
+    tooltip = 'Show'
+  } else if (stateNode.toggle === toggleState.EXPAND) {
+    tooltip = 'Hide'
+  }
 
   const handleClick = makeOnClick(stateNode, toggleRow)
 
   const component = (
-    <div className='conv-toggle-container-component clickable-element' onClick={handleClick}>
+    <div
+      className="conv-toggle-container-component clickable-element"
+      onClick={handleClick}
+    >
       {children}
     </div>
   )
 
-  return <Tooltip
-    title={tooltip}
-    delay={1000}
-    hideDelay={0}
-    position={'left'}
-    className='conv-toggle-container-tooltip'
-    popperOptions={{
-      modifiers: {
-        preventOverflow: {
-          boundariesElement: 'viewport'
+  return (
+    <Tooltip
+      title={tooltip}
+      delay={1000}
+      hideDelay={0}
+      position={'left'}
+      className="conv-toggle-container-tooltip"
+      popperOptions={{
+        modifiers: {
+          preventOverflow: {
+            boundariesElement: 'viewport'
+          }
         }
-      }
-    }}
-  >
-    {component}
-  </Tooltip>
+      }}
+    >
+      {component}
+    </Tooltip>
+  )
 }
 
 const Toggle = ({ stateNode, toggleRow, iconPath }) => {
   let component
   switch (stateNode.toggle) {
     case toggleState.EXPAND:
-      component = <FaAngleDown className='tree-toggle-icon-angle-down' />
+      component = <FaAngleDown className="tree-toggle-icon-angle-down" />
       break
     case toggleState.MINIMIZE:
-      component = <FaAngleRight className='tree-toggle-icon-angle-right' />
+      component = <FaAngleRight className="tree-toggle-icon-angle-right" />
       break
     case toggleState.HIDDEN:
-      component = <FaAngleRight className='invisible' />
+      component = <FaAngleRight className="invisible" />
       break
   }
 
   return (
-    <ToggleContainer {...{ stateNode, toggleRow }}>
-      {component}
-    </ToggleContainer>
+    <ToggleContainer {...{ stateNode, toggleRow }}>{component}</ToggleContainer>
   )
 }
 
 // render a single row
-const renderRow = ({ tree, stateNode, toggleRow, iconPath, columnFields, renderFieldProps, renderField, rowCSS }) => {
+const renderRow = ({
+  tree,
+  stateNode,
+  toggleRow,
+  iconPath,
+  columnFields,
+  renderFieldProps,
+  renderField,
+  rowCSS
+}) => {
   const nodeID = R.prop('id', stateNode)
   const node = R.path(['nodes', nodeID], tree)
 
-  const fields = columnFields.map(columnField => (
-    renderField({ ...renderFieldProps, tree, node, columnField, stateNode })
-  )).filter(col => col !== null)
+  const fields = columnFields
+    .map((columnField) =>
+      renderField({ ...renderFieldProps, tree, node, columnField, stateNode })
+    )
+    .filter((col) => col !== null)
 
   const handleClick = makeOnClick(stateNode, toggleRow)
   const firstColCSS = R.prop('firstCSS', rowCSS)
@@ -111,17 +133,24 @@ const renderRow = ({ tree, stateNode, toggleRow, iconPath, columnFields, renderF
 
   return (
     <tr>
-      <td className={firstColCSS ? firstColCSS(node) : ''} onClick={handleClick || undefined}>
-        <div className='conv-tree-table-header' style={{ display: 'flex' }}>
+      <td
+        className={firstColCSS ? firstColCSS(node) : ''}
+        onClick={handleClick || undefined}
+      >
+        <div className="conv-tree-table-header" style={{ display: 'flex' }}>
           <Indentation {...{ depth: stateNode.depth }} />
           <Toggle {...{ stateNode, toggleRow, iconPath }} />
-          <div className='conv-tree-table-header-label' style={{ flexGrow: 1 }} onClick={(e) => e.stopPropagation()}>
+          <div
+            className="conv-tree-table-header-label"
+            style={{ flexGrow: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
             {fields[0]}
           </div>
         </div>
       </td>
       {fields.slice(1).map((field, index) => (
-        <td className={restColCSS ? restColCSS(node) : ''} key={index} >
+        <td className={restColCSS ? restColCSS(node) : ''} key={index}>
           {field}
         </td>
       ))}
@@ -131,11 +160,13 @@ const renderRow = ({ tree, stateNode, toggleRow, iconPath, columnFields, renderF
 
 // returns a list of <tr> elements
 export const getRows = ({ tree, ...props }) => {
-  const renderRows = stateNode => {
+  const renderRows = (stateNode) => {
     const row = {
       key: R.prop('id', stateNode),
       component: renderRow({
-        tree, stateNode, ...props
+        tree,
+        stateNode,
+        ...props
       })
     }
 
@@ -148,9 +179,7 @@ export const getRows = ({ tree, ...props }) => {
   // get row components
   const rows = R.flatten(filteredTree.map(renderRows))
 
-  return rows.map(row => (
-    <React.Fragment key={row.key}>
-      {row.component}
-    </React.Fragment>
+  return rows.map((row) => (
+    <React.Fragment key={row.key}>{row.component}</React.Fragment>
   ))
 }

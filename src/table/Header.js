@@ -17,7 +17,8 @@ export const THead = ({
   customProps
 }) => {
   // first check if sortable on model level
-  const tableSortable = fromIndex && schema.isTableSortable({ modelName, customProps })
+  const tableSortable =
+    fromIndex && schema.isTableSortable({ modelName, customProps })
   const actions = schema.getActions(modelName)
   const onSort = R.path(['tableOptions', 'sort'], actions)
   return (
@@ -39,10 +40,13 @@ export const THead = ({
             onSort
           }}
         />
-        {showButtonColumn({ deletable, editable, detailField }) && <th className='table_btn_col' />}
+        {showButtonColumn({ deletable, editable, detailField }) && (
+          <th className="table_btn_col" />
+        )}
       </tr>
     </thead>
-)}
+  )
+}
 
 const THList = ({
   schema,
@@ -60,46 +64,58 @@ const THList = ({
 }) => {
   return fieldOrder.map((fieldName, idx) => {
     if (fromIndex === true) {
-     if (
-       schema.shouldDisplayIndex({
-         modelName,
-         fieldName,
-         customProps
-       }) === false
-     ) {
-       return null
-     }
+      if (
+        schema.shouldDisplayIndex({
+          modelName,
+          fieldName,
+          customProps
+        }) === false
+      ) {
+        return null
+      }
     }
 
     const sortKeyObj = R.path([modelName, 'sort'], tableView)
     // now check if field level is sortable as well
-    const showSort = tableSortable ? schema.isSortable({ modelName, fieldName, customProps }) : false
-    const sortKey = R.prop('fieldName', sortKeyObj) === fieldName
-     ? R.prop('sortKey', sortKeyObj) : undefined
+    const showSort = tableSortable
+      ? schema.isSortable({ modelName, fieldName, customProps })
+      : false
+    const sortKey =
+      R.prop('fieldName', sortKeyObj) === fieldName
+        ? R.prop('sortKey', sortKeyObj)
+        : undefined
     return (
-     <th
-       key={`${idx}-${modelName}-${fieldName}`}
-       className='conv-formatted-th'
-       onClick={() => showSort ? onSort({
-         modelName,
-         fieldName,
-         sortKey: getNextSortKey(sortKey)
-       }) : {}}
-     >
-       <Header
-         {...{
-           modelName,
-           fieldName,
-           title: schema.getFieldLabel({
-             modelName, fieldName, data, customProps
-           }), // this is the actual 'data' list, not 'node'
-           onSort,
-           showSort,
-           sortKeyObj
-         }}
-       />
-     </th>
-    )})
+      <th
+        key={`${idx}-${modelName}-${fieldName}`}
+        className="conv-formatted-th"
+        onClick={() =>
+          showSort
+            ? onSort({
+                modelName,
+                fieldName,
+                sortKey: getNextSortKey(sortKey)
+              })
+            : {}
+        }
+      >
+        <Header
+          {...{
+            modelName,
+            fieldName,
+            title: schema.getFieldLabel({
+              modelName,
+              fieldName,
+              data,
+              customProps
+            }), // this is the actual 'data' list, not 'node'
+            onSort,
+            showSort,
+            sortKeyObj
+          }}
+        />
+      </th>
+    )
+  })
 }
 
 export const Header = ({
@@ -111,12 +127,14 @@ export const Header = ({
   sortKeyObj
 }) => {
   return (
-    <div className='header'>
-      <div className='title' >
-        <span className='header-title'>{title}</span>
+    <div className="header">
+      <div className="title">
+        <span className="header-title">{title}</span>
       </div>
       <div className={'header-overflow'}>
-        { showSort && <SortButton {...{ modelName, fieldName, onSort, sortKeyObj }} /> }
+        {showSort && (
+          <SortButton {...{ modelName, fieldName, onSort, sortKeyObj }} />
+        )}
       </div>
     </div>
   )

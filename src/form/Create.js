@@ -6,22 +6,35 @@ import { Breadcrumbs } from './Breadcrumbs'
 import { isAutoFocusInput } from '../input/index'
 import { skipOverride, useOverride } from '../Utils'
 
-const getFieldErrorCreate = ({ formStack, stackIndex, fieldName }) => (
+const getFieldErrorCreate = ({ formStack, stackIndex, fieldName }) =>
   R.path(['stack', stackIndex, 'errors', fieldName], formStack)
-)
 
-export const makeCreateLabel = ({ schema, modelName, fieldName, customProps }) => {
+export const makeCreateLabel = ({
+  schema,
+  modelName,
+  fieldName,
+  customProps
+}) => {
   const type = R.prop('type', schema.getField(modelName, fieldName))
   if (R.type(type) !== 'Object') {
     return null
   }
   const actions = schema.getActions(modelName)
   const onStackCreate = R.path(['create', 'onStackCreate'], actions)
-  const targetModel = R.path(['type', 'target'], schema.getField(modelName, fieldName))
+  const targetModel = R.path(
+    ['type', 'target'],
+    schema.getField(modelName, fieldName)
+  )
 
   const onClick = () => onStackCreate({ modelName: targetModel })
 
-  const CreateLabel = relationshipLabelFactory({ schema, modelName, fieldName, onClick, customProps })
+  const CreateLabel = relationshipLabelFactory({
+    schema,
+    modelName,
+    fieldName,
+    onClick,
+    customProps
+  })
   return CreateLabel
 }
 
@@ -36,9 +49,7 @@ const getDisabledValue = ({ schema, modelName, fieldName, form }) => {
 }
 
 export const DefaultCreateTitle = ({ schema, modelName, customProps }) => {
-  return (
-    <h1>Create {schema.getModelLabel({ modelName, customProps })}</h1>
-  )
+  return <h1>Create {schema.getModelLabel({ modelName, customProps })}</h1>
 }
 
 const FieldInputList = ({
@@ -55,9 +66,12 @@ const FieldInputList = ({
 }) => {
   let autoFocusAdded = false
 
-  return fieldOrder.map(fieldName => {
-    if (schema.shouldDisplayCreate({ modelName, fieldName, customProps }) === false) {
-        return null
+  return fieldOrder.map((fieldName) => {
+    if (
+      schema.shouldDisplayCreate({ modelName, fieldName, customProps }) ===
+      false
+    ) {
+      return null
     }
 
     const disabled = schema.isFieldDisabled({
@@ -83,7 +97,7 @@ const FieldInputList = ({
       autoFocusAdded = true
     }
     return (
-      <div className='mb-3' key={`defaultCreatePage-${fieldName}`}>
+      <div className="mb-3" key={`defaultCreatePage-${fieldName}`}>
         <Input
           {...{
             schema,
@@ -140,7 +154,7 @@ export const DefaultCreatePage = ({
   const onSave = R.path(['create', 'onSave'], actions)
   const disableButtons = stackIndex !== stack.length - 1
 
-  const onKeyDown = evt => {
+  const onKeyDown = (evt) => {
     if (evt.key === 'Enter') {
       return onSave({ modelName })
     }
@@ -167,22 +181,22 @@ export const DefaultCreatePage = ({
         />
       </div>
       {disableButtons && (
-        <p className='text-danger'>
+        <p className="text-danger">
           Cannot save or cancel until all subsequent creates are resolved.
         </p>
       )}
-      <div className='btn-group mt-2 mb-3'>
+      <div className="btn-group mt-2 mb-3">
         <button
-          className='btn btn-success'
-          role='button'
+          className="btn btn-success"
+          role="button"
           onClick={() => onSave({ modelName })}
           disabled={disableButtons}
         >
           Submit
         </button>
         <button
-          className='btn'
-          role='button'
+          className="btn"
+          role="button"
           onClick={() => onCancel()}
           disabled={disableButtons}
         >
@@ -211,7 +225,7 @@ export const DefaultCreate = ({
   }
 
   return (
-    <div className={'container conv-create conv-create-'+modelName}>
+    <div className={'container conv-create conv-create-' + modelName}>
       <Breadcrumbs
         schema={schema}
         formStack={formStack}

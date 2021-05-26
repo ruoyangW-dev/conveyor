@@ -37,11 +37,13 @@ export const SortButton = ({ modelName, fieldName, onSort, sortKeyObj }) => {
     <SortIcon
       className={`header-icon-${sortKey ? 'active' : 'inactive'}`}
       color={fillColor}
-      onClick={() => onSort({
-        modelName,
-        fieldName,
-        sortKey: getNextSortKey(sortKey)
-      })}
+      onClick={() =>
+        onSort({
+          modelName,
+          fieldName,
+          sortKey: getNextSortKey(sortKey)
+        })
+      }
     />
   )
 }

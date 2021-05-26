@@ -6,7 +6,7 @@ import { inputTypes } from './consts'
 /* returns empty span tag if we're at the end of the string */
 const Highlight = ({ searchText, rowLen, idx }) => {
   if (rowLen !== idx + 1) {
-    return <span className='conv-highlight'>{searchText}</span>
+    return <span className="conv-highlight">{searchText}</span>
   }
   return <span />
 }
@@ -55,7 +55,7 @@ export const Search = ({
   return (
     <div
       className="mr-3 dropdown form-inline conv-search"
-      onKeyPress={evt => {
+      onKeyPress={(evt) => {
         if (evt.key === 'Enter') {
           onTriggerSearch({ queryText })
         }
@@ -65,7 +65,7 @@ export const Search = ({
         type={inputTypes.STRING_TYPE}
         id="searchbox"
         className="form-control border-secondary dropdown-toggle"
-        onChange={evt => {
+        onChange={(evt) => {
           const triggeredActions = [onTextChange({ queryText: evt })]
           if (searchOnChange === true) {
             triggeredActions.push(onTriggerSearch())
@@ -82,11 +82,11 @@ export const Search = ({
       />
       {showResults && searchDropdown && (
         <div
-          className={`dropdown-menu dropdown-menu-right conv-search-dropdown ${entries.length > 0 &&
-            'show'}`}
+          className={`dropdown-menu dropdown-menu-right conv-search-dropdown ${
+            entries.length > 0 && 'show'
+          }`}
         >
-          {
-          entries.map((entry, index) => (
+          {entries.map((entry, index) => (
             <Link
               key={entry.name}
               onClick={() => onLinkClick()}
@@ -97,12 +97,11 @@ export const Search = ({
                 searchText={queryText}
                 textToHighlight={entry.name}
               />
-              <div className='conv-search-dropdown-model-label'>
+              <div className="conv-search-dropdown-model-label">
                 {entry.modelLabel}
               </div>
             </Link>
-          ))
-          }
+          ))}
         </div>
       )}
     </div>
