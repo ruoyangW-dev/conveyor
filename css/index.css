@@ -117,16 +117,6 @@ body {
   font-size: .9em;
 }
 
-.filter-fieldname-dropdown {
-  width: 25%;
-  float: left;
-}
-
-.filter-rest {
-  width: 70%;
-  float: left;
-}
-
 .filter-operator-dropdown {
   width: 40%;
   padding-left: 2px;
@@ -137,16 +127,6 @@ body {
 .filter-input {
   width: 60%;
   float: left;
-}
-
-.filter-close {
-  width: 5%;
-  float: right;
-}
-
-.filter-padded {
-  padding-left: 10px;
-  padding-top: 4px;
 }
 
 .text-area-display {
@@ -196,12 +176,6 @@ body {
 .disabled-input-padding {
   padding-bottom: 10px;
   padding-top: 10px;
-}
-
-.disabled-input-value {
-  padding: 7px 7px 7px 12px;
-  background-color: #E0E0E0;
-  min-height: 40px;
 }
 
 .conv-error-component {

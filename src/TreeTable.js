@@ -52,7 +52,7 @@ const ToggleContainer = ({ stateNode, toggleRow, children }) => {
   const handleClick = makeOnClick(stateNode, toggleRow)
 
   const component = (
-    <div className='conv-toggle-container-component' onClick={handleClick}>
+    <div className='conv-toggle-container-component clickable-element' onClick={handleClick}>
       {children}
     </div>
   )
@@ -112,10 +112,10 @@ const renderRow = ({ tree, stateNode, toggleRow, iconPath, columnFields, renderF
   return (
     <tr>
       <td className={firstColCSS ? firstColCSS(node) : ''} onClick={handleClick || undefined}>
-        <div className='conv-tree-table-header'>
+        <div className='conv-tree-table-header' style={{ display: 'flex' }}>
           <Indentation {...{ depth: stateNode.depth }} />
           <Toggle {...{ stateNode, toggleRow, iconPath }} />
-          <div className='conv-tree-table-header-label' onClick={(e) => e.stopPropagation()}>
+          <div className='conv-tree-table-header-label' style={{ flexGrow: 1 }} onClick={(e) => e.stopPropagation()}>
             {fields[0]}
           </div>
         </div>

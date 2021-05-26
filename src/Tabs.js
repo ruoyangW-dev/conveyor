@@ -51,7 +51,7 @@ const TabFields = ({
         })
 
   return (
-    <div className='conv-tab-fields'>
+    <div className='mt-3 conv-tab-fields'>
       <DetailFields {...{
         schema,
         modelName,
@@ -129,7 +129,7 @@ export const RecursiveTab = ({
         tableView,
         customProps
       }} />
-      <ul className='conv-tab-nav-pills'>
+      <ul className='nav nav-pills'>
         {tabs.map(tab => (
           <li key={`${R.prop('pillId', tab)}-link`}>
             <NavLink

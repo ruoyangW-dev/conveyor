@@ -72,7 +72,7 @@ const formatFilter = ({
     : toOptions(filterOrder[index])
   return (
     <li key={`${index}-${modelName}-${fieldName}-format-filter`} className='conv-format-filter'>
-      <div className='conv-filter-fieldname-dropdown'>
+      <div className='filter-fieldname-dropdown'>
         <div>
           <FlexibleInput {...{
             type: inputTypes.SELECT_TYPE,
@@ -92,7 +92,7 @@ const formatFilter = ({
           }}/>
         </div>
       </div>
-      <div className='conv-filter-rest'>
+      <div className='filter-rest'>
         <div>
           <FilterComp {...{
             fieldName,
@@ -109,7 +109,7 @@ const formatFilter = ({
           }}/>
         </div>
       </div>
-      <div className='conv-filter-close'>
+      <div className='filter-close filter-padded'>
         <button
           onClick={() => deleteFilter({ modelName, index })}
         >X</button>
@@ -139,7 +139,7 @@ const ActiveFilters = ({
       {R.isEmpty(filterOrder) || R.isNil(filterOrder) ? (
         <li
           key="no-active-filters"
-          className="conv-no-active-filters"
+          className="conv-no-active-filters clickable-element"
           onClick={() => addFilter({ modelName })}
         >
           Add a rule to get started...
@@ -337,7 +337,7 @@ export const FilterComp = ({
   selectOptions
 }) => {
   if (R.isNil(fieldName) || R.isEmpty(fieldName)) {
-    return <div className='conv-filter-comp-empty'>Select a field</div>
+    return <div className='filter-padded'>Select a field</div>
   }
   const value = R.prop('value', filterInput)
   const operator = R.prop('operator', filterInput)

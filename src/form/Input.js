@@ -35,8 +35,8 @@ export const DisabledInput = ({ value, label }) => (
     {
       // TODO: Move into css files
     }
-    <div>
-      <div>
+    <div className='disabled-input-padding'>
+      <div className='disabled-input-value'>
         {value}
       </div>
     </div>

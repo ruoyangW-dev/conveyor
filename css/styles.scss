@@ -1,5 +1,5 @@
 //@import './index';
-//@import '../../../bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap/scss/bootstrap';
 
 .conv-delete-modal-table {
   @extend .mt-2;
@@ -33,22 +33,17 @@
   @extend .mb-3;
 }
 
-.conv-disabled-input {
-  > div {
-    @extend .disabled-input-padding;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    > div {
-      @extend .border, .rounded, .disabled-input-value;
-      padding: 7px 7px 7px 12px;
-      background-color: #E0E0E0;
-      min-height: 40px;
-    }
-  }
+.disabled-input-value {
+  @extend .border, .rounded;
+  padding: 7px 7px 7px 12px;
+  background-color: #E0E0E0;
+  min-height: 40px;
 }
 
-.conv-filter-comp-empty {
-  @extend .ml-1, .mt-1, .filter-padded;
+.filter-padded {
+  @extend .ml-1, .mt-1;
+  padding-left: 10px;
+  padding-top: 4px;
 }
 .conv-filter-modal-button {
   @extend .btn, .btn-sm, .btn-outline-primary;
@@ -63,25 +58,30 @@
   }
 }
 .conv-no-active-filters {
-  @extend .list-group-item, .text-muted, .clickable-element;
+  @extend .list-group-item, .text-muted;
 }
 .conv-format-filter {
   @extend .list-group-item;
 }
-.conv-filter-fieldname-dropdown {
-  @extend .filter-fieldname-dropdown;
+.filter-fieldname-dropdown {
+  width: 25%;
+  float: left;
   > div {
     @extend .w-100;
   }
 }
-.conv-filter-rest {
-  @extend .filter-rest, .align-middle;
+.filter-rest {
+  @extend .align-middle;
+  width: 70%;
+  float: left;
   > div {
     @extend .w-100;
   }
 }
-.conv-filter-close {
-  @extend .filter-close, .filter-padded, .align-middle;
+.filter-close {
+  @extend .align-middle;
+  width: 5%;
+  float: right;
   button {
     @extend .btn, .btn-sm, .btn-danger, .btn-block;
   }
@@ -267,9 +267,6 @@
 }
 .conv-tree-table-header-label {
   flexGrow: 1;
-}
-.conv-toggle-container-component {
-  @extend .clickable-element;
 }
 
 .conv-btn-group {

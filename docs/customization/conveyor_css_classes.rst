@@ -48,9 +48,9 @@ InputSelect				‘ conv-input-type-select’
 InputCreatableStringSelect		‘ conv-input-type-creatable-string-select’
 
 *Filter*
-FilterComp				‘conv-filter-comp’ ‘conv-filter-comp-{modelName}’ 'conv-filter-comp-empty'
-formatFilter				‘conv-format-filter’ 'conv-filter-fieldname-dropdown' 'conv-filter-rest' 'conv-filter-close'
-FilterModal				‘conv-filter-modal’ ‘conv-filter-modal-{modelName}
+FilterComp				‘conv-filter-comp’ ‘conv-filter-comp-{modelName}’
+formatFilter				‘conv-format-filter’
+FilterModal				‘conv-filter-modal’ ‘conv-filter-modal-{modelName}'
 FilterModalButton			‘conv-filter-modal-button’ ‘conv-filter-modal-button-{modelName}’
 ActiveFilters				‘conv-active-filters’ ‘conv-active-filters-{modelName}’ 'conv-no-active-filters'
 FilterButtons               'conv-filter-buttons' 'conv-add-filter-button' 'conv-filter-submit-button'
@@ -113,7 +113,7 @@ Highlight               'conv-highlight'
 
 *Tabs*
 TabFields				‘conv-tab-fields’
-RecursiveTab				‘conv-recursive-tab’ 'conv-tab-nav-pills'
+RecursiveTab				‘conv-recursive-tab’
 
 *Tooltip*
 RelTooltipContent			‘conv-rel-tooltip-content’

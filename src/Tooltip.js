@@ -8,7 +8,7 @@ export const RelTooltipContent = ({ data }) => {
     return <span>...loading</span>
   }
   return (
-    <table className='conv-rel-tooltip-content'>
+    <table className='table table-sm table-bordered table-striped tooltip-table conv-rel-tooltip-content'>
       <tbody>
         {data.map(({ name, value }) => (
           <tr key={`tooltip-${name}`}>
