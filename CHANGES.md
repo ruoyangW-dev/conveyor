@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+Highlight fields that fail validation, ie are required, but not present.
+
 Begin extraction of styling
 
 ## Version 0.7.0
