@@ -1,4 +1,3 @@
-import React from 'react'
 import { inputTypes } from '../consts'
 import * as R from 'ramda'
 import {
@@ -51,67 +50,66 @@ const defaultTypeMap = {
   [inputTypes.CHECKBOX_TYPE]: InputCheckbox,
   [inputTypes.BOOLEAN_TYPE]: InputSwitch
 }
-
-const FlexibleInput = props => {
-  /**
-   * @param { string } type - One of following type designators:
-   *      Int, TextArea, String, Password, Date, File, Radio, Select, Checkbox, Boolean,
-   *      Email, Phone, URL, Currency.
-   * @param { string } id - Unique input id
-   * @param { any } [value] - Display value. Default: varies with type. Date value
-   *      can be a moment object or a string.
-   * @param { string } [dateFormat] - Optional value for the DateInput/DateTimeInput component.
-   *      Default: 'YYYY-MM-DD' or 'YYYY-MM-DD HH:mm'. Date value as a string should be consistent with
-   *      dateFormat See moment.js for other format types
-   * @param { string } [timeFormat] - Optional value for the DateTimeInput component.
-   *      Default: 'HH:mm'. Time value as a string should be consistent with
-   *      timeFormat See moment.js for other format types
-   * @param { string } [labelStr] - String used for built-in <label> component.
-   *      Not available for "Boolean" type
-   * @param { function } onChange
-   * @param { boolean } [inline] - Only used for "Radio" type to signify inline
-   *      capability. Default: false
-   * @param { any } options - Required for "Radio" and "Select" type. For "Select",
-   *      if options is left undefined, the parameter "noOptionsMessage" dictates
-   *      the drop down message to be given to the user instead of the options.
-   *      Options must be an array of "label"/"value" pairs:
-   *          [{label: "Hello", value: "hello"}, {label: "World", value: "world"}]
-   * @param { string } [className] - Component css class. Default: varies with type.
-   * @param { boolean } [isClearable] - Signifies that "Select" and "Date"
-   *      type input components can be cleared of data. Default: true. See
-   *      documentation of React Select for more information.
-   * @param { boolean } [isMulti] - Signifies that multiple options can be chosen
-   *      for a "Select" type component. Default: false. See documentation of
-   *      React Select for more information.
-   * @param { function } [noOptionsMessage] - "Select" component drop down message
-   *      displayed if no options available. Default: () => 'No Options'. See
-   *      documentation of React Select for more information.
-   * @param { function } onMenuOpen - Required for "Select" component to demonstrate
-   *      behavior necessary when drop down menu is opened. See documentation of
-   *      React Select for more information.
-   * @param { list } [error] - List of error messages to be displayed. If provided,
-   *      component class contains the string 'is-invalid' and message is
-   *      displayed in red. For the following types: "File", "TextArea", "Int",
-   *      "Password", "String", "Boolean", "Checkbox", "Select", "Date", "Radio".
-   * @param { boolean } [required] - appends  '*' to the end of a label to indicate
-   *      that the field is required. Not available for "Boolean" type
-   * @param { object } [customInput] - Overrides any props passed into the component,
-   *      or those set by default in this library. For example, to override default
-   *      settings for a "Date" component structure the data like so:
-   *      {placeholderText:'Click here', fixedHeight:false}
-   * @param { object } [customError] - custom component that takes in an argument
-   *      'error' and 'id' and returns an html component in to be displayed below the field
-   * @param { object } [customLabel] - custom label to be displayed above the filed
-   *      not available for 'Checkbox' type
-   * @param { boolean } [autoFocus] refers to specific fields (see isAutoFocusInput()) that have
-   *      autofocus input feature
-   * @param { boolean } [spellCheck] - adds spell checking to the input box. Available for "String" and "TextArea" types.
-   * @param { boolean } [useUTC] - Optional value for the DateTimeInput component. Determines if UTC conversions should
-   *      be made or not.
-   *
-   * @returns { object } - Single input component
-   */
-
+/**
+ * @param { object } props
+ * { string } **type** - One of following type designators:
+ *      Int, TextArea, String, Password, Date, File, Radio, Select, Checkbox, Boolean,
+ *      Email, Phone, URL, Currency. \
+ * { string } **id** - Unique input id \
+ * { any } **value** - Display value. Default: varies with type. Date value
+ *      can be a moment object or a string. \
+ * { string } **dateFormat** - Optional value for the DateInput/DateTimeInput component.
+ *      Default: 'YYYY-MM-DD' or 'YYYY-MM-DD HH:mm'. Date value as a string should be consistent with
+ *      dateFormat See moment.js for other format types \
+ * { string } **timeFormat** - Optional value for the DateTimeInput component.
+ *      Default: 'HH:mm'. Time value as a string should be consistent with
+ *      timeFormat See moment.js for other format types \
+ * { string } **labelStr** - String used for built-in <label> component.
+ *      Not available for "Boolean" type \
+ * { function } **onChange \
+ * { boolean } **inline** - Only used for "Radio" type to signify inline
+ *      capability. Default: false \
+ * { any } **options** - Required for "Radio" and "Select" type. For "Select",
+ *      if options is left undefined, the parameter "noOptionsMessage" dictates
+ *      the drop down message to be given to the user instead of the options.
+ *      Options must be an array of "label"/"value" pairs:
+ *          [{label: "Hello", value: "hello"}, {label: "World", value: "world"}] \
+ * { string } **className** - Component css class. Default: varies with type. \
+ * { boolean } **isClearable** - Signifies that "Select" and "Date"
+ *      type input components can be cleared of data. Default: true. See
+ *      documentation of React Select for more information. \
+ * { boolean } **isMulti** - Signifies that multiple options can be chosen
+ *      for a "Select" type component. Default: false. See documentation of
+ *      React Select for more information. \
+ * { function } **noOptionsMessage** - "Select" component drop down message
+ *      displayed if no options available. Default: () => 'No Options'. See
+ *      documentation of React Select for more information. \
+ * { function } **onMenuOpen** - Required for "Select" component to demonstrate
+ *      behavior necessary when drop down menu is opened. See documentation of
+ *      React Select for more information. \
+ * { list } **error** - List of error messages to be displayed. If provided,
+ *      component class contains the string 'is-invalid' and message is
+ *      displayed in red. For the following types: "File", "TextArea", "Int",
+ *      "Password", "String", "Boolean", "Checkbox", "Select", "Date", "Radio". \
+ * { boolean } **required** - appends  '*' to the end of a label to indicate
+ *      that the field is required. Not available for "Boolean" type \
+ * { object } **customInput** - Overrides any props passed into the component,
+ *      or those set by default in this library. For example, to override default
+ *      settings for a "Date" component structure the data like so:
+ *      {placeholderText:'Click here', fixedHeight:false} \
+ * { object } **customError** - custom component that takes in an argument
+ *      'error' and 'id' and returns an html component in to be displayed below the field \
+ * { object } **customLabel** - custom label to be displayed above the filed
+ *      not available for 'Checkbox' type \
+ * { boolean } **autoFocus** - refers to specific fields (see isAutoFocusInput()) that have
+ *      autofocus input feature \
+ * { boolean } **spellCheck** - adds spell checking to the input box. Available for "String" and "TextArea" types. \
+ * { boolean } **useUTC** - Optional value for the DateTimeInput component. Determines if UTC conversions should
+ *      be made or not. \
+ *
+ * @returns { object } - Single input component
+ */
+const FlexibleInput = (props) => {
   const params = { ...props }
 
   switch (params.type) {
@@ -137,7 +135,10 @@ const FlexibleInput = props => {
       break
 
     case inputTypes.DATETIME_TYPE:
-      params['dateFormat'] = R.defaultTo('yyyy/MM/dd HH:mm', params['dateFormat'])
+      params['dateFormat'] = R.defaultTo(
+        'yyyy/MM/dd HH:mm',
+        params['dateFormat']
+      )
       params['timeFormat'] = R.defaultTo('HH:mm', params['timeFormat'])
       params['isClearable'] = R.defaultTo(true, params['isClearable'])
       params['useUTC'] = R.defaultTo(true, params['useUTC'])

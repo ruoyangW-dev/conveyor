@@ -8,7 +8,7 @@ import { inputTypes } from '../src/consts'
 configure({ adapter: new Adapter() })
 
 // Mount component
-const setupFlexibleInput = props => {
+const setupFlexibleInput = (props) => {
   const wrapper = mount(<FlexibleInput {...props} />)
 
   return { props, wrapper }
@@ -99,14 +99,8 @@ describe('FlexibleInput component', () => {
     expect(wrapper.find('input')).toHaveLength(1)
     expect(wrapper.find('input').prop('type')).toBe('radio')
     expect(
-      !wrapper
-        .find('input')
-        .parent()
-        .hasClass('form-check-inline') &&
-        wrapper
-          .find('input')
-          .parent()
-          .hasClass('form-check')
+      !wrapper.find('input').parent().hasClass('form-check-inline') &&
+        wrapper.find('input').parent().hasClass('form-check')
     ).toBe(true)
   })
   it('InputFile w/ type=FILE_TYPE w/ defaulted props', () => {
@@ -123,14 +117,8 @@ describe('FlexibleInput component', () => {
     })
     expect(wrapper.find('Switch')).toHaveLength(1)
     expect(
-      wrapper
-        .find('Switch')
-        .parent()
-        .hasClass('form-check') &&
-        wrapper
-          .find('Switch')
-          .parent()
-          .hasClass('form-check-inline') &&
+      wrapper.find('Switch').parent().hasClass('form-check') &&
+        wrapper.find('Switch').parent().hasClass('form-check-inline') &&
         wrapper.find('Switch').prop('checked') === false
     ).toBe(true)
   })
@@ -163,20 +151,15 @@ describe('FlexibleInput component', () => {
     })
     expect(wrapper.find('Select')).toHaveLength(1)
     expect(
-        wrapper.find('Select').prop('createOptionPosition') === 'first'
+      wrapper.find('Select').prop('createOptionPosition') === 'first'
     ).toBe(true)
   })
-  it('InputString w/ type=STRING_TYPE error=\'Example Error\'', () => {
+  it('InputString·w/·type=STRING_TYPE·error=Example·Error', () => {
     const { wrapper } = setupFlexibleInput({
       type: inputTypes.STRING_TYPE,
       error: 'Example Error'
     })
-    expect(
-      wrapper
-        .find('div')
-        .at(1)
-        .text()
-    ).toBe('Example Error')
+    expect(wrapper.find('div').at(1).text()).toBe('Example Error')
   })
 })
 
