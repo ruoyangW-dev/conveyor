@@ -2,7 +2,7 @@
 # Build Conveyor Tarball Files
 
 rm -R lib
-npm run build
+yarn run build
 # uncomment when first tar file created
 # rm conveyor-*.tgz
 npm pack --quiet

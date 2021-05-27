@@ -1,28 +1,38 @@
-/* global FileReader */
-
 import React from 'react'
 import * as R from 'ramda'
 import FlexibleInput from '../input/index'
 import { inputTypes } from '../consts'
 import { useOverride } from '../Utils'
-import { arrayBufferToStoreValue } from '../utils/fileConverters'
 import CreateButton from '../CreateButton'
 import { getRelSchemaEntry } from '../table/Field'
 
-export const relationshipLabelFactory = ({ schema, modelName, fieldName, onClick, customProps }) => {
+export const relationshipLabelFactory = ({
+  schema,
+  modelName,
+  fieldName,
+  onClick,
+  customProps
+}) => {
   const relSchemaEntry = getRelSchemaEntry({ schema, modelName, fieldName })
   const relModelName = R.prop('modelName', relSchemaEntry)
   const id = `input-${modelName}-${fieldName}`
   const required = R.prop('required', schema.getField(modelName, fieldName))
-  const creatable = schema.isCreatable({ modelName: relModelName, customProps })
+  const creatable = schema.isCreatable({
+    modelName: relModelName,
+    customProps
+  })
 
   const Label = ({ labelStr }) => (
     <label htmlFor={id}>
       <span>{labelStr}</span>
-      { required && ' *'}
-      { creatable && <CreateButton {...{
-        onClick
-      }} /> }
+      {required && ' *'}
+      {creatable && (
+        <CreateButton
+          {...{
+            onClick
+          }}
+        />
+      )}
     </label>
   )
 
@@ -30,15 +40,13 @@ export const relationshipLabelFactory = ({ schema, modelName, fieldName, onClick
 }
 
 export const DisabledInput = ({ value, label }) => (
-  <div className='conv-disabled-input'>
+  <div className="conv-disabled-input">
     <span>{label}</span>
     {
       // TODO: Move into css files
     }
-    <div className='disabled-input-padding' style={{ paddingBottom: '10px', paddingTop: '10px' }} >
-      <div style={{ padding: '7px 7px 7px 12px', backgroundColor: '#E0E0E0', minHeight: '40px' }} className='border rounded primary disabled-input-value'>
-        {value}
-      </div>
+    <div className="disabled-input-padding">
+      <div className="disabled-input-value">{value}</div>
     </div>
   </div>
 )
@@ -68,51 +76,53 @@ const Input = ({
   const onCreatableMenuOpen = R.path(['input', 'onCreatableMenuOpen'], actions)
 
   return (
-    <ChosenInput {...{
-      schema,
-      modelName,
-      fieldName,
-      node,
-      value,
-      error,
-      inline,
-      onChange,
-      selectOptions,
-      disabled,
-      customLabel,
-      formStack,
-      onMenuOpen,
-      onCreatableMenuOpen,
-      autoFocus,
-      onKeyDown,
-      customProps,
-      showPopover
-    }} />
+    <ChosenInput
+      {...{
+        schema,
+        modelName,
+        fieldName,
+        node,
+        value,
+        error,
+        inline,
+        onChange,
+        selectOptions,
+        disabled,
+        customLabel,
+        formStack,
+        onMenuOpen,
+        onCreatableMenuOpen,
+        autoFocus,
+        onKeyDown,
+        customProps,
+        showPopover
+      }}
+    />
   )
 }
 
 export const getOnChange = ({ inputType, onChange, fieldName }) => {
-  const defaultHandleOnChange = val => onChange({
-    fieldName,
-    value: val
-  })
+  const defaultHandleOnChange = (val) =>
+    onChange({
+      fieldName,
+      value: val
+    })
 
   if (inputType !== inputTypes.FILE_TYPE) {
     return defaultHandleOnChange
   }
 
-  return (evt => {
+  return (evt) => {
     if (evt.target.files.length > 0) {
       defaultHandleOnChange(evt.target.files[0])
     }
-  })
+  }
 }
 
 export const InputCore = ({
   schema,
   modelName,
   fieldName,
-  node,
   value,
   error,
   inline,
@@ -123,14 +133,14 @@ export const InputCore = ({
   formStack,
   onMenuOpen,
   onCreatableMenuOpen,
-  customInput,  // optional; used for FlexibleInput only; differs from 'customProps'
+  customInput, // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
   customProps,
   showPopover
 }) => {
   if (disabled) {
-      const label = schema.getFieldLabel({
+    const label = schema.getFieldLabel({
       modelName,
       fieldName,
       node: R.path(['originNode'], formStack),
@@ -143,27 +153,28 @@ export const InputCore = ({
   const fieldHelp = schema.getFieldHelpText(modelName, fieldName)
 
   return (
-    <div className={'conv-input conv-input-model-'+modelName}>
-      <InputInnerCore {...{
-        schema,
-        modelName,
-        fieldName,
-        node,
-        value,
-        error,
-        inline,
-        onChange,
-        selectOptions,
-        customLabel,
-        onMenuOpen,
-        onCreatableMenuOpen,
-        customInput,  // optional; used for FlexibleInput only; differs from 'customProps'
-        autoFocus,
-        onKeyDown,
-        customProps,
-        showPopover
-      }} />
-      {fieldHelp && <small className='help-text'>{fieldHelp}</small>}
+    <div className={'conv-input conv-input-model-' + modelName}>
+      <InputInnerCore
+        {...{
+          schema,
+          modelName,
+          fieldName,
+          value,
+          error,
+          inline,
+          onChange,
+          selectOptions,
+          customLabel,
+          onMenuOpen,
+          onCreatableMenuOpen,
+          customInput, // optional; used for FlexibleInput only; differs from 'customProps'
+          autoFocus,
+          onKeyDown,
+          customProps,
+          showPopover
+        }}
+      />
+      {fieldHelp && <small className="help-text">{fieldHelp}</small>}
     </div>
   )
 }
@@ -172,7 +183,6 @@ const InputInnerCore = ({
   schema,
   modelName,
   fieldName,
-  node,
   value,
   error,
   inline,
@@ -181,7 +191,7 @@ const InputInnerCore = ({
   customLabel,
   onMenuOpen,
   onCreatableMenuOpen,
-  customInput,  // optional; used for FlexibleInput only; differs from 'customProps'
+  customInput, // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
   customProps,
@@ -190,7 +200,11 @@ const InputInnerCore = ({
   const inputType = schema.getType(modelName, fieldName)
 
   const defaultHandleOnChange = getOnChange({ inputType, onChange, fieldName })
-  const fieldLabel = schema.getFieldLabel({ modelName, fieldName, customProps })
+  const fieldLabel = schema.getFieldLabel({
+    modelName,
+    fieldName,
+    customProps
+  })
   const defaultProps = {
     id: `input-${modelName}-${fieldName}`,
     type: inputType,
@@ -202,7 +216,10 @@ const InputInnerCore = ({
     customInput,
     autoFocus,
     onKeyDown,
-    LabelInfoComponent: R.path(['components', 'labelInfo'], schema.getField(modelName, fieldName)),
+    LabelInfoComponent: R.path(
+      ['components', 'labelInfo'],
+      schema.getField(modelName, fieldName)
+    ),
     showPopover
   }
   const enumChoices = schema.getEnumChoices(modelName, fieldName)
@@ -238,7 +255,7 @@ const InputInnerCore = ({
       options = schema.getOptionsOverride({
         modelName,
         fieldName,
-        options: enumChoiceOrder.map(choice => ({
+        options: enumChoiceOrder.map((choice) => ({
           label: enumChoices[choice],
           value: choice
         })),
@@ -246,7 +263,8 @@ const InputInnerCore = ({
         customProps
       })
       return (
-        <FlexibleInput key={`FlexibleInput-${modelName}-${fieldName}`}
+        <FlexibleInput
+          key={`FlexibleInput-${modelName}-${fieldName}`}
           {...{
             ...defaultProps,
             type: inputTypes.SELECT_TYPE,
@@ -267,23 +285,24 @@ const InputInnerCore = ({
         customProps
       })
       return (
-        <FlexibleInput key={`FlexibleInput-${modelName}-${fieldName}`}
+        <FlexibleInput
+          key={`FlexibleInput-${modelName}-${fieldName}`}
           {...{
             ...R.dissoc('type', defaultProps),
             type: inputTypes.SELECT_TYPE,
-            isMulti: (
+            isMulti:
               inputType === inputTypes.ONE_TO_MANY_TYPE ||
-              inputType === inputTypes.MANY_TO_MANY_TYPE
-            ),
+              inputType === inputTypes.MANY_TO_MANY_TYPE,
             customLabel,
-            onMenuOpen: evt => onMenuOpen({ modelName, fieldName }),
+            onMenuOpen: () => onMenuOpen({ modelName, fieldName }),
             options
           }}
         />
       )
     case inputTypes.CREATABLE_STRING_SELECT_TYPE:
       return (
-        <FlexibleInput key={`FlexibleInput-${modelName}-${fieldName}`}
+        <FlexibleInput
+          key={`FlexibleInput-${modelName}-${fieldName}`}
           {...{
             ...defaultProps,
             customLabel,

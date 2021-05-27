@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+Standardize in line with other autoinvent projects
+Add typedoc
+Begin extraction of styling
+
 ## Version 0.7.0
 
 Add classNames to common components Issue #13

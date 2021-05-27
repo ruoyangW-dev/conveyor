@@ -8,8 +8,8 @@ import { Modal } from '../Modal'
 
 const getFilterableFields = ({ schema, modelName, data, customProps }) => {
   const fields = R.pathOr([], [modelName, 'fieldOrder'], schema.schemaJSON)
-  const filterables = fields.filter(
-    fieldName => schema.isFilterable({ modelName, fieldName, data, customProps })
+  const filterables = fields.filter((fieldName) =>
+    schema.isFilterable({ modelName, fieldName, data, customProps })
   )
   return filterables
 }
@@ -20,24 +20,30 @@ const FilterButtons = ({
   clearFilters,
   addFilter
 }) => (
-  <div className='mt-3'>
+  <div className="conv-filter-buttons">
     <button
-      className='btn btn-primary btn-sm'
+      className="conv-add-filter-button"
       onClick={() => addFilter({ modelName })}
-    >+ Add Rule</button>
-    <div className='d-inline float-right'>
-      <div className='btn-group'>
+    >
+      + Add Rule
+    </button>
+    <div>
+      <div className="conv-btn-group">
         <button
-          className='btn btn-success btn-sm'
+          className="conv-filter-submit-button"
           onClick={() => onFilterSubmit({ modelName })}
-        >Apply</button>
+        >
+          Apply
+        </button>
         <button
-          className='btn btn-outline-danger btn-sm'
+          className="conv-btn-outline-danger"
           onClick={() => {
             clearFilters({ modelName })
             onFilterSubmit({ modelName })
           }}
-        >Reset</button>
+        >
+          Reset
+        </button>
       </div>
     </div>
   </div>
@@ -60,60 +66,79 @@ const formatFilter = ({
   customProps
 }) => {
   const filterInput = R.prop(fieldName, filterInputs)
-  const filterables = getFilterableFields({ schema, modelName, data, customProps })
-  const toOptions = fieldName => ({
+  const filterables = getFilterableFields({
+    schema,
+    modelName,
+    data,
+    customProps
+  })
+  const toOptions = (fieldName) => ({
     label: schema.getFieldLabel({ modelName, fieldName, data, customProps }),
     value: fieldName
   })
-  const unfiltered = filterables.filter(fieldName => !filterOrder.includes(fieldName))
-  const options = unfiltered.map(fieldName => toOptions(fieldName))
-  const value = R.isNil(fieldName) || R.isEmpty(fieldName)
-    ? { label: null, value: null }
-    : toOptions(filterOrder[index])
+  const unfiltered = filterables.filter(
+    (fieldName) => !filterOrder.includes(fieldName)
+  )
+  const options = unfiltered.map((fieldName) => toOptions(fieldName))
+  const value =
+    R.isNil(fieldName) || R.isEmpty(fieldName)
+      ? { label: null, value: null }
+      : toOptions(filterOrder[index])
   return (
-    <li key={`${index}-${modelName}-${fieldName}-format-filter`} className='list-group-item conv-format-filter'>
-      <div className='filter-fieldname-dropdown'>
-        <div className='w-100'>
-          <FlexibleInput {...{
-            type: inputTypes.SELECT_TYPE,
-            onChange: evt => onChange({
-              modelName,
-              fieldName: R.prop('value', evt),
-              index
-            }),
-            value,
-            options,
-            id: `${index}-${modelName}-filter-dropdown`,
-            isClearable: false,
-            customInput: {
-              noOptionsMessage: () => '(no filterable fields)',
-              placeholder: 'Select field...'
-            }
-          }}/>
+    <li
+      key={`${index}-${modelName}-${fieldName}-format-filter`}
+      className="conv-format-filter"
+    >
+      <div className="filter-fieldname-dropdown">
+        <div>
+          <FlexibleInput
+            {...{
+              type: inputTypes.SELECT_TYPE,
+              onChange: (evt) =>
+                onChange({
+                  modelName,
+                  fieldName: R.prop('value', evt),
+                  index
+                }),
+              value,
+              options,
+              id: `${index}-${modelName}-filter-dropdown`,
+              isClearable: false,
+              customInput: {
+                noOptionsMessage: () => '(no filterable fields)',
+                placeholder: 'Select field...'
+              }
+            }}
+          />
         </div>
       </div>
-      <div className='filter-rest align-middle'>
-        <div className='w-100'>
-          <FilterComp {...{
-            fieldName,
-            modelName,
-            schema,
-            onFilterChange: evt => onFilterChange({
+      <div className="filter-rest">
+        <div>
+          <FilterComp
+            {...{
+              fieldName,
               modelName,
-              ...evt
-            }),
-            onFilterSubmit,
-            onFilterDropdown,
-            filterInput,
-            selectOptions
-          }}/>
+              schema,
+              onFilterChange: () =>
+                onFilterChange({
+                  modelName,
+                  schema,
+                  onFilterChange: (evt) =>
+                    onFilterChange({
+                      modelName,
+                      ...evt
+                    }),
+                  onFilterSubmit,
+                  onFilterDropdown,
+                  filterInput,
+                  selectOptions
+                })
+            }}
+          />
         </div>
       </div>
-      <div className='filter-close filter-padded align-middle'>
-        <button
-          className='btn btn-sm btn-danger btn-block'
-          onClick={() => deleteFilter({ modelName, index })}
-        >X</button>
+      <div className="filter-close filter-padded">
+        <button onClick={() => deleteFilter({ modelName, index })}>X</button>
       </div>
     </li>
   )
@@ -135,12 +160,15 @@ const ActiveFilters = ({
   filterInputs,
   customProps
 }) => (
-  <div id={'active-filters-' + modelName} className={"mb-2 conv-active-filters conv-active-filters-" + modelName}>
-    <ul className="list-group">
+  <div
+    id={'active-filters-' + modelName}
+    className={'conv-active-filters conv-active-filters-' + modelName}
+  >
+    <ul>
       {R.isEmpty(filterOrder) || R.isNil(filterOrder) ? (
         <li
           key="no-active-filters"
-          className="list-group-item text-muted clickable-element"
+          className="conv-no-active-filters clickable-element"
           onClick={() => addFilter({ modelName })}
         >
           Add a rule to get started...
@@ -201,22 +229,24 @@ export const FilterModal = ({
       title={'Filters - ' + modelName}
       className={'conv-filter-modal conv-filter-modal-' + modelName}
       children={
-        <ActiveFilters {...{
-          modelName,
-          schema,
-          data,
-          addFilter,
-          deleteFilter,
-          onChange: changeField,
-          selectOptions,
-          filterOrder,
-          clearFilters,
-          onFilterChange,
-          onFilterSubmit,
-          onFilterDropdown,
-          filterInputs,
-          customProps
-        }} />
+        <ActiveFilters
+          {...{
+            modelName,
+            schema,
+            data,
+            addFilter,
+            deleteFilter,
+            onChange: changeField,
+            selectOptions,
+            filterOrder,
+            clearFilters,
+            onFilterChange,
+            onFilterSubmit,
+            onFilterDropdown,
+            filterInputs,
+            customProps
+          }}
+        />
       }
     />
   )
@@ -224,13 +254,15 @@ export const FilterModal = ({
 
 export const FilterModalButton = ({ modelName, filtersAreActive }) => (
   <button
-    className={'btn btn-sm btn-outline-primary conv-filter-modal-button conv-filter-modal-button-' + modelName}
-    data-toggle='modal'
+    className={'conv-filter-modal-button conv-filter-modal-button-' + modelName}
+    data-toggle="modal"
     data-target={'#filter-' + modelName}
   >
     Filter
     <FaFilter
-      className={`filter-icon-${filtersAreActive ? 'active' : 'inactive'} ml-2`}
+      className={`filter-icon-${
+        filtersAreActive ? 'active' : 'inactive'
+      } conv-filter-icon`}
       color={filtersAreActive ? 'lightgreen' : 'black'}
     />
   </button>
@@ -252,21 +284,13 @@ const numberOptions = [
   { label: '>=', value: 'gte' }
 ]
 
-const relOptions = [
-  { label: 'Includes', value: 'INCLUDES' }
-]
+const relOptions = [{ label: 'Includes', value: 'INCLUDES' }]
 
-const enumOptions = [
-  { label: 'Includes', value: 'INCLUDES' }
-]
+const enumOptions = [{ label: 'Includes', value: 'INCLUDES' }]
 
-const dateOptions = [
-  { label: 'Before', value: 'BEFORE' }
-]
+const dateOptions = [{ label: 'Before', value: 'BEFORE' }]
 
-const booleanOptions = [
-  { label: 'Equals', value: 'EQUALS' }
-]
+const booleanOptions = [{ label: 'Equals', value: 'EQUALS' }]
 
 const FilterOptions = ({
   schema,
@@ -283,35 +307,38 @@ const FilterOptions = ({
     case inputTypes.FLOAT_TYPE:
     case inputTypes.CURRENCY_TYPE:
       options = numberOptions
-      break;
+      break
     case inputTypes.ENUM_TYPE:
       options = enumOptions
-      break;
+      break
     case inputTypes.DATE_TYPE:
     case inputTypes.DATETIME_TYPE:
       options = dateOptions
-      break;
+      break
     case inputTypes.BOOLEAN_TYPE:
       options = booleanOptions
-      break;
+      break
     case inputTypes.ONE_TO_ONE_TYPE:
     case inputTypes.MANY_TO_ONE_TYPE:
     case inputTypes.ONE_TO_MANY_TYPE:
     case inputTypes.MANY_TO_MANY_TYPE:
       options = relOptions
-      break;
+      break
     default:
       options = stringOptions
   }
   return (
     <React.Fragment>
-      <FlexibleInput key={`FlexibleInput-${modelName}-${fieldName}`}
+      <FlexibleInput
+        key={`FlexibleInput-${modelName}-${fieldName}`}
         type={inputTypes.SELECT_TYPE}
-        onChange={val => onFilterDropdown({
-          modelName,
-          fieldName,
-          operator: val
-        })}
+        onChange={(val) =>
+          onFilterDropdown({
+            modelName,
+            fieldName,
+            operator: val
+          })
+        }
         value={operator}
         options={options}
         id={`${modelName}-${fieldName}-filter-radio`}
@@ -322,10 +349,9 @@ const FilterOptions = ({
 }
 
 // todo: finish
-  // case inputTypes.DATE_TYPE:
-  // case inputTypes.PHONE_TYPE:
-  // case inputTypes.BOOLEAN_TYPE:
-
+// case inputTypes.DATE_TYPE:
+// case inputTypes.PHONE_TYPE:
+// case inputTypes.BOOLEAN_TYPE:
 
 export const FilterComp = ({
   fieldName,
@@ -338,7 +364,7 @@ export const FilterComp = ({
   selectOptions
 }) => {
   if (R.isNil(fieldName) || R.isEmpty(fieldName)) {
-    return <div className='ml-1 mt-1 filter-padded'>Select a field</div>
+    return <div className="filter-padded">Select a field</div>
   }
   const value = R.prop('value', filterInput)
   const operator = R.prop('operator', filterInput)
@@ -346,30 +372,37 @@ export const FilterComp = ({
   const onMenuOpen = R.path(['input', 'onMenuOpen'], actions)
   return (
     <div className={'conv-filter-comp conv-filter-comp-' + modelName}>
-      <div className='filter-operator-dropdown'>
-        <FilterOptions {...{
-          schema,
-          modelName,
-          fieldName,
-          operator,
-          onFilterSubmit,
-          onFilterDropdown,
-        }} />
+      <div className="filter-operator-dropdown">
+        <FilterOptions
+          {...{
+            schema,
+            modelName,
+            fieldName,
+            operator,
+            onFilterSubmit,
+            onFilterDropdown
+          }}
+        />
       </div>
-      <div className='filter-input'>
-      { R.prop('value', operator) !== 'EXISTS' && R.prop('value', operator) !== 'DOESNOTEXIST' && <InputCore {...{
-          schema,
-          modelName,
-          fieldName,
-          value,
-          onChange: onFilterChange,
-          inline: true,
-          selectOptions,
-          onMenuOpen,
-          customInput: {
-            placeholder: 'Enter value...',
-          }
-        }} /> }
+      <div className="filter-input">
+        {R.prop('value', operator) !== 'EXISTS' &&
+          R.prop('value', operator) !== 'DOESNOTEXIST' && (
+            <InputCore
+              {...{
+                schema,
+                modelName,
+                fieldName,
+                value,
+                onChange: onFilterChange,
+                inline: true,
+                selectOptions,
+                onMenuOpen,
+                customInput: {
+                  placeholder: 'Enter value...'
+                }
+              }}
+            />
+          )}
       </div>
     </div>
   )

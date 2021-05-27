@@ -11,35 +11,50 @@ const GotoTooltip = ({
   onChangeGoto,
   lastIndex,
   goto,
-  canGoto,
+  canGoto
 }) => {
   return (
-    <div id={`${modelName}${fieldName ? '-' + fieldName : ''}-pg-tooltip`} className='goto-tooltip conv-goto-tooltip'>
-      {canGoto ? null : <div className='mb-2 goto-tooltip-invalid'>Please enter a valid page number.</div>}
-      <div className='d-flex'>
-        <div className='mr-2 float-left'>
-          <FlexibleInput {...{
-            type: inputTypes.INT_TYPE,
-            id: `${modelName}${fieldName ? '-' + fieldName : ''}-goto`,
-            value: goto,
-            onChange: evt => onChangeGoto({ modelName, fieldName, pageIndex: evt }),
-            customInput: {
-              placeholder: 'Go to page...',
-            }
-          }}/>
+    <div
+      id={`${modelName}${fieldName ? '-' + fieldName : ''}-pg-tooltip`}
+      className="goto-tooltip"
+    >
+      {canGoto ? null : (
+        <div className="goto-tooltip-invalid">
+          Please enter a valid page number.
         </div>
-        <div className='float-right'>
+      )}
+      <div className="conv-goto-tooltip-input">
+        <div>
+          <FlexibleInput
+            {...{
+              type: inputTypes.INT_TYPE,
+              id: `${modelName}${fieldName ? '-' + fieldName : ''}-goto`,
+              value: goto,
+              onChange: (evt) =>
+                onChangeGoto({ modelName, fieldName, pageIndex: evt }),
+              customInput: {
+                placeholder: 'Go to page...'
+              }
+            }}
+          />
+        </div>
+        <div className="conv-float-right">
           <button
-            className='btn btn-success'
-            onClick={() => onChangePage({
-              modelName,
-              fieldName,
-              // goto is the page number, which will always be 1 greater than the index
-              // because index begins at 0 while page number begins at 1
-              updatedPageIndex: goto,
-              isValid: 1 <= goto && goto <= lastIndex && Number.isInteger(goto)
-            })}
-          >Go</button>
+            className="conv-btn-success"
+            onClick={() =>
+              onChangePage({
+                modelName,
+                fieldName,
+                // goto is the page number, which will always be 1 greater than the index
+                // because index begins at 0 while page number begins at 1
+                updatedPageIndex: goto,
+                isValid:
+                  1 <= goto && goto <= lastIndex && Number.isInteger(goto)
+              })
+            }
+          >
+            Go
+          </button>
         </div>
       </div>
     </div>
@@ -57,33 +72,45 @@ const PaginationLink = ({
   text,
   updatedPageIndex
 }) => {
-  const link = <a
-    className='page-link'
-    onClick={() => onChangePage({
-      modelName, fieldName, updatedPageIndex
-    })}
-  >{text}</a>
+  const link = (
+    <a
+      className="page-link"
+      onClick={() =>
+        onChangePage({
+          modelName,
+          fieldName,
+          updatedPageIndex
+        })
+      }
+    >
+      {text}
+    </a>
+  )
   if (isNaN(text)) {
     return (
-      <Tooltip
-        html={<span>{`Page ${updatedPageIndex}`}</span>}
-      >{link}</Tooltip>
+      <Tooltip html={<span>{`Page ${updatedPageIndex}`}</span>}>{link}</Tooltip>
     )
   }
   return (
     <Tooltip
-      html={<GotoTooltip {...{
-        modelName,
-        fieldName,
-        onChangePage,
-        onChangeGoto,
-        lastIndex,
-        goto,
-        canGoto,
-      }} />}
-      trigger='click'
+      html={
+        <GotoTooltip
+          {...{
+            modelName,
+            fieldName,
+            onChangePage,
+            onChangeGoto,
+            lastIndex,
+            goto,
+            canGoto
+          }}
+        />
+      }
+      trigger="click"
       interactive
-    >{link}</Tooltip>
+    >
+      {link}
+    </Tooltip>
   )
 }
 
@@ -103,7 +130,7 @@ export const Pagination = ({
   const hasFirst = idx > 2
   const hasPrev = idx > 1
   const hasNext = lastIndex > 1 && idx < lastIndex
-  const hasLast = lastIndex > 1 && idx < (lastIndex - 1)
+  const hasLast = lastIndex > 1 && idx < lastIndex - 1
 
   // no pagination
   if (!hasFirst && !hasPrev && !hasNext && !hasLast) {
@@ -112,7 +139,7 @@ export const Pagination = ({
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="pagination conv-pagination">
+      <ul className="conv-pagination">
         {hasFirst && (
           <PaginationLink
             {...{
@@ -136,17 +163,19 @@ export const Pagination = ({
           />
         )}
         {
-          <PaginationLink {...{
-            modelName,
-            fieldName,
-            onChangePage,
-            onChangeGoto,
-            lastIndex,
-            goto,
-            canGoto,
-            text: `${idx}`,
-            updatedPageIndex: (idx)
-          }} />
+          <PaginationLink
+            {...{
+              modelName,
+              fieldName,
+              onChangePage,
+              onChangeGoto,
+              lastIndex,
+              goto,
+              canGoto,
+              text: `${idx}`,
+              updatedPageIndex: idx
+            }}
+          />
         }
         {hasNext && (
           <PaginationLink
@@ -171,10 +200,9 @@ export const Pagination = ({
           />
         )}
         {totalDataLength && amtPerPage && (
-          <span className="ml-2 my-auto">
-            {((idx - 1) * amtPerPage) + 1}-
-            {Math.min((idx * amtPerPage), totalDataLength)} of{' '}
-            {totalDataLength}
+          <span className="conv-pagination-span">
+            {(idx - 1) * amtPerPage + 1}-
+            {Math.min(idx * amtPerPage, totalDataLength)} of {totalDataLength}
           </span>
         )}
       </ul>
@@ -199,20 +227,29 @@ export const IndexPagination = ({ schema, modelName, tableView }) => {
   const totalDataLength = R.prop('total', page)
   const amtPerPage = R.prop('amtPerPage', page)
 
-  return <Pagination {...{
-    modelName,
-    idx,
-    lastIndex,
-    totalDataLength,
-    amtPerPage,
-    goto,
-    canGoto,
-    onChangePage,
-    onChangeGoto
-  }} />
+  return (
+    <Pagination
+      {...{
+        modelName,
+        idx,
+        lastIndex,
+        totalDataLength,
+        amtPerPage,
+        goto,
+        canGoto,
+        onChangePage,
+        onChangeGoto
+      }}
+    />
+  )
 }
 
-export const DetailPagination = ({ schema, modelName, fieldName, tableView }) => {
+export const DetailPagination = ({
+  schema,
+  modelName,
+  fieldName,
+  tableView
+}) => {
   const actions = schema.getActions(modelName)
   const onChangePage = R.path(['tableOptions', 'changeRelTablePage'], actions)
   const onChangeGoto = R.path(['tableOptions', 'changeRelGotoPage'], actions)
@@ -229,17 +266,20 @@ export const DetailPagination = ({ schema, modelName, fieldName, tableView }) =>
   const totalDataLength = R.prop('total', page)
   const amtPerPage = R.prop('amtPerPage', page)
 
-
-  return <Pagination {...{
-    modelName,
-    fieldName,
-    idx,
-    lastIndex,
-    totalDataLength,
-    amtPerPage,
-    goto,
-    canGoto,
-    onChangePage,
-    onChangeGoto
-  }} />
+  return (
+    <Pagination
+      {...{
+        modelName,
+        fieldName,
+        idx,
+        lastIndex,
+        totalDataLength,
+        amtPerPage,
+        goto,
+        canGoto,
+        onChangePage,
+        onChangeGoto
+      }}
+    />
+  )
 }

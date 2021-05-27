@@ -8,82 +8,122 @@ import Tooltip from '../Tooltip'
 
 // gets the schema of the relationship model, based on field meta
 export const getRelSchemaEntry = ({ schema, modelName, fieldName }) => {
-  const fieldTargetModel = R.path(['type', 'target'], schema.getField(modelName, fieldName))
+  const fieldTargetModel = R.path(
+    ['type', 'target'],
+    schema.getField(modelName, fieldName)
+  )
 
   return schema.getModel(fieldTargetModel)
 }
 
-const FieldString = ({ schema, modelName, fieldName, node, noDataDisplayValue }) => {
+const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
   const value = R.prop(fieldName, node)
-  const displayString = (R.isNil(value) || value === '') ? noDataDisplayValue : value
+  const displayString =
+    R.isNil(value) || value === '' ? noDataDisplayValue : value
 
-  return (
-    <span className='text-area-display'>{displayString}</span>
-  )
+  return <span className="text-area-display">{displayString}</span>
 }
 
-const FieldBoolean = ({ schema, modelName, fieldName, node }) => {
+const FieldBoolean = ({ fieldName, node }) => {
   const displayBool = R.propOr(false, fieldName, node) // need propOr(false...
-  return <Switch
-    checked={displayBool}
-  />
+  return <Switch checked={displayBool} />
 }
 
 // Render a link to the value. If the value does not start with any of the prefixes,
 // append the first prefix. Produces HTTPS URLs by default.
-const FieldLink = ({ schema, modelName, fieldName, node, prefix = ['https://', 'http://'], noDataDisplayValue }) => {
+const FieldLink = ({
+  fieldName,
+  node,
+  prefix = ['https://', 'http://'],
+  noDataDisplayValue
+}) => {
   // Ensure prefix is a list, allowing a single string instead of a list.
   prefix = R.pipe(R.prepend(prefix), R.flatten)([])
   let href = R.prop(fieldName, node)
-  if (!href) { return <span>{noDataDisplayValue}</span> }
+  if (!href) {
+    return <span>{noDataDisplayValue}</span>
+  }
 
   const displayString = href
 
-  if (!R.any(item => R.startsWith(item, href), prefix)) {
+  if (!R.any((item) => R.startsWith(item, href), prefix)) {
     href = prefix[0] + href
   }
 
-  return <a href={href}>{ displayString }</a>
+  return <a href={href}>{displayString}</a>
 }
 
-const FieldCurrency = ({ schema, modelName, fieldName, node }) => {
+const FieldCurrency = ({ fieldName, node }) => {
   const num = R.prop(fieldName, node)
-  const displayString = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num)
+  const displayString = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(num)
 
-  return (
-    <span>{displayString}</span>
-  )
+  return <span>{displayString}</span>
 }
 
-const FieldEnum = ({ schema, modelName, fieldName, node, noDataDisplayValue }) => {
+const FieldEnum = ({
+  schema,
+  modelName,
+  fieldName,
+  node,
+  noDataDisplayValue
+}) => {
   const value = R.prop(fieldName, node)
   if (value) {
-    return (
-      <span>{ schema.getEnumLabel(modelName, fieldName, value) }</span>
-    )
+    return <span>{schema.getEnumLabel(modelName, fieldName, value)}</span>
   }
   return <span>{noDataDisplayValue}</span>
 }
 
-const FieldImageModal = ({ schema, modelName, fieldName, id, node, customProps }) => {
+const FieldImageModal = ({
+  schema,
+  modelName,
+  fieldName,
+  id,
+  node,
+  customProps
+}) => {
   const url = R.prop(fieldName, node)
-  const label = schema.getFieldLabel({ modelName, fieldName, node, customProps })
+  const label = schema.getFieldLabel({
+    modelName,
+    fieldName,
+    node,
+    customProps
+  })
   const modalId = `img-modal-${modelName}-${fieldName}-${id}`
 
   return <ImageLinkModal {...{ id: modalId, title: label, url }} />
 }
 
-export const FieldToOne = ({ schema, modelName, fieldName, node, tooltipData, noDataDisplayValue, customProps }) => {
+export const FieldToOne = ({
+  schema,
+  modelName,
+  fieldName,
+  node,
+  tooltipData,
+  noDataDisplayValue,
+  customProps
+}) => {
   const relSchemaEntry = getRelSchemaEntry({ schema, modelName, fieldName })
 
   const relModelName = R.prop('modelName', relSchemaEntry)
 
-  const displayString = schema.getDisplayValue({ modelName: relModelName, node, customProps })
+  const displayString = schema.getDisplayValue({
+    modelName: relModelName,
+    node,
+    customProps
+  })
   const relId = R.prop('id', node)
 
-  if (!displayString) { return <span>{noDataDisplayValue}</span> }
+  if (!displayString) {
+    return <span>{noDataDisplayValue}</span>
+  }
 
-  const displayTooltip = (schema.getTooltipFields({ modelName: relModelName, customProps }).length !== 0)
+  const displayTooltip =
+    schema.getTooltipFields({ modelName: relModelName, customProps }).length !==
+    0
   if (displayTooltip) {
     return (
       <Tooltip
@@ -94,25 +134,38 @@ export const FieldToOne = ({ schema, modelName, fieldName, node, tooltipData, no
           data: R.pathOr([], [relModelName, relId], tooltipData)
         }}
       >
-        <DetailLink {...{
-          modelName: relModelName,
-          id: relId
-        }}>
+        <DetailLink
+          {...{
+            modelName: relModelName,
+            id: relId
+          }}
+        >
           {displayString}
         </DetailLink>
       </Tooltip>
     )
   } else {
     return (
-      <DetailLink {...{
-        modelName: relModelName,
-        id: relId }}>
+      <DetailLink
+        {...{
+          modelName: relModelName,
+          id: relId
+        }}
+      >
         {displayString}
-      </DetailLink>)
+      </DetailLink>
+    )
   }
 }
 
-export const FieldToMany = ({ schema, modelName, fieldName, tooltipData, node, noDataDisplayValue }) => {
+export const FieldToMany = ({
+  schema,
+  modelName,
+  fieldName,
+  tooltipData,
+  node,
+  noDataDisplayValue
+}) => {
   const multiRelField = R.prop(fieldName, node)
 
   const relListWithLink = (field, idx, obj) => (
@@ -121,18 +174,28 @@ export const FieldToMany = ({ schema, modelName, fieldName, tooltipData, node, n
         key={`field-m2o-${field.id}`}
         {...{ schema, modelName, fieldName, tooltipData, node: field }}
       />
-      { (idx !== (obj.length - 1)) && <span>{', '}</span>}
+      {idx !== obj.length - 1 && <span>{', '}</span>}
     </React.Fragment>
   )
 
   return (
-    <span>{ (multiRelField && multiRelField.length > 0)
-      ? multiRelField.map(relListWithLink) : noDataDisplayValue}
+    <span>
+      {multiRelField && multiRelField.length > 0
+        ? multiRelField.map(relListWithLink)
+        : noDataDisplayValue}
     </span>
   )
 }
 
-export const Field = ({ schema, modelName, fieldName, tooltipData, node, id, customProps }) => {
+export const Field = ({
+  schema,
+  modelName,
+  fieldName,
+  tooltipData,
+  node,
+  id,
+  customProps
+}) => {
   const props = {
     schema,
     modelName,
@@ -144,7 +207,12 @@ export const Field = ({ schema, modelName, fieldName, tooltipData, node, id, cus
   }
 
   const type = schema.getType(modelName, fieldName)
-  const noDataDisplayValue = schema.getNoDataDisplayValue({ modelName, fieldName, node, customProps })
+  const noDataDisplayValue = schema.getNoDataDisplayValue({
+    modelName,
+    fieldName,
+    node,
+    customProps
+  })
 
   switch (type) {
     case consts.inputTypes.STRING_TYPE:
@@ -164,21 +232,27 @@ export const Field = ({ schema, modelName, fieldName, tooltipData, node, id, cus
     case consts.inputTypes.PHONE_TYPE:
       return <FieldLink {...{ prefix: 'tel:', noDataDisplayValue, ...props }} />
     case consts.inputTypes.EMAIL_TYPE:
-      return <FieldLink {...{ prefix: 'mailto:', noDataDisplayValue, ...props }} />
+      return (
+        <FieldLink {...{ prefix: 'mailto:', noDataDisplayValue, ...props }} />
+      )
     case consts.inputTypes.BOOLEAN_TYPE:
       return <FieldBoolean {...props} />
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />
     case consts.inputTypes.MANY_TO_ONE_TYPE:
-      return <FieldToOne {...{
-        ...props,
-        node: R.prop(fieldName, node),
-        schema,
-        modelName,
-        fieldName,
-        tooltipData,
-        noDataDisplayValue
-      }} />
+      return (
+        <FieldToOne
+          {...{
+            ...props,
+            node: R.prop(fieldName, node),
+            schema,
+            modelName,
+            fieldName,
+            tooltipData,
+            noDataDisplayValue
+          }}
+        />
+      )
     case consts.inputTypes.MANY_TO_MANY_TYPE:
     case consts.inputTypes.ONE_TO_MANY_TYPE:
       return <FieldToMany {...{ noDataDisplayValue, ...props }} />

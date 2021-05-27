@@ -1,22 +1,46 @@
 import React from 'react'
 import Select, { createFilter } from 'react-select'
-import CreatableSelect from "react-select/creatable"
+import CreatableSelect from 'react-select/creatable'
 import DatePicker from 'react-datepicker'
 import CurrencyInput from 'react-currency-input'
 import Switch from 'rc-switch'
 import * as R from 'ramda'
 import { inputTypes } from '../consts'
 import { optimizeSelect } from '../utils/optimizeSelect'
-import { convertLocalToUTCDate, convertUTCToLocalDate } from '../utils/timezoneHelpers'
+import {
+  convertLocalToUTCDate,
+  convertUTCToLocalDate
+} from '../utils/timezoneHelpers'
 import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
 
-const errorBuilder = ({ error, id }) => error.map(r => <div key={`${r}-${id}-error`}>{r}<br /></div>)
+const errorBuilder = ({ error, id }) =>
+  error.map((r) => (
+    <div key={`${r}-${id}-error`}>
+      {r}
+      <br />
+    </div>
+  ))
 
-export const FormGroup = ({ labelStr, htmlFor, error, children, className, required, customError = null, customLabel = null, LabelInfoComponent, showPopover }) => {
+export const FormGroup = ({
+  labelStr,
+  htmlFor,
+  error,
+  children,
+  className,
+  required,
+  customError = null,
+  customLabel = null,
+  LabelInfoComponent,
+  showPopover
+}) => {
   let errorComp
   if (!customError && error) {
-    errorComp = <div className='invalid-feedback'>{errorBuilder({ error, id: htmlFor })}</div>
+    errorComp = (
+      <div className="invalid-feedback">
+        {errorBuilder({ error, id: htmlFor })}
+      </div>
+    )
   } else if (customError && error) {
     errorComp = customError({ error, id: htmlFor })
   }
@@ -24,25 +48,30 @@ export const FormGroup = ({ labelStr, htmlFor, error, children, className, requi
   let labelComp
   let customLabelContent
   let labelStrContent
-  if (customLabel){ 
+  if (customLabel) {
     customLabelContent = customLabel({ labelStr, required })
     labelComp = customLabelContent
-  }
-  else if (labelStr) {
-    labelStrContent = <label htmlFor={htmlFor}>{`${labelStr} ${required ? ' *' : ''}`}</label>
+  } else if (labelStr) {
+    labelStrContent = (
+      <label htmlFor={htmlFor}>{`${labelStr} ${required ? ' *' : ''}`}</label>
+    )
     labelComp = labelStrContent
   }
   if (LabelInfoComponent && showPopover) {
-    const popoverContent = {'Content': <PopoverContent><LabelInfoComponent /></PopoverContent>}
-    if (customLabel)
-      popoverContent['labelValue'] = customLabelContent
-    else if (labelStr) 
-      popoverContent['labelValue'] = labelStrContent
-    labelComp = <Popover {...popoverContent}/>
+    const popoverContent = {
+      Content: (
+        <PopoverContent>
+          <LabelInfoComponent />
+        </PopoverContent>
+      )
+    }
+    if (customLabel) popoverContent['labelValue'] = customLabelContent
+    else if (labelStr) popoverContent['labelValue'] = labelStrContent
+    labelComp = <Popover {...popoverContent} />
   }
 
   return (
-    <div className={'form-group zero-space '+className}>
+    <div className={'form-group zero-space ' + className}>
       {labelComp}
       {children}
       {errorComp}
@@ -57,8 +86,9 @@ export const FormGroup = ({ labelStr, htmlFor, error, children, className, requi
  * @property: { list } error - list of strings containing error messages
  */
 
-const CustomErrorComponent = ({ error, id }) =>
-  <div className='conv-error-component'>{errorBuilder({ error, id })}</div>
+const CustomErrorComponent = ({ error, id }) => (
+  <div className="conv-error-component">{errorBuilder({ error, id })}</div>
+)
 
 /**
  * Singular component for Date Type.
@@ -85,7 +115,21 @@ const CustomErrorComponent = ({ error, id }) =>
  */
 
 // TODO: get classname for invalid from new react-datepicker
-export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, isClearable, required, customInput, customError, customLabel, LabelInfoComponent, showPopover }) => {
+export const InputDate = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  dateFormat,
+  isClearable,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => {
   let date
   if (value) {
     date = new Date(value)
@@ -95,26 +139,34 @@ export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, is
   }
 
   return (
-    <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-date'
+    <FormGroup
+      labelStr={labelStr}
+      htmlFor={id}
+      error={error}
+      required={required}
+      className="conv-input-component conv-input-type-date"
       customError={R.defaultTo(CustomErrorComponent, customError)}
       customLabel={customLabel}
       LabelInfoComponent={LabelInfoComponent}
-      showPopover={showPopover}>
-      <div className='date-picker-container'>
+      showPopover={showPopover}
+    >
+      <div className="date-picker-container">
         <DatePicker
-          placeholderText='Click to select a date'
+          placeholderText="Click to select a date"
           fixedHeight={true}
           dateFormat={dateFormat}
           selected={date} // yyyy/MM/dd required for Date()
-          onChange={evt => {
+          onChange={(evt) => {
             if (evt === undefined || evt === null) {
-              return (onChange(null))
+              return onChange(null)
             }
             return onChange(
-              `${evt.getFullYear()}-${(evt.getUTCMonth() + 1)}-${evt.getUTCDate()}`
+              `${evt.getFullYear()}-${
+                evt.getUTCMonth() + 1
+              }-${evt.getUTCDate()}`
             )
           }}
-          className='form-control'
+          className="form-control"
           isClearable={isClearable}
           {...customInput}
         />
@@ -150,48 +202,64 @@ export const InputDate = ({ onChange, id, labelStr, error, value, dateFormat, is
  */
 
 // TODO: get classname for invalid from new react-datepicker
-export const InputDateTime = ({ onChange, id, labelStr, error, value, dateFormat, timeFormat, isClearable, useUTC, required, customInput, customError, customLabel, LabelInfoComponent, showPopover }) => {
+export const InputDateTime = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  dateFormat,
+  timeFormat,
+  isClearable,
+  useUTC,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => {
   if (!value) {
     value = ''
   }
 
   return (
-      <FormGroup
-          labelStr={labelStr}
-          htmlFor={id}
-          error={error}
-          required={required}
-          className='conv-input-component conv-input-type-datetime'
-          customError={R.defaultTo(CustomErrorComponent, customError)}
-          customLabel={customLabel}
-          LabelInfoComponent={LabelInfoComponent}
-          showPopover={showPopover}
-      >
-          <div className='date-picker-container'>
-              <DatePicker
-                  placeholderText="Click to select a date"
-                  fixedHeight={true}
-                  dateFormat={dateFormat}
-                  selected={useUTC ? convertUTCToLocalDate(value) : new Date(value)}
-                  onChange={(date) => {
-                    if (date === undefined || date === null) {
-                      return (onChange(null))
-                    }
-                    return onChange(
-                        useUTC
-                            ? convertLocalToUTCDate(date).toISOString()
-                            : moment(date.toString()).toISOString(true)
-                    )
-                  }}
-                  className="form-control"
-                  isClearable={isClearable}
-                  showTimeSelect
-                  timeIntervals={15}
-                  timeFormat={timeFormat}
-                  {...customInput}
-              />
-          </div>
-      </FormGroup>
+    <FormGroup
+      labelStr={labelStr}
+      htmlFor={id}
+      error={error}
+      required={required}
+      className="conv-input-component conv-input-type-datetime"
+      customError={R.defaultTo(CustomErrorComponent, customError)}
+      customLabel={customLabel}
+      LabelInfoComponent={LabelInfoComponent}
+      showPopover={showPopover}
+    >
+      <div className="date-picker-container">
+        <DatePicker
+          placeholderText="Click to select a date"
+          fixedHeight={true}
+          dateFormat={dateFormat}
+          selected={useUTC ? convertUTCToLocalDate(value) : new Date(value)}
+          onChange={(date) => {
+            if (date === undefined || date === null) {
+              return onChange(null)
+            }
+            return onChange(
+              useUTC
+                ? convertLocalToUTCDate(date).toISOString()
+                : moment(date.toString()).toISOString(true)
+            )
+          }}
+          className="form-control"
+          isClearable={isClearable}
+          showTimeSelect
+          timeIntervals={15}
+          timeFormat={timeFormat}
+          {...customInput}
+        />
+      </div>
+    </FormGroup>
   )
 }
 
@@ -271,16 +339,39 @@ const inputStringTypeMap = {
  * @property { boolean } spellCheck
  */
 
-export const InputString = ({ type, onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, spellCheck, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-string'
+export const InputString = ({
+  type,
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  className,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  autoFocus,
+  onKeyDown,
+  spellCheck,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-string"
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
+    showPopover={showPopover}
+  >
     <input
       autoFocus={autoFocus}
       type={inputStringTypeMap[type]}
-      onChange={evt => onChange(evt.target.value)}
+      onChange={(evt) => onChange(evt.target.value)}
       className={`${className}${error ? ' is-invalid' : ''}`}
       id={id}
       value={value}
@@ -308,16 +399,37 @@ export const InputString = ({ type, onChange, id, labelStr, error, value, classN
  * @property { boolean } autoFocus; update isAutoFocusInput() when changing
  */
 
-export const InputPassword = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-password'
+export const InputPassword = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  className,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  autoFocus,
+  onKeyDown,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-password"
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
+    showPopover={showPopover}
+  >
     <input
       autoFocus={autoFocus}
-      type='password'
-      onChange={evt => onChange(evt.target.value)}
+      type="password"
+      onChange={(evt) => onChange(evt.target.value)}
       className={`${className}${error ? ' is-invalid' : ''}`}
       id={id}
       value={value}
@@ -347,29 +459,48 @@ export const InputPassword = ({ onChange, id, labelStr, error, value, className,
 
 const MAX_SQL_INT_SIZE = Math.pow(2, 31) - 1
 
-const MIN_SQL_INT_SIZE = - Math.pow(2, 31)
+const MIN_SQL_INT_SIZE = -Math.pow(2, 31)
 
-export const InputInt = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent, showPopover }) => {
+export const InputInt = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  className,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  autoFocus,
+  onKeyDown,
+  LabelInfoComponent,
+  showPopover
+}) => {
   if (value > MAX_SQL_INT_SIZE || value < MIN_SQL_INT_SIZE) {
     error = R.append('Number too large.', error)
   }
   return (
-    <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-int'
+    <FormGroup
+      labelStr={labelStr}
+      htmlFor={id}
+      error={error}
+      required={required}
+      className="conv-input-component conv-input-type-int"
       customError={R.defaultTo(null, customError)}
       customLabel={customLabel}
       LabelInfoComponent={LabelInfoComponent}
-      showPopover={showPopover}>
+      showPopover={showPopover}
+    >
       <input
         autoFocus={autoFocus}
-        type='number'
+        type="number"
         step={1}
-        onChange={evt => {
+        onChange={(evt) => {
           if (evt.target.value === '') {
             return onChange(null)
           }
-          return (
-            onChange(Number(evt.target.value))
-          )
+          return onChange(Number(evt.target.value))
         }}
         className={`${className}${error ? ' is-invalid' : ''}`}
         id={id}
@@ -381,15 +512,36 @@ export const InputInt = ({ onChange, id, labelStr, error, value, className, requ
   )
 }
 
-export const InputCurrency = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, onKeyDown, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-currency'
+export const InputCurrency = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  className,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  autoFocus,
+  onKeyDown,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-currency"
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
-    <div className='input-group'>
-      <div className='input-group-prepend'>
-        <span className='input-group-text'>$</span>
+    showPopover={showPopover}
+  >
+    <div className="input-group">
+      <div className="input-group-prepend">
+        <span className="input-group-text">$</span>
       </div>
       <CurrencyInput
         autoFocus={autoFocus}
@@ -397,11 +549,11 @@ export const InputCurrency = ({ onChange, id, labelStr, error, value, className,
         placeholder={'0.00'}
         value={value}
         onKeyDown={onKeyDown}
-        onChange={evt => {
+        onChange={(evt) => {
           if (evt === '' || evt === undefined || evt === null) {
-            return (onChange(null))
+            return onChange(null)
           }
-          return onChange((evt).replace(/,/g, ''))
+          return onChange(evt.replace(/,/g, ''))
         }}
         {...customInput}
       />
@@ -429,17 +581,38 @@ export const InputCurrency = ({ onChange, id, labelStr, error, value, className,
  * @property { boolean } spellCheck
  */
 
-export const InputTextArea = ({ onChange, id, labelStr, error, value, className, required, customInput, customError, customLabel, autoFocus, spellCheck, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-textarea'
+export const InputTextArea = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  className,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  autoFocus,
+  spellCheck,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-textarea"
     customError={R.defaultTo(null, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
+    showPopover={showPopover}
+  >
     <textarea
       autoFocus={autoFocus}
       className={`${className}${error ? ' is-invalid' : ''}`}
       value={value}
-      onChange={evt => onChange(evt.target.value)}
+      onChange={(evt) => onChange(evt.target.value)}
       id={id}
       spellCheck={spellCheck}
       {...customInput}
@@ -465,24 +638,50 @@ export const InputTextArea = ({ onChange, id, labelStr, error, value, className,
  * @property { function } customLabel
  */
 
-export const InputRadio = ({ onChange, id, labelStr, error, value, className, options, inline, required, customInput, customError, customLabel, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-radio'
+export const InputRadio = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  className,
+  options,
+  inline,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-radio"
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
+    showPopover={showPopover}
+  >
     {options.map((option, idx) => (
-      <div key={`radio-${idx}-${id}`} className={`${className} ${inline ? ' form-check-inline' : ''}`}>
+      <div
+        key={`radio-${idx}-${id}`}
+        className={`${className} ${inline ? ' form-check-inline' : ''}`}
+      >
         <input
-          className='form-check-input'
-          type='radio'
+          className="form-check-input"
+          type="radio"
           id={option.value}
           value={option.value}
           checked={option.value === value}
-          onChange={evt => onChange(evt.target.value)}
+          onChange={(evt) => onChange(evt.target.value)}
           {...customInput}
         />
-        <label className='form-check-label' htmlFor={option.value}>{option.label}</label>
+        <label className="form-check-label" htmlFor={option.value}>
+          {option.label}
+        </label>
       </div>
     ))}
   </FormGroup>
@@ -502,15 +701,33 @@ export const InputRadio = ({ onChange, id, labelStr, error, value, className, op
  * @property { function } customLabel
  */
 
-export const InputFile = ({ onChange, error, id, labelStr, className, required, customInput, customError, customLabel, LabelInfoComponent, showPopover }) => {
+export const InputFile = ({
+  onChange,
+  error,
+  id,
+  labelStr,
+  className,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => {
   return (
-    <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-file'
+    <FormGroup
+      labelStr={labelStr}
+      htmlFor={id}
+      error={error}
+      required={required}
+      className="conv-input-component conv-input-type-file"
       customError={R.defaultTo(null, customError)}
       customLabel={customLabel}
       LabelInfoComponent={LabelInfoComponent}
-      showPopover={showPopover}>
+      showPopover={showPopover}
+    >
       <input
-        type='file'
+        type="file"
         onChange={onChange}
         className={`${className}${error ? ' is-invalid' : ''}`}
         id={id}
@@ -538,16 +755,40 @@ export const InputFile = ({ onChange, error, id, labelStr, className, required, 
  * @property { function } customLabel
  */
 
-export const InputSwitch = ({ onChange, value, inline, id, className, labelStr, error, required, customInput, customError, customLabel, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-switch'
+export const InputSwitch = ({
+  onChange,
+  value,
+  inline,
+  id,
+  className,
+  labelStr,
+  error,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-switch"
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
-    <div key={`checkbox-${id}`} className={`${className} ${inline ? ' form-check-inline' : ''}`}>
-      &nbsp;<Switch
-        onChange={evt => {
-          const val = (typeof (evt) === typeof (false)) ? evt : false
+    showPopover={showPopover}
+  >
+    <div
+      key={`checkbox-${id}`}
+      className={`${className} ${inline ? ' form-check-inline' : ''}`}
+    >
+      &nbsp;
+      <Switch
+        onChange={(evt) => {
+          const val = typeof evt === typeof false ? evt : false
           return onChange(val)
         }}
         checked={value}
@@ -574,23 +815,40 @@ export const InputSwitch = ({ onChange, value, inline, id, className, labelStr, 
  * @property { function } customError
  */
 
-export const InputCheckbox = ({ onChange, value, id, className, labelStr, error, required, customInput, customError }) => {
+export const InputCheckbox = ({
+  onChange,
+  value,
+  id,
+  className,
+  labelStr,
+  error,
+  required,
+  customInput,
+  customError
+}) => {
   customError = R.defaultTo(CustomErrorComponent, customError)
   return (
-    <div key={`checkbox-${id}`} className={'conv-input-component conv-input-type-checkbox '+className}>
-      <label className='form-check-label'>
+    <div
+      key={`checkbox-${id}`}
+      className={'conv-input-component conv-input-type-checkbox ' + className}
+    >
+      <label className="form-check-label">
         <input
-          className='form-check-input'
-          type='checkbox'
+          className="form-check-input"
+          type="checkbox"
           id={id}
           value={value}
           checked={value}
-          onChange={evt => {
-            const val = (typeof (evt.target.checked) === typeof (false)) ? evt.target.checked : false
+          onChange={(evt) => {
+            const val =
+              typeof evt.target.checked === typeof false
+                ? evt.target.checked
+                : false
             return onChange(val)
           }}
           {...customInput}
-        />{`${labelStr} ${required ? ' *' : ''}`}
+        />
+        {`${labelStr} ${required ? ' *' : ''}`}
       </label>
       {error && customError({ error, id })}
     </div>
@@ -603,7 +861,7 @@ export const InputCheckbox = ({ onChange, value, id, className, labelStr, error,
  * See React Select docs for more details on: isClearable, isMulti, options, noOptionsMessage,
  * onMenuOpen
  *
-* should NOT have onKeyDown because the 'enter' key should be reserved for Select operations
+ * should NOT have onKeyDown because the 'enter' key should be reserved for Select operations
  *
  * @property { function } onChange
  * @property { string } id
@@ -622,15 +880,39 @@ export const InputCheckbox = ({ onChange, value, id, className, labelStr, error,
  * @property { function } customLabel
  */
 
-export const InputSelect = ({ labelStr, id, error, className, isClearable, isMulti, value, options, onChange, noOptionsMessage, onMenuOpen, required, customInput, customError, customLabel, LabelInfoComponent, showPopover }) => (
-  <FormGroup labelStr={labelStr} htmlFor={id} error={error} required={required} className='conv-input-component conv-input-type-select'
+export const InputSelect = ({
+  labelStr,
+  id,
+  error,
+  className,
+  isClearable,
+  isMulti,
+  value,
+  options,
+  onChange,
+  noOptionsMessage,
+  onMenuOpen,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => (
+  <FormGroup
+    labelStr={labelStr}
+    htmlFor={id}
+    error={error}
+    required={required}
+    className="conv-input-component conv-input-type-select"
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
-    showPopover={showPopover}>
+    showPopover={showPopover}
+  >
     <Select
       className={className}
-      classNamePrefix='select'
+      classNamePrefix="select"
       isClearable={required ? false : isClearable}
       isMulti={isMulti}
       value={value}
@@ -653,7 +935,7 @@ export const InputSelect = ({ labelStr, id, error, className, isClearable, isMul
  * See React Select docs for more details on: isClearable, isMulti, options, noOptionsMessage,
  * onMenuOpen
  *
-* should NOT have onKeyDown because the 'enter' key should be reserved for Select operations
+ * should NOT have onKeyDown because the 'enter' key should be reserved for Select operations
  *
  * @property { function } onChange
  * @property { string } id
@@ -690,7 +972,7 @@ export const InputCreatableStringSelect = ({
       htmlFor={id}
       error={error}
       required={required}
-      className='conv-input-component conv-input-type-creatable-string-select'
+      className="conv-input-component conv-input-type-creatable-string-select"
       customError={R.defaultTo(CustomErrorComponent, customError)}
       customLabel={customLabel}
       LabelInfoComponent={LabelInfoComponent}
@@ -698,7 +980,7 @@ export const InputCreatableStringSelect = ({
     >
       <CreatableSelect
         className={className}
-        classNamePrefix='select'
+        classNamePrefix="select"
         id={id}
         options={options}
         onChange={(selectedOption) => onChange(selectedOption.value)}

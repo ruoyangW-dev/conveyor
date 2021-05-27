@@ -8,19 +8,19 @@ export const RelTooltipContent = ({ data }) => {
     return <span>...loading</span>
   }
   return (
-    <table className='table table-sm table-bordered table-striped tooltip-table conv-rel-tooltip-content'>
+    <table className="tooltip-table">
       <tbody>
         {data.map(({ name, value }) => (
           <tr key={`tooltip-${name}`}>
-            <td>{ name }</td>
+            <td>{name}</td>
             <td>
-
               {value.map((oneValue, idx) => (
                 <span key={`${name}-${idx}`}>
-                  {oneValue.url
-                    ? <Link to={oneValue.url}>{oneValue.text}</Link>
-                    : oneValue.text
-                  }
+                  {oneValue.url ? (
+                    <Link to={oneValue.url}>{oneValue.text}</Link>
+                  ) : (
+                    oneValue.text
+                  )}
                   {value.length - 1 > idx && ', '}
                 </span>
               ))}
@@ -36,24 +36,26 @@ export const RelTooltipContent = ({ data }) => {
 const RelTooltip = ({ schema, modelName, id, data, children }) => {
   const actions = schema.getActions(modelName)
   const tooltipOpened = R.path(['tooltip', 'onTooltipOpen'], actions)
-  return <Tooltip
-    useContext
-    interactive
-    html={<RelTooltipContent data={data} />}
-    delay={0}
-    theme='light'
-    className='conv-rel-tooltip'
-    onShow={() => tooltipOpened({ modelName: modelName, id })}
-    popperOptions={{
-      modifiers: {
-        preventOverflow: {
-          boundariesElement: 'viewport'
+  return (
+    <Tooltip
+      useContext
+      interactive
+      html={<RelTooltipContent data={data} />}
+      delay={0}
+      theme="light"
+      className="conv-rel-tooltip"
+      onShow={() => tooltipOpened({ modelName: modelName, id })}
+      popperOptions={{
+        modifiers: {
+          preventOverflow: {
+            boundariesElement: 'viewport'
+          }
         }
-      }
-    }}
-  >
-    {children}
-  </Tooltip>
+      }}
+    >
+      {children}
+    </Tooltip>
+  )
 }
 
 export default RelTooltip

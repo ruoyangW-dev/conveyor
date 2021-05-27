@@ -6,7 +6,7 @@ import { inputTypes } from './consts'
 /* returns empty span tag if we're at the end of the string */
 const Highlight = ({ searchText, rowLen, idx }) => {
   if (rowLen !== idx + 1) {
-    return <span className='conv-highlight'>{searchText}</span>
+    return <span className="conv-highlight">{searchText}</span>
   }
   return <span />
 }
@@ -54,8 +54,8 @@ export const Search = ({
   const showResults = queryText && entries.length > 0
   return (
     <div
-      className="mr-3 dropdown form-inline conv-search"
-      onKeyPress={evt => {
+      className="conv-search"
+      onKeyPress={(evt) => {
         if (evt.key === 'Enter') {
           onTriggerSearch({ queryText })
         }
@@ -64,8 +64,8 @@ export const Search = ({
       <FlexibleInput
         type={inputTypes.STRING_TYPE}
         id="searchbox"
-        className="form-control border-secondary dropdown-toggle"
-        onChange={evt => {
+        className="conv-search-box"
+        onChange={(evt) => {
           const triggeredActions = [onTextChange({ queryText: evt })]
           if (searchOnChange === true) {
             triggeredActions.push(onTriggerSearch())
@@ -81,28 +81,23 @@ export const Search = ({
         }}
       />
       {showResults && searchDropdown && (
-        <div
-          className={`dropdown-menu dropdown-menu-right conv-search-dropdown ${entries.length > 0 &&
-            'show'}`}
-        >
-          {
-          entries.map((entry, index) => (
+        <div className={`conv-search-dropdown ${entries.length > 0 && 'show'}`}>
+          {entries.map((entry) => (
             <Link
               key={entry.name}
               onClick={() => onLinkClick()}
-              className="dropdown-item conv-dropdown-item"
+              className="conv-dropdown-item"
               to={entry.detailURL}
             >
               <HighlightString
                 searchText={queryText}
                 textToHighlight={entry.name}
               />
-              <div className='conv-search-dropdown-model-label'>
+              <div className="conv-search-dropdown-model-label">
                 {entry.modelLabel}
               </div>
             </Link>
-          ))
-          }
+          ))}
         </div>
       )}
     </div>
