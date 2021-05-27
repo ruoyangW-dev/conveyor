@@ -24,6 +24,14 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
   return <span className="text-area-display">{displayString}</span>
 }
 
+const FieldColor = ({ fieldName, node }) => {
+  const value = R.prop(fieldName, node)
+  const displayString =
+    validColor(value) ? value : '#000000'
+
+  return <span style={{backgroundColor: value}}>{value}</span>
+}
+
 const FieldBoolean = ({ fieldName, node }) => {
   const displayBool = R.propOr(false, fieldName, node) // need propOr(false...
   return <Switch checked={displayBool} />
@@ -239,6 +247,8 @@ export const Field = ({
       return <FieldBoolean {...props} />
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />
+    case consts.inputTypes.COLOR_TYPE:
+      return <FieldColor {...props } />
     case consts.inputTypes.MANY_TO_ONE_TYPE:
       return (
         <FieldToOne

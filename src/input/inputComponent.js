@@ -11,6 +11,7 @@ import {
   convertLocalToUTCDate,
   convertUTCToLocalDate
 } from '../utils/timezoneHelpers'
+import { validColorCheck } from '../utils/colorHelper'
 import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
 
@@ -281,7 +282,18 @@ export const InputDateTime = ({
  */
 
 // TODO: get classname for invalid from new react-datepicker
-export const InputColor = ({ onChange, id, labelStr, error, value, required, customError, customLabel, LabelInfoComponent, showPopover }) => {
+export const InputColor = ({
+    onChange,
+    id,
+    labelStr,
+    error,
+    value,
+    required,
+    customError,
+    customLabel,
+    LabelInfoComponent,
+    showPopover
+}) => {
   if (!value) {
     value = ''
   }
@@ -305,7 +317,7 @@ export const InputColor = ({ onChange, id, labelStr, error, value, required, cus
                   fixedHeight={true}
                   onChange={evt => onChange(evt.target.value)}
                   className="form-control"
-                  value={value !== null ? value : "#000000"}
+                  value={validColorCheck(value) ? value : "#000000"}
                   {...customInput}
               />
           </div>
