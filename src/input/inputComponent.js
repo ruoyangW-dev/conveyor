@@ -276,6 +276,7 @@ export const InputDateTime = ({
  * @property { string } [error]
  * @property { any } value - FlexibleInput component sets default to: null
  * @property { string } className - FlexibleInput component sets default to: 'form-control'
+ * @property { object } [customInput]
  * @property { boolean } required
  * @property { function } customError
  * @property { function } customLabel
@@ -289,6 +290,7 @@ export const InputColor = ({
     error,
     value,
     required,
+    customInput,
     customError,
     customLabel,
     LabelInfoComponent,
@@ -314,7 +316,6 @@ export const InputColor = ({
           <div className='date-picker-container'>
               <input
                   type="color"
-                  fixedHeight={true}
                   onChange={evt => onChange(evt.target.value)}
                   className="form-control"
                   value={validColorCheck(value) ? value : "#000000"}

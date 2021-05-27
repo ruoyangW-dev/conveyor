@@ -15,7 +15,7 @@
     "docs:watch": "npx typedoc --watch --out docs src/main.js"
   },
   "dependencies": {
-    "@autoinvent/conveyor-schema": "^0.3.1",
+    "@autoinvent/conveyor-schema": "file:.yalc/@autoinvent/conveyor-schema",
     "moment": "^2.29.1",
     "print-js": "^1.0.63",
     "ramda": "^0.26.1",
