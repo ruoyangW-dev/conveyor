@@ -261,31 +261,6 @@ export const DefaultDetailAttribute = ({
               {...{
                 id,
                 fieldName,
-                node,
-                id,
-                tooltipData,
-                customProps
-              }}
-            />
-          )}
-          {editable && (
-            <InlineEditButton
-              {...{
-                onEditClick: () =>
-                  onEdit({
-                    modelName,
-                    fieldName,
-                    id,
-                    value: R.prop(fieldName, node)
-                  })
-              }}
-            />
-          )}
-          {editable && isFileType && hasValue && (
-            <FileDelete
-              {...{
-                id,
-                fieldName,
                 onFileDelete: () => onFileDelete({ modelName, fieldName, id })
               }}
             />
