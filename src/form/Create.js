@@ -275,7 +275,14 @@ const Create = ({
 
   return (
     <CreateComponent
-      {...{ schema, modelName, formStack, selectOptions, failedValidation, customProps }}
+      {...{
+        schema,
+        modelName,
+        formStack,
+        selectOptions,
+        failedValidation,
+        customProps
+      }}
     />
   )
 }

@@ -155,7 +155,7 @@ export const DefaultDetailAttribute = ({
                 editData: fieldEditData,
                 error,
                 selectOptions,
-                failedValidation,
+                failedValidation
               }}
             />
           </div>

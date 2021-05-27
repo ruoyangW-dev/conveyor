@@ -155,7 +155,7 @@ export const InputCore = ({
 
   const fieldHelp = schema.getFieldHelpText(modelName, fieldName)
   let failed = ''
-  if(failedValidation && failedValidation(modelName, fieldName)) {
+  if (failedValidation && failedValidation(modelName, fieldName)) {
     failed = ' conv-failed-validation'
   }
 
