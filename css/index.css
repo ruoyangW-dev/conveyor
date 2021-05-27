@@ -3,6 +3,10 @@
 * to regenerate run: sass styles.scss > index.css
 */
 @charset "UTF-8";
+/**
+* TOP LEVEL FILE
+* Rebuild index.css by running: sass styles.scss > index.css
+*/
 body {
   margin: 0;
   padding: 0;
@@ -38,6 +42,10 @@ body {
 
 .select-option-wrapper:hover {
   background-color: #DEEBFF;
+}
+
+.conv-failed-validation {
+  outline: 2px solid #FF0000;
 }
 
 .edit-icon {

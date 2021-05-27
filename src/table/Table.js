@@ -158,6 +158,7 @@ export const TableRowWithEdit = ({
   editData,
   tooltipData,
   selectOptions,
+  failedValidation,
   parentNode,
   customProps
 }) => {
@@ -183,6 +184,7 @@ export const TableRowWithEdit = ({
           editData: fieldEditData,
           error,
           selectOptions,
+          failedValidation,
           customProps
         }}
       />
@@ -297,6 +299,7 @@ const TDList = ({
   tableEditable,
   deletable,
   selectOptions,
+  failedValidation,
   parentNode,
   node,
   fromIndex,
@@ -328,6 +331,7 @@ const TDList = ({
              editData,
              tooltipData,
              selectOptions,
+             failedValidation,
              parentNode,
              customProps
            }}
@@ -354,6 +358,7 @@ const TRList = ({
   tableEditable,
   deletable,
   selectOptions,
+  failedValidation,
   parentNode,
   fromIndex,
   customProps,
@@ -385,6 +390,7 @@ const TRList = ({
           tableEditable,
           deletable,
           selectOptions,
+          failedValidation,
           parentNode,
           node,
           fromIndex,
@@ -440,6 +446,7 @@ export const TBody = ({
   tableEditable,
   deletable,
   selectOptions,
+  failedValidation,
   parentNode,
   fromIndex,
   customProps,
@@ -467,6 +474,7 @@ export const TBody = ({
           tableEditable,
           deletable,
           selectOptions,
+          failedValidation,
           parentNode,
           fromIndex,
           customProps,
@@ -490,6 +498,7 @@ export const Table = ({
   modalData,
   editData,
   selectOptions,
+  failedValidation,
   parentId,
   parentModelName,
   parentFieldName,
@@ -567,6 +576,7 @@ export const Table = ({
             parentFieldName,
             modalData,
             selectOptions,
+            failedValidation,
             editData,
             deletable,
             tableEditable: editable,

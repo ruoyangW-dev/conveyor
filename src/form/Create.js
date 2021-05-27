@@ -48,6 +48,7 @@ const FieldInputList = ({
   stackIndex,
   form,
   selectOptions,
+  failedValidation,
   customProps,
   onKeyDown,
   onChange,
@@ -92,6 +93,7 @@ const FieldInputList = ({
             value,
             error,
             selectOptions,
+            failedValidation,
             onChange,
             disabled,
             formStack,
@@ -117,6 +119,7 @@ export const DefaultCreatePage = ({
   modelName,
   formStack,
   selectOptions,
+  failedValidation,
   customProps
 }) => {
   const stackIndex = R.prop('index', formStack)
@@ -159,6 +162,7 @@ export const DefaultCreatePage = ({
             stackIndex,
             form,
             selectOptions,
+            failedValidation,
             customProps,
             onKeyDown,
             onChange,
@@ -198,6 +202,7 @@ export const DefaultCreate = ({
   modelName,
   formStack,
   selectOptions,
+  failedValidation,
   customProps
 }) => {
   const CreateTitleOverride = schema.getCreateTitleOverride(modelName)
@@ -230,6 +235,7 @@ export const DefaultCreate = ({
           modelName,
           formStack,
           selectOptions,
+          failedValidation,
           customProps
         }}
       />
@@ -242,6 +248,7 @@ const Create = ({
   modelName,
   formStack,
   selectOptions,
+  failedValidation,
   customProps
 }) => {
   const CreateOverride = schema.getCreateOverride(modelName)
@@ -254,7 +261,7 @@ const Create = ({
 
   return (
     <CreateComponent
-      {...{ schema, modelName, formStack, selectOptions, customProps }}
+      {...{ schema, modelName, formStack, selectOptions, failedValidation, customProps }}
     />
   )
 }
