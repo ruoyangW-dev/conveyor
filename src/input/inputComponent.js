@@ -195,6 +195,56 @@ export const InputDateTime = ({ onChange, id, labelStr, error, value, dateFormat
   )
 }
 
+/**
+ * Singular component for Color Type.
+ *
+ * should NOT have onKeyDown because the 'enter' key should be reserved for DatePicker operations
+
+ * @property { function } onChange - returns evt:
+ *      evt => onChange(evt)
+ * @property { string } id
+ * @property { string } [labelStr]
+ * @property { string } [error]
+ * @property { any } value - FlexibleInput component sets default to: null
+ * @property { string } className - FlexibleInput component sets default to: 'form-control'
+ * @property { boolean } required
+ * @property { function } customError
+ * @property { function } customLabel
+ */
+
+// TODO: get classname for invalid from new react-datepicker
+export const InputColor = ({ onChange, id, labelStr, error, value, required, customError, customLabel, LabelInfoComponent, showPopover }) => {
+  if (!value) {
+    value = ''
+  }
+
+  //TODO: Add styling class for color
+  return (
+      <FormGroup
+          labelStr={labelStr}
+          htmlFor={id}
+          error={error}
+          required={required}
+          className='conv-input-component conv-input-type-datetime'
+          customError={R.defaultTo(CustomErrorComponent, customError)}
+          customLabel={customLabel}
+          LabelInfoComponent={LabelInfoComponent}
+          showPopover={showPopover}
+      >
+          <div className='date-picker-container'>
+              <input
+                  type="color"
+                  fixedHeight={true}
+                  onChange={evt => onChange(evt.target.value)}
+                  className="form-control"
+                  value={value !== null ? value : "#000000"}
+                  {...customInput}
+              />
+          </div>
+      </FormGroup>
+  )
+}
+
 const inputStringTypeMap = {
   [inputTypes.STRING_TYPE]: 'text',
   [inputTypes.EMAIL_TYPE]: 'email',
