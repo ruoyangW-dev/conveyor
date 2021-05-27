@@ -133,15 +133,15 @@ const ModelOverride = {
   tableLinkField: 'name',
   fieldOrder: ['name'],
   components: {
-    createTitle: props => <h1>Custom Create Title</h1>,
-    detailTitle: props => <h1>Custom Detail Title</h1>,
-    indexTitle: props => <h1>Custom Index Title</h1>,
-    createPage: props => <h1>Custom Create Page</h1>,
-    detailPage: props => <h1>Custom Detail Page</h1>,
-    indexPage: props => <h1>Custom Index Page</h1>,
-    create: props => <h1>Custom Create</h1>,
-    detail: props => <h1>Custom Detail</h1>,
-    index: props => <h1>Custom Index</h1>
+    createTitle: (props) => <h1>Custom Create Title</h1>,
+    detailTitle: (props) => <h1>Custom Detail Title</h1>,
+    indexTitle: (props) => <h1>Custom Index Title</h1>,
+    createPage: (props) => <h1>Custom Create Page</h1>,
+    detailPage: (props) => <h1>Custom Detail Page</h1>,
+    indexPage: (props) => <h1>Custom Index Page</h1>,
+    create: (props) => <h1>Custom Create</h1>,
+    detail: (props) => <h1>Custom Detail</h1>,
+    index: (props) => <h1>Custom Index</h1>
   }
 }
 

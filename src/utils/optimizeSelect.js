@@ -3,16 +3,17 @@ import React from 'react'
 import * as R from 'ramda'
 import { FixedSizeList as List } from 'react-window'
 
-const OptimizedMenuList = props => {
+const OptimizedMenuList = (props) => {
   const { options, children, maxHeight, getValue } = props
   if (!children || !Array.isArray(children)) return children
 
   const height = 38
   const listHeight = height * children.length
   const [value] = getValue()
-  const initialOffset = value && maxHeight < listHeight
-    ? options.findIndex(obj => R.equals(obj, value)) * height
-    : 0
+  const initialOffset =
+    value && maxHeight < listHeight
+      ? options.findIndex((obj) => R.equals(obj, value)) * height
+      : 0
 
   return (
     <List
@@ -37,7 +38,7 @@ const OptimizedMenuList = props => {
   )
 }
 
-const OptimizedOption = props => {
+const OptimizedOption = (props) => {
   delete props.innerProps.onMouseMove
   delete props.innerProps.onMouseOver
   return <components.Option {...props}>{props.children}</components.Option>

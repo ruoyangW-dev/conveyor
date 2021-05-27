@@ -4,10 +4,7 @@ import * as R from 'ramda'
 import CreateButton from './CreateButton'
 import { FilterModal, FilterModalButton } from './table/Filter'
 import { Redirect } from 'react-router-dom'
-import {
-  skipOverride,
-  useOverride,
-} from './Utils'
+import { skipOverride, useOverride } from './Utils'
 
 export const DefaultIndexTitle = ({
   schema,
@@ -16,7 +13,7 @@ export const DefaultIndexTitle = ({
   path,
   data,
   tableView,
-  customProps,
+  customProps
 }) => {
   const actions = schema.getActions(modelName)
   const onCreateClick = R.path(['create', 'onIndexCreate'], actions)
@@ -25,24 +22,35 @@ export const DefaultIndexTitle = ({
   const filterable = schema.isTableFilterable({ modelName, data, customProps })
   const currentFilters = R.path([modelName, 'filter', 'filterValue'], tableView)
   const filterOrder = R.path([modelName, 'filter', 'filterOrder'], tableView)
-  const filtersAreActive = R.path([modelName, 'filter', 'filtersAreActive'], tableView)
+  const filtersAreActive = R.path(
+    [modelName, 'filter', 'filtersAreActive'],
+    tableView
+  )
 
   return (
-    <div className={'conv-default-index-title conv-default-index-title-' + modelName}>
-      <h3>
-        {schema.getModelLabelPlural({ modelName, data, customProps })}
-      </h3>
-      {filterable && <FilterModal {...{
-        schema,
-        modelName,
-        selectOptions,
-        data,
-        filterOrder,
-        filterInputs: currentFilters,
-        customProps
-      }} />}
-      <div className='float-right'>
-        {filterable && <FilterModalButton {...{ modelName, filtersAreActive }} />}
+    <div
+      className={
+        'conv-default-index-title conv-default-index-title-' + modelName
+      }
+    >
+      <h3>{schema.getModelLabelPlural({ modelName, data, customProps })}</h3>
+      {filterable && (
+        <FilterModal
+          {...{
+            schema,
+            modelName,
+            selectOptions,
+            data,
+            filterOrder,
+            filterInputs: currentFilters,
+            customProps
+          }}
+        />
+      )}
+      <div className="float-right">
+        {filterable && (
+          <FilterModalButton {...{ modelName, filtersAreActive }} />
+        )}
         {creatable && <CreateButton {...{ onClick }} />}
       </div>
     </div>
@@ -50,7 +58,7 @@ export const DefaultIndexTitle = ({
 }
 
 const PageNotFound = () => (
-  <div id='page-not-found' className='conv-page-not-found'>
+  <div id="page-not-found" className="conv-page-not-found">
     <h1>Page Not Found</h1>
   </div>
 )
@@ -143,7 +151,7 @@ const Index = ({
   tooltipData,
   tableView,
   customProps,
-  summary,
+  summary
 }) => {
   // if singleton, Index redirects to Detail pg
   if (schema.getSingleton(modelName)) {
@@ -157,12 +165,18 @@ const Index = ({
     const actions = schema.getActions(modelName)
     const onCreateClick = R.path(['create', 'onIndexCreate'], actions)
     return (
-      <div className='conv-index'>
+      <div className="conv-index">
         <h1>
-          {`No ${schema.getModelLabel({ modelName, data, customProps })} Exists`}
-          <CreateButton {...{
-            onClick: () => onCreateClick({ modelName })
-          }} />
+          {`No ${schema.getModelLabel({
+            modelName,
+            data,
+            customProps
+          })} Exists`}
+          <CreateButton
+            {...{
+              onClick: () => onCreateClick({ modelName })
+            }}
+          />
         </h1>
       </div>
     )

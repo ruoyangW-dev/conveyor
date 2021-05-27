@@ -2,9 +2,7 @@ import React from 'react'
 import Field from './Field'
 import { THead } from './Header'
 import { TFoot } from './Footer'
-import {
-  skipOverride,
-} from '../Utils'
+import { skipOverride } from '../Utils'
 import * as R from 'ramda'
 import DetailLink from '../DetailLink'
 import { Link } from 'react-router-dom'
@@ -76,14 +74,20 @@ export const TableButtonGroup = ({
   const m2m = parentFieldType === 'ManyToMany'
   const actions = schema.getActions(modelName)
   const onRemove = R.path(['edit', 'onDetailTableRemoveSubmit'], actions)
-  const modalId = `confirm-${m2m ? 'remove' : 'delete'}-${modelName}-${parentFieldName}-${idx}`
+  const modalId = `confirm-${
+    m2m ? 'remove' : 'delete'
+  }-${modelName}-${parentFieldName}-${idx}`
   const id = node.id
   const canRemove = !fromIndex && m2m && editable
   return (
     <React.Fragment>
       <div className="conv-btn-group">
-        {// If detailField is null then use the detailButton
-          R.isNil(detailField) && <DetailViewButton {...{ modelName, id: node.id }} />}
+        {
+          // If detailField is null then use the detailButton
+          R.isNil(detailField) && (
+            <DetailViewButton {...{ modelName, id: node.id }} />
+          )
+        }
         {editable && (
           <RowEditButton
             {...{
@@ -172,7 +176,12 @@ export const TableRowWithEdit = ({
       customProps
     })
   ) {
-    const fieldEditData = getFieldEditData(editData, modelName, fieldName, node.id)
+    const fieldEditData = getFieldEditData(
+      editData,
+      modelName,
+      fieldName,
+      node.id
+    )
     const error = getFieldErrorEdit(editData, modelName, fieldName, node.id)
     return (
       <EditInput
@@ -211,8 +220,14 @@ export const TableRowWithEdit = ({
   }
   // Add DetailLink to the field that is marked as the displayField
   if (detailField === fieldName) {
-    const displayString = schema.getDisplayValue({ modelName, node, customProps })
-    return <DetailLink {...{ modelName, id: node.id }}>{displayString}</DetailLink>
+    const displayString = schema.getDisplayValue({
+      modelName,
+      node,
+      customProps
+    })
+    return (
+      <DetailLink {...{ modelName, id: node.id }}>{displayString}</DetailLink>
+    )
   }
   return (
     <Field
@@ -253,12 +268,12 @@ export const TableButtonCell = ({
       <div className="conv-btn-group">
         <EditSaveButton
           {...{
-            onClick: evt => onEditSubmit({ modelName, id: node.id })
+            onClick: () => onEditSubmit({ modelName, id: node.id })
           }}
         />
         <EditCancelButton
           {...{
-            onClick: evt => onEditCancel({ modelName, id: node.id })
+            onClick: () => onEditCancel({ modelName, id: node.id })
           }}
         />
       </div>
@@ -289,15 +304,9 @@ const TDList = ({
   schema,
   modelName,
   fieldOrder,
-  parentId,
-  parentModelName,
-  parentFieldName,
   detailField,
   tooltipData,
-  modalData,
   editData,
-  tableEditable,
-  deletable,
   selectOptions,
   failedValidation,
   parentNode,
@@ -306,39 +315,39 @@ const TDList = ({
   customProps
 }) => {
   return fieldOrder.map((fieldName, headerIdx) => {
-     if (fromIndex === true) {
-       if (
-         schema.shouldDisplayIndex({
-           modelName,
-           fieldName,
-           customProps
-         }) === false
-       ) {
-         return null
-       }
-     }
+    if (fromIndex === true) {
+      if (
+        schema.shouldDisplayIndex({
+          modelName,
+          fieldName,
+          customProps
+        }) === false
+      ) {
+        return null
+      }
+    }
 
-     return (
-       <td key={`${node.id}-${headerIdx}`}>
-         <TableRowWithEdit
-           key={`table-td-${node.id}-${headerIdx}`}
-           {...{
-             modelName,
-             fieldName,
-             node,
-             schema,
-             detailField,
-             editData,
-             tooltipData,
-             selectOptions,
-             failedValidation,
-             parentNode,
-             customProps
-           }}
-         />
-       </td>
-     )
-   })
+    return (
+      <td key={`${node.id}-${headerIdx}`}>
+        <TableRowWithEdit
+          key={`table-td-${node.id}-${headerIdx}`}
+          {...{
+            modelName,
+            fieldName,
+            node,
+            schema,
+            detailField,
+            editData,
+            tooltipData,
+            selectOptions,
+            failedValidation,
+            parentNode,
+            customProps
+          }}
+        />
+      </td>
+    )
+  })
 }
 
 const TRList = ({
@@ -374,59 +383,59 @@ const TRList = ({
       customProps
     })
     return (
-    <tr key={`table-tr-${node.id}`}>
-      <TDList
-        {...{
-          schema,
-          modelName,
-          fieldOrder,
-          parentId,
-          parentModelName,
-          parentFieldName,
-          detailField,
-          tooltipData,
-          modalData,
-          editData,
-          tableEditable,
-          deletable,
-          selectOptions,
-          failedValidation,
-          parentNode,
-          node,
-          fromIndex,
-          customProps
-        }}
-      />
-      {buttonColumnExists && (
-        <td key={`${node.id}-edit-delete`}>
-          {
-            <TableButtonCell
-              {...{
-                modelName,
-                parentModelName,
-                node,
-                schema,
-                detailField,
-                editData,
-                onEditSubmit,
-                onEditCancel,
-                deletable,
-                editable,
-                parentId,
-                modalData,
-                parentFieldName,
-                onDelete,
-                idx,
-                fromIndex,
-                customProps
-              }}
-            />
-          }
-        </td>
-      )}
-    </tr>
+      <tr key={`table-tr-${node.id}`}>
+        <TDList
+          {...{
+            schema,
+            modelName,
+            fieldOrder,
+            parentId,
+            parentModelName,
+            parentFieldName,
+            detailField,
+            tooltipData,
+            modalData,
+            editData,
+            tableEditable,
+            deletable,
+            selectOptions,
+            failedValidation,
+            parentNode,
+            node,
+            fromIndex,
+            customProps
+          }}
+        />
+        {buttonColumnExists && (
+          <td key={`${node.id}-edit-delete`}>
+            {
+              <TableButtonCell
+                {...{
+                  modelName,
+                  parentModelName,
+                  node,
+                  schema,
+                  detailField,
+                  editData,
+                  onEditSubmit,
+                  onEditCancel,
+                  deletable,
+                  editable,
+                  parentId,
+                  modalData,
+                  parentFieldName,
+                  onDelete,
+                  idx,
+                  fromIndex,
+                  customProps
+                }}
+              />
+            }
+          </td>
+        )}
+      </tr>
     )
-    })
+  })
 }
 
 export const TBody = ({
@@ -513,7 +522,11 @@ export const Table = ({
   summary
 }) => {
   const paginateIndex = R.propOr(true, 'paginate', schema.getModel(modelName))
-  const paginateDetail = R.pathOr(true, ['fields', parentFieldName, 'paginate'], schema.getModel(parentModelName))
+  const paginateDetail = R.pathOr(
+    true,
+    ['fields', parentFieldName, 'paginate'],
+    schema.getModel(parentModelName)
+  )
 
   if (!fromIndex && collapse) {
     return null
@@ -523,8 +536,13 @@ export const Table = ({
     return <div>...Loading</div>
   }
   if (!fromIndex && data.length === 0) {
-    const noDataDisplayValue = schema.getNoDataDisplayValue({ modelName: parentModelName, fieldName: parentFieldName, node: parentNode, customProps })
-    return <div className='no-data-display'>{noDataDisplayValue}</div>
+    const noDataDisplayValue = schema.getNoDataDisplayValue({
+      modelName: parentModelName,
+      fieldName: parentFieldName,
+      node: parentNode,
+      customProps
+    })
+    return <div className="no-data-display">{noDataDisplayValue}</div>
   }
 
   const deletable = schema.isTableDeletable({
@@ -541,11 +559,15 @@ export const Table = ({
     fieldOrder,
     customProps
   })
-  const buttonColumnExists = showButtonColumn({ deletable, editable, detailField})
+  const buttonColumnExists = showButtonColumn({
+    deletable,
+    editable,
+    detailField
+  })
 
   return (
     <React.Fragment>
-      <table className={"conv-table conv-table-" + modelName}>
+      <table className={'conv-table conv-table-' + modelName}>
         <Head
           {...{
             schema,
@@ -608,15 +630,17 @@ export const Table = ({
             tableView
           }}
         />
-      ) : paginateDetail && (
-        <DetailPagination
-          {...{
-            schema,
-            modelName: parentModelName,
-            fieldName: parentFieldName,
-            tableView
-          }}
-        />
+      ) : (
+        paginateDetail && (
+          <DetailPagination
+            {...{
+              schema,
+              modelName: parentModelName,
+              fieldName: parentFieldName,
+              tableView
+            }}
+          />
+        )
       )}
     </React.Fragment>
   )

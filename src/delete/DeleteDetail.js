@@ -2,14 +2,13 @@ import React from 'react'
 import * as R from 'ramda'
 import { Modal } from '../Modal'
 
-const exclusionCondition = key => !R.includes(key, ['__typename', 'id'])
+const exclusionCondition = (key) => !R.includes(key, ['__typename', 'id'])
 
 const getHeaders = (schema, modelName, node) =>
   R.pipe(
     R.pickBy((_, key) => exclusionCondition(key)),
     R.keys()
   )(node)
-
 
 const getRowFields = (schema, modelName, node, nodeOrder) => {
   const fieldDefinitions = schema.getFields(modelName)
@@ -19,7 +18,10 @@ const getRowFields = (schema, modelName, node, nodeOrder) => {
   // 'key' is fieldName, id, or __typename
   const fields = nodeOrder.map((key) => {
     const value = R.prop(key, node)
-    const override = R.path([modelName, 'deleteModal', 'rows', key], schema.schemaJSON)
+    const override = R.path(
+      [modelName, 'deleteModal', 'rows', key],
+      schema.schemaJSON
+    )
     if (override) {
       return override({ schema, modelName, node, fieldName: key })
     }
@@ -39,10 +41,10 @@ const getRowFields = (schema, modelName, node, nodeOrder) => {
   })
 
   return R.pipe(
-    R.reject(val => val === undefined),
+    R.reject((val) => val === undefined),
     // Makes sure the row never has more columns than the header
-    R.map(R.when(Array.isArray, R.join(" "))),
-    R.flatten,
+    R.map(R.when(Array.isArray, R.join(' '))),
+    R.flatten
   )(fields)
 }
 
@@ -51,9 +53,7 @@ const Row = ({ schema, nodeModelName, node, editedHeaderFields }) => {
   return (
     <tr>
       {fields.map((field, index) => (
-        <td key={index}>
-          {field}
-        </td>
+        <td key={index}>{field}</td>
       ))}
     </tr>
   )
@@ -63,14 +63,11 @@ const HeaderRow = ({ headers }) => {
   return (
     <tr>
       {headers.map((head, index) => (
-        <th key={index}>
-          {head}
-        </th>
+        <th key={index}>{head}</th>
       ))}
     </tr>
   )
 }
-
 
 const ReviewTable = ({ schema, table, customProps }) => {
   let headers = []
@@ -79,51 +76,76 @@ const ReviewTable = ({ schema, table, customProps }) => {
   const nodeModelName = R.prop('__typename', node)
   if (!R.isEmpty(table)) {
     // get headers from schema
-    const customHeaders = R.path([nodeModelName, 'deleteModal', 'headers'], schema.schemaJSON)
+    const customHeaders = R.path(
+      [nodeModelName, 'deleteModal', 'headers'],
+      schema.schemaJSON
+    )
 
     if (!customHeaders) {
       // pick fields that 'node' contains & order them by 'fieldOrder'
       const headerFields = getHeaders(schema, nodeModelName, node)
-      const fieldOrder = R.propOr([], 'fieldOrder', schema.getModel(nodeModelName))
+      const fieldOrder = R.propOr(
+        [],
+        'fieldOrder',
+        schema.getModel(nodeModelName)
+      )
 
       editedHeaderFields = R.filter(
         R.identity,
-        fieldOrder.map(field => R.includes(field, headerFields) ? field : undefined)
+        fieldOrder.map((field) =>
+          R.includes(field, headerFields) ? field : undefined
+        )
       )
     } else {
       editedHeaderFields = customHeaders
     }
 
     // turn fieldNames in to labels
-    headers = editedHeaderFields.map(fieldName =>
-      schema.getFieldLabel({ modelName: nodeModelName, fieldName, data: table, customProps })
+    headers = editedHeaderFields.map((fieldName) =>
+      schema.getFieldLabel({
+        modelName: nodeModelName,
+        fieldName,
+        data: table,
+        customProps
+      })
     )
   }
   const tableDisplayName = schema.getModelLabel({
-    modelName: R.propOr('', '__typename', R.head(table)), data: table, customProps
+    modelName: R.propOr('', '__typename', R.head(table)),
+    data: table,
+    customProps
   })
   return (
-    <div className={'conv-delete-modal-table conv-delete-modal-table-'+nodeModelName}>
+    <div
+      className={
+        'conv-delete-modal-table conv-delete-modal-table-' + nodeModelName
+      }
+    >
       <h5>{tableDisplayName}</h5>
       <table>
         <tbody>
-          <HeaderRow {...{
-            headers
-          }} />
-          {table && table.map((node, index) => (
-            <Row key={`${index}-${node.id}`} {...{
-              schema,
-              nodeModelName: R.prop('__typename', node),
-              node,
-              editedHeaderFields
-            }} />
-          ))}
+          <HeaderRow
+            {...{
+              headers
+            }}
+          />
+          {table &&
+            table.map((node, index) => (
+              <Row
+                key={`${index}-${node.id}`}
+                {...{
+                  schema,
+                  nodeModelName: R.prop('__typename', node),
+                  node,
+                  editedHeaderFields
+                }}
+              />
+            ))}
         </tbody>
       </table>
     </div>
   )
 }
-
 
 export const DeleteDetail = ({
   schema,
@@ -142,30 +164,40 @@ export const DeleteDetail = ({
   const onCancelDelete = R.path(['delete', 'onCancelDelete'], actions)
   return (
     <Modal {...{ id: modalId, title, className: 'conv-delete-modal' }}>
-      <span><strong>The following entries will be deleted:</strong></span>
+      <span>
+        <strong>The following entries will be deleted:</strong>
+      </span>
       {!modalStore && <div className={'text-center'}>...loading</div>}
-      {modalStore && modalStore.map((table, index) => (
-        <ReviewTable key={`${index}-${R.propOr('', '__typename', R.head(table))}`}
-          {...{ schema, table, customProps }}
-        />
-      ))}
-      <div className='conv-modal-footer'>
-        <div className='conv-btn-group'>
+      {modalStore &&
+        modalStore.map((table, index) => (
+          <ReviewTable
+            key={`${index}-${R.propOr('', '__typename', R.head(table))}`}
+            {...{ schema, table, customProps }}
+          />
+        ))}
+      <div className="conv-modal-footer">
+        <div className="conv-btn-group">
           <button
-            className='conv-btn-outline-secondary '
-            data-dismiss='modal'
+            className="conv-btn-outline-secondary "
+            data-dismiss="modal"
             onClick={() => onCancelDelete()}
-          >Cancel</button>
+          >
+            Cancel
+          </button>
           <button
-            className='conv-btn-outline-danger '
-            data-dismiss='modal'
-            onClick={() => onDelete({
-              id: id,
-              parentModel: parentModelName,
-              parentId,
-              modelName
-            })}
-          >Confirm Delete</button>
+            className="conv-btn-outline-danger "
+            data-dismiss="modal"
+            onClick={() =>
+              onDelete({
+                id: id,
+                parentModel: parentModelName,
+                parentId,
+                modelName
+              })
+            }
+          >
+            Confirm Delete
+          </button>
         </div>
       </div>
     </Modal>
@@ -186,29 +218,37 @@ export const RemoveDetail = ({
   customProps
 }) => {
   const name = schema.getDisplayValue({ modelName, node, customProps })
-  const parentField = schema.getFieldLabel({ modelName: parentModelName, fieldName: parentFieldName, node, customProps })
+  const parentField = schema.getFieldLabel({
+    modelName: parentModelName,
+    fieldName: parentFieldName,
+    node,
+    customProps
+  })
   return (
     <Modal {...{ id: modalId, title, className: 'conv-delete-modal' }}>
       <span>
         <strong>{`Do you want to remove ${name} from ${parentField}?`}</strong>
         {` Note: ${name} will not be deleted, but the relationship will be cut.`}
       </span>
-      <div className='conv-modal-footer'>
-        <div className='conv-btn-group'>
+      <div className="conv-modal-footer">
+        <div className="conv-btn-group">
+          <button className="conv-btn-outline-secondary " data-dismiss="modal">
+            Cancel
+          </button>
           <button
-            className='conv-btn-outline-secondary '
-            data-dismiss='modal'
-          >Cancel</button>
-          <button
-            className='conv-btn-outline-danger '
-            data-dismiss='modal'
-            onClick={() => onRemove({
-              modelName: parentModelName,
-              fieldName: parentFieldName,
-              id: parentId,
-              removedId: id,
-            })}
-          >Confirm Removal</button>
+            className="conv-btn-outline-danger "
+            data-dismiss="modal"
+            onClick={() =>
+              onRemove({
+                modelName: parentModelName,
+                fieldName: parentFieldName,
+                id: parentId,
+                removedId: id
+              })
+            }
+          >
+            Confirm Removal
+          </button>
         </div>
       </div>
     </Modal>
