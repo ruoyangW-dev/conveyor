@@ -13,7 +13,6 @@ export const Modal = ({ id, title, className = '', children }) => (
           </button>
         </div>
         <div className="conv-modal-body">{children}</div>
-        <div className="modal-body">{children}</div>
       </div>
     </div>
   </div>
