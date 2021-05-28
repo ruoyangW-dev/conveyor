@@ -131,7 +131,7 @@ const FlexibleInput = (props) => {
       params['className'] = R.defaultTo('form-control', params['className'])
       break
     case inputTypes.COLOR_TYPE:
-      params['value'] = R.defaultTo('#000000', params['value'])
+      params['value'] = R.defaultTo('#ffffff', params['value'])
       break
 
     case inputTypes.DATE_TYPE:

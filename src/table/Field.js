@@ -27,9 +27,9 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
 
 const FieldColor = ({ fieldName, node }) => {
   const value = R.prop(fieldName, node)
-  const color = R.isNil(value) || !validColorCheck(value) ? '#000000' : value
+  const color = R.isNil(value) || !validColorCheck(value) ? '#ffffff' : value
 
-  return <span style={{backgroundColor: color}}>{color}</span>
+  return <span style={{backgroundColor: color, color: color}}>{"\xA0".repeat(15)}</span>
 }
 
 const FieldBoolean = ({ fieldName, node }) => {

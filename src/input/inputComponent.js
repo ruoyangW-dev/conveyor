@@ -307,18 +307,18 @@ export const InputColor = ({
           htmlFor={id}
           error={error}
           required={required}
-          className='conv-input-component conv-input-type-datetime'
+          className='conv-input-component'
           customError={R.defaultTo(CustomErrorComponent, customError)}
           customLabel={customLabel}
           LabelInfoComponent={LabelInfoComponent}
           showPopover={showPopover}
       >
-          <div className='date-picker-container'>
+          <div>
               <input
                   type="color"
                   onChange={evt => onChange(evt.target.value)}
                   className="form-control"
-                  value={validColorCheck(value) ? value : "#000000"}
+                  value={validColorCheck(value) ? value : "#ffffff"}
                   {...customInput}
               />
           </div>
