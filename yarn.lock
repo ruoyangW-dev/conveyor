@@ -2,13 +2,14 @@
 # yarn lockfile v1
 
 
-"@autoinvent/conveyor-schema@file:.yalc/@autoinvent/conveyor-schema":
-  version "0.3.3"
+"@autoinvent/conveyor-schema@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@autoinvent/conveyor-schema/-/conveyor-schema-0.3.1.tgz#cbdce90385cdd76d360a8c6a18ddd4da07706599"
+  integrity sha512-cmesJOWoMCrib1VRYy3UT+EEUUPBvqbfzVFVWvrBUpZIAfyqzcVQ3hHT0faCMV8q7eRu7Bry+I8Xd6r2VuL2OA==
   dependencies:
     core-js "^3.12.1"
     pluralize "^8.0.0"
     ramda "^0.27.1"
-    typedoc "^0.20.36"
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
