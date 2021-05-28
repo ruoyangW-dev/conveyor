@@ -282,19 +282,18 @@ export const InputDateTime = ({
  * @property { function } customLabel
  */
 
-// TODO: get classname for invalid from new react-datepicker
 export const InputColor = ({
-    onChange,
-    id,
-    labelStr,
-    error,
-    value,
-    required,
-    customInput,
-    customError,
-    customLabel,
-    LabelInfoComponent,
-    showPopover
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
 }) => {
   if (!value) {
     value = ''
@@ -302,27 +301,27 @@ export const InputColor = ({
 
   //TODO: Add styling class for color
   return (
-      <FormGroup
-          labelStr={labelStr}
-          htmlFor={id}
-          error={error}
-          required={required}
-          className='conv-input-component'
-          customError={R.defaultTo(CustomErrorComponent, customError)}
-          customLabel={customLabel}
-          LabelInfoComponent={LabelInfoComponent}
-          showPopover={showPopover}
-      >
-          <div>
-              <input
-                  type="color"
-                  onChange={evt => onChange(evt.target.value)}
-                  className="form-control"
-                  value={validColorCheck(value) ? value : "#ffffff"}
-                  {...customInput}
-              />
-          </div>
-      </FormGroup>
+    <FormGroup
+      labelStr={labelStr}
+      htmlFor={id}
+      error={error}
+      required={required}
+      className="conv-input-component"
+      customError={R.defaultTo(CustomErrorComponent, customError)}
+      customLabel={customLabel}
+      LabelInfoComponent={LabelInfoComponent}
+      showPopover={showPopover}
+    >
+      <div>
+        <input
+          type="color"
+          onChange={(evt) => onChange(evt.target.value)}
+          className="form-control"
+          value={validColorCheck(value) ? value : '#ffffff'}
+          {...customInput}
+        />
+      </div>
+    </FormGroup>
   )
 }
 

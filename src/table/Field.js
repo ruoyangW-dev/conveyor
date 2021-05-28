@@ -29,7 +29,11 @@ const FieldColor = ({ fieldName, node }) => {
   const value = R.prop(fieldName, node)
   const color = R.isNil(value) || !validColorCheck(value) ? '#ffffff' : value
 
-  return <span style={{backgroundColor: color, color: color}}>{"\xA0".repeat(15)}</span>
+  return (
+    <span style={{ backgroundColor: color, color: color }}>
+      {'\xA0'.repeat(15)}
+    </span>
+  )
 }
 
 const FieldBoolean = ({ fieldName, node }) => {
@@ -248,7 +252,7 @@ export const Field = ({
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />
     case consts.inputTypes.COLOR_TYPE:
-      return <FieldColor {...props } />
+      return <FieldColor {...props} />
     case consts.inputTypes.MANY_TO_ONE_TYPE:
       return (
         <FieldToOne
