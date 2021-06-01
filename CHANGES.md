@@ -5,6 +5,7 @@
 Standardize in line with other autoinvent projects
 Add typedoc
 Begin extraction of styling
+Add css based required field asterik
 
 ## Version 0.7.0
 

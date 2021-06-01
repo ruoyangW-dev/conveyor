@@ -24,8 +24,15 @@ export const relationshipLabelFactory = ({
 
   const Label = ({ labelStr }) => (
     <label htmlFor={id}>
-      <span>{labelStr}</span>
-      {required && ' *'}
+      {required ? (
+        <span className="required-field-label">
+          {labelStr}
+        </span>
+      ) : (
+        <span>
+          {labelStr}
+        </span>
+      )}
       {creatable && (
         <CreateButton
           {...{

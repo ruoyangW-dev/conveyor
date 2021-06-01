@@ -232,3 +232,7 @@ body {
 .conv-tree-table-header-label {
   flex-grow: 1;
 }
+
+.required-field-label::after {
+  content: " *";
+}
