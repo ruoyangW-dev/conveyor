@@ -30,9 +30,7 @@ const FieldColor = ({ fieldName, node }) => {
   const color = R.isNil(value) || !validColorCheck(value) ? '#ffffff' : value
 
   return (
-    <span style={{ backgroundColor: color, color: color }}>
-      {'\xA0'.repeat(15)}
-    </span>
+    <div className="conv-color-swatch" style={{ backgroundColor: color}} />
   )
 }
 

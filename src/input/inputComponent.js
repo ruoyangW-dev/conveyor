@@ -14,6 +14,7 @@ import {
 import { validColorCheck } from '../utils/colorHelper'
 import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
+import _ from 'lodash'
 
 const errorBuilder = ({ error, id }) =>
   error.map((r) => (
@@ -296,8 +297,11 @@ export const InputColor = ({
   showPopover
 }) => {
   if (!value) {
-    value = ''
+    value = '#ffffff'
   }
+  const debounceOnChange = _.debounce(val =>
+    onChange(val),
+  500);
 
   //TODO: Add styling class for color
   return (
@@ -315,7 +319,7 @@ export const InputColor = ({
       <div>
         <input
           type="color"
-          onChange={(evt) => onChange(evt.target.value)}
+          onChange={(evt) => debounceOnChange(evt.target.value)}
           className="form-control"
           value={validColorCheck(value) ? value : '#ffffff'}
           {...customInput}
