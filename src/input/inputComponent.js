@@ -296,9 +296,6 @@ export const InputColor = ({
   LabelInfoComponent,
   showPopover
 }) => {
-  if (!value) {
-    value = '#ffffff'
-  }
   const debounceOnChange = _.debounce((val) => onChange(val), 500)
 
   //TODO: Add styling class for color
