@@ -4,6 +4,9 @@
 
 Standardize in line with other autoinvent projects
 Add typedoc
+
+Highlight fields that fail validation, ie are required, but not present.
+
 Begin extraction of styling
 
 ## Version 0.7.0
