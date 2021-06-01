@@ -61,6 +61,7 @@ const Input = ({
   inline,
   onChange,
   selectOptions,
+  failedValidation,
   disabled,
   customLabel,
   formStack,
@@ -87,6 +88,7 @@ const Input = ({
         inline,
         onChange,
         selectOptions,
+        failedValidation,
         disabled,
         customLabel,
         formStack,
@@ -128,6 +130,7 @@ export const InputCore = ({
   inline,
   onChange,
   selectOptions,
+  failedValidation,
   disabled,
   customLabel,
   formStack,
@@ -151,9 +154,13 @@ export const InputCore = ({
   }
 
   const fieldHelp = schema.getFieldHelpText(modelName, fieldName)
+  let failed = ''
+  if (failedValidation && failedValidation(modelName, fieldName)) {
+    failed = ' conv-failed-validation'
+  }
 
   return (
-    <div className={'conv-input conv-input-model-' + modelName}>
+    <div className={'conv-input conv-input-model-' + modelName + failed}>
       <InputInnerCore
         {...{
           schema,
