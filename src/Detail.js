@@ -86,6 +86,7 @@ export const DefaultDetailAttribute = ({
   editData,
   tooltipData,
   selectOptions,
+  failedValidation,
   id,
   path,
   customProps
@@ -153,7 +154,8 @@ export const DefaultDetailAttribute = ({
                 node,
                 editData: fieldEditData,
                 error,
-                selectOptions
+                selectOptions,
+                failedValidation
               }}
             />
           </div>
@@ -456,6 +458,7 @@ export const DefaultDetailTable = ({
   path,
   editData,
   selectOptions,
+  failedValidation,
   tooltipData,
   tableView,
   modalData,
@@ -528,6 +531,7 @@ export const DefaultDetailTable = ({
             modelName: targetModelName,
             editData,
             selectOptions,
+            failedValidation,
             tooltipData,
             node,
             data,
@@ -582,6 +586,7 @@ export const DefaultDetailTable = ({
               value: getFieldEditData(editData, modelName, fieldName, id),
               error: getFieldErrorEdit(editData, modelName, fieldName, id),
               selectOptions,
+              failedValidation,
               customLabel: DetailLabel,
               onChange: ({ ...props }) =>
                 onEditInputChange({
@@ -656,6 +661,7 @@ export const DefaultDetailTable = ({
             modelName: targetModelName,
             editData,
             selectOptions,
+            failedValidation,
             tooltipData,
             node,
             data,
@@ -766,6 +772,7 @@ const DetailAttributeList = ({
   editData,
   tooltipData,
   selectOptions,
+  failedValidation,
   path,
   tableView,
   customProps
@@ -794,6 +801,7 @@ const DetailAttributeList = ({
           fieldName,
           node,
           selectOptions,
+          failedValidation,
           editData,
           tooltipData,
           modalData,
@@ -817,6 +825,7 @@ const DetailTableList = ({
   editData,
   tooltipData,
   selectOptions,
+  failedValidation,
   path,
   tableView,
   customProps,
@@ -846,6 +855,7 @@ const DetailTableList = ({
           fieldName,
           node,
           selectOptions,
+          failedValidation,
           editData,
           tooltipData,
           modalData,
@@ -871,6 +881,7 @@ export const DetailFields = ({
   editData,
   tooltipData,
   selectOptions,
+  failedValidation,
   path,
   tableView,
   customProps,
@@ -906,6 +917,7 @@ export const DetailFields = ({
             editData,
             tooltipData,
             selectOptions,
+            failedValidation,
             path,
             tableView,
             customProps,
@@ -925,6 +937,7 @@ export const DetailFields = ({
           editData,
           tooltipData,
           selectOptions,
+          failedValidation,
           path,
           tableView,
           customProps,
@@ -955,6 +968,7 @@ export const DefaultDetail = ({
   tooltipData,
   tableView,
   selectOptions,
+  failedValidation,
   customProps,
   summary
 }) => {
@@ -1019,6 +1033,7 @@ export const DefaultDetail = ({
           fields: [],
           tableView,
           selectOptions,
+          failedValidation,
           customProps,
           summary
         }}
@@ -1039,6 +1054,7 @@ const Detail = ({
   tooltipData,
   tableView,
   selectOptions,
+  failedValidation,
   customProps,
   summary
 }) => {
@@ -1061,6 +1077,7 @@ const Detail = ({
         tooltipData,
         tableView,
         selectOptions,
+        failedValidation,
         customProps,
         summary
       }}
