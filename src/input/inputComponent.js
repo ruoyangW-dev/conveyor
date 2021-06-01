@@ -299,9 +299,7 @@ export const InputColor = ({
   if (!value) {
     value = '#ffffff'
   }
-  const debounceOnChange = _.debounce(val =>
-    onChange(val),
-  500);
+  const debounceOnChange = _.debounce((val) => onChange(val), 500)
 
   //TODO: Add styling class for color
   return (
