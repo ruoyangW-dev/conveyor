@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
-* TOP LEVEL FILE
-* Rebuild index.css by running: sass styles.scss > index.css
+* WARNING THIS FILE IS GENERATED
+* to regenerate run: sass styles.scss > index.css
 */
 body {
   margin: 0;
@@ -11338,4 +11338,3 @@ h3 {
   flexGrow: 1;
 }
 
-/*# sourceMappingURL=index.css.map */
