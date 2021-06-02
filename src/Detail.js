@@ -433,11 +433,7 @@ export const DefaultDetailM2MFieldLabel = ({
   })
   const Label = () => (
     <div className="title-label-container">
-      {required ? (
-        <h4 className="required-field-label">{fieldLabel}</h4>
-      ) : (
-        <h4>{fieldLabel}</h4>
-      )}
+      <h4 className={required ? 'required-field-label' : ''}>{fieldLabel}</h4>
       {creatable && (
         <DetailCreateButton
           {...{
