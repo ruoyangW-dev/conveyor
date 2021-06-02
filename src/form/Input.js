@@ -62,7 +62,6 @@ export const DisabledInput = ({ value, label }) => (
  * @param schema model schema
  * @param modelName the name of the model
  * @param fieldName the name of the field
- * @param node data of the target object, if not Create page **Not actually used by InputCore**
  * @param value current value of the input
  * @param error error value display below input
  * @param inline boolean, if false use a field label above input
@@ -85,7 +84,6 @@ const Input = ({
   schema,
   modelName,
   fieldName,
-  node,
   value,
   error,
   inline,
@@ -112,7 +110,6 @@ const Input = ({
         schema,
         modelName,
         fieldName,
-        node,
         value,
         error,
         inline,
@@ -175,12 +172,6 @@ export const getOnChange = ({ inputType, onChange, fieldName }) => {
  * @param disabled boolean if the input is disabled
  * @param customLabel react component for a specialized type of label
  * @param formStack information about calling page, if on a create page
- * @param onMenuOpen Required for "Select" component to demonstrate behavior necessary when drop down menu is opened.
- * > See documentation of React Select for more information.
- * > set from schema getActions
- * @param onCreatableMenuOpen Required for "Select" component to demonstrate behavior necessary when drop down menu is opened.
- * > See documentation of React Select for more information.
- * > set from schema getActions
  * @param customInput Overrides any props passed into the component, or those set by default in this library.
  * > For example, to override default settings for a "Date" component structure the data like so:
  * > {placeholderText:'Click here', fixedHeight:false}
@@ -204,8 +195,6 @@ export const InputCore = ({
   disabled,
   customLabel,
   formStack,
-  onMenuOpen,
-  onCreatableMenuOpen,
   customInput, // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
@@ -242,8 +231,6 @@ export const InputCore = ({
           onChange,
           selectOptions,
           customLabel,
-          onMenuOpen,
-          onCreatableMenuOpen,
           customInput, // optional; used for FlexibleInput only; differs from 'customProps'
           autoFocus,
           onKeyDown,
@@ -266,8 +253,6 @@ const InputInnerCore = ({
   onChange,
   selectOptions,
   customLabel,
-  onMenuOpen,
-  onCreatableMenuOpen,
   customInput, // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
@@ -275,6 +260,9 @@ const InputInnerCore = ({
   showPopover
 }) => {
   const inputType = schema.getType(modelName, fieldName)
+  const actions = schema.getActions(modelName)
+  const onMenuOpen = R.path(['input', 'onMenuOpen'], actions)
+  const onCreatableMenuOpen = R.path(['input', 'onCreatableMenuOpen'], actions)
 
   const defaultHandleOnChange = getOnChange({ inputType, onChange, fieldName })
   const fieldLabel = schema.getFieldLabel({

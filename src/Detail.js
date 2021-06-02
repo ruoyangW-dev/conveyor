@@ -696,7 +696,6 @@ export const DefaultDetailTable = ({
               schema,
               modelName,
               fieldName,
-              node,
               value: getFieldEditData(editData, modelName, fieldName, id),
               error: getFieldErrorEdit(editData, modelName, fieldName, id),
               selectOptions,
