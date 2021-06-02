@@ -52,6 +52,15 @@ export const CollapseTableButton = ({
   )
 }
 
+/**
+ * Overridable React Component for the Detail Attribute Label
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param node all information about the object (object data as Magql would return it)
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultDetailLabel = ({
   schema,
   modelName,
@@ -78,6 +87,22 @@ export const DefaultDetailLabel = ({
   return <span>{fieldLabel}</span>
 }
 
+/**
+ * Overridable React Component for the Detail Attribute
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param node all information about the object (object data as Magql would return it)
+ * @param editData information on what is being edited, current state and any errors
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param id id of the object
+ * @param path relative path to current page
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultDetailAttribute = ({
   schema,
   modelName,
@@ -328,6 +353,22 @@ export const DefaultDetailTableTitleWrapper = ({ children }) => {
   )
 }
 
+/**
+ * Overridable React Component for the Detail One-to-Many Table Title
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param id id of the object
+ * @param targetInverseFieldName the name of the field on the other model that refers to this model
+ * @param targetModelName the name of the other model linked to by this table
+ * @param path relative path to current page
+ * @param node all information about the object (object data as Magql would return it)
+ * @param collapsable boolean, can collapse the table
+ * @param collapse boolean, whether or not the table is collapsed
+ * @param collapseTableChange method called whenever the table is collapsed or opened
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultDetailO2MTableTitle = ({
   schema,
   modelName,
@@ -379,6 +420,22 @@ export const DefaultDetailO2MTableTitle = ({
   )
 }
 
+/**
+ * Overridable React Component for the Detail Many-to-Many Table Title
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param id id of the object
+ * @param fieldName the name of the field
+ * @param node all information about the object (object data as Magql would return it)
+ * @param targetInverseFieldName the name of the field on the other model that refers to this model
+ * @param path relative path to current page
+ * @param targetModelName the name of the other model linked to by this table
+ * @param collapsable boolean, can collapse the table
+ * @param collapse boolean, whether or not the table is collapsed
+ * @param collapseTableChange method called whenever the table is collapsed or opened
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultDetailM2MTableTitle = ({
   schema,
   modelName,
@@ -436,6 +493,18 @@ export const DefaultDetailM2MTableTitle = ({
   )
 }
 
+/**
+ * Overridable React Component for the Detail Many-to-Many Field Label
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param node all information about the object (object data as Magql would return it)
+ * @param targetInverseFieldName the name of the field on the other model that refers to this model
+ * @param path relative path to current page
+ * @param targetModelName the name of the other model linked to by this table
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultDetailM2MFieldLabel = ({
   schema,
   modelName,
@@ -474,6 +543,26 @@ export const DefaultDetailM2MFieldLabel = ({
   return Label
 }
 
+/**
+ * Overridable React Component for the Detail Table
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param id id of the object
+ * @param fieldName name of the field
+ * @param node all information about the object (object data as Magql would return it)
+ * @param path relative path to current page
+ * @param editData information on what is being edited, current state and any errors
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param modalData delete detail modal information
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 export const DefaultDetailTable = ({
   schema,
   modelName,
@@ -738,6 +827,15 @@ export const partitionDetailFields = ({
   }, detailFields)
 }
 
+/**
+ * Overridable React Component for the Detail Page Title
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param node all information about the object (object data as Magql would return it)
+ * @param modalData delete detail modal information
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultDetailPageTitle = ({
   schema,
   modelName,
@@ -895,6 +993,27 @@ const DetailTableList = ({
   })
 }
 
+/**
+ * Overridable React Component for the Detail Page Content
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param id id of the object
+ * @param node all information about the object (object data as Magql would return it)
+ * @param modalData delete detail modal information
+ * @param tableFields list of fields with tables to display
+ * @param descriptionList list of non-table attribute fields to display
+ * @param editData information on what is being edited, current state and any errors
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param path relative path to current page
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 export const DetailFields = ({
   schema,
   modelName,
@@ -981,6 +1100,26 @@ const Wrapper = ({ children, modelName }) => (
   </div>
 )
 
+/**
+ * Overridable React Component for the Detail Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param id id of the object
+ * @param node all information about the object (object data as Magql would return it)
+ * @param modalData delete detail modal information
+ * @param editData information on what is being edited, current state and any errors
+ * @param path relative path to current page
+ * @param match 'match' should be passed in by React by default
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 export const DefaultDetail = ({
   schema,
   modelName,
@@ -1067,6 +1206,26 @@ export const DefaultDetail = ({
   )
 }
 
+/**
+ * Top Level React Component for the Detail Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param id id of the object
+ * @param node all information about the object (object data as Magql would return it)
+ * @param modalData delete detail modal information
+ * @param editData information on what is being edited, current state and any errors
+ * @param path relative path to current page
+ * @param match 'match' should be passed in by React by default
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 const Detail = ({
   schema,
   modelName,
