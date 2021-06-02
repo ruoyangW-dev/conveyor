@@ -233,6 +233,13 @@ body {
   flex-grow: 1;
 }
 
+.conv-color-swatch {
+  width: 50px;
+  height: 27px;
+  border-radius: 3px;
+  border: 1px solid #000;
+}
+
 .required-field-label::after {
   content: " *";
 }
