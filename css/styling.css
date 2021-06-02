@@ -243,3 +243,12 @@ body {
   border-radius: 3px;
   border: 1px solid #000;
 }
+
+.conv-color-input-swatch {
+  width: 50px;
+  height: 27px;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border: 1px solid #000;
+}

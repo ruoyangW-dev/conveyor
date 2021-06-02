@@ -27,11 +27,13 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
 
 const FieldColor = ({ fieldName, node }) => {
   const value = R.prop(fieldName, node)
-  const color = R.isNil(value) || !validColorCheck(value) ? '#ffffff' : value
-
-  return (
-    <div className="conv-color-swatch" style={{ backgroundColor: color }} />
-  )
+  if (R.isNil(value) || !validColorCheck(value)) {
+    return <span className="text-area-display">N/A</span>
+  } else {
+    return (
+      <div className="conv-color-swatch" style={{ backgroundColor: value }} />
+    )
+  }
 }
 
 const FieldBoolean = ({ fieldName, node }) => {

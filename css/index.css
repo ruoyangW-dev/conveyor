@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
-* WARNING THIS FILE IS GENERATED
-* to regenerate run: sass styles.scss > index.css
+* TOP LEVEL FILE
+* Rebuild index.css by running: sass styles.scss > index.css
 */
 body {
   margin: 0;
@@ -245,6 +245,15 @@ body {
   width: 50px;
   height: 27px;
   border-radius: 3px;
+  border: 1px solid #000;
+}
+
+.conv-color-input-swatch {
+  width: 50px;
+  height: 27px;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   border: 1px solid #000;
 }
 
