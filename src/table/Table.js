@@ -154,7 +154,7 @@ export const TableButtonGroup = ({
 }
 
 /**
- * Overridable React Component for Tables
+ * React Component wrapping a table field/cell
  * @param schema model schema
  * @param modelName the name of the model
  * @param fieldName name of the field
@@ -262,7 +262,7 @@ export const TableRowWithEdit = ({
 }
 
 /**
- * Overridable React Component for Tables
+ * React Component for the Table Cell with buttons, on right hand side
  * @param modelName the name of the model
  * @param parentModelName name of parent model, if being shown from Detail page
  * @param node data of the object associated with the row

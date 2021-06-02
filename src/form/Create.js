@@ -139,7 +139,7 @@ const FieldInputList = ({
  * Overridable React Component for the Create Page Content
  * @param schema model schema
  * @param modelName the name of the model
- * @param formStack information about calling page
+ * @param formStack information about calling page and also information about errors
  * @param selectOptions options used by the select input type
  * @param failedValidation a function that determines if a field has failed validation
  * > run with `failedValidation(modelName, fieldName)`
