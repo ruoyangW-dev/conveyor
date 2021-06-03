@@ -315,6 +315,7 @@ export const InputColor = ({
         <input
           type="color"
           onChange={(evt) => debounceOnChange(evt.target.value)}
+          onClick={value === '#ffffff' ? () => onChange('#ffffff') : null}
           className="conv-color-input-swatch"
           value={validColorCheck(value) ? value : '#ffffff'}
           {...customInput}
