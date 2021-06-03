@@ -25,14 +25,11 @@ export const relationshipLabelFactory = ({
   const Label = ({ labelStr }) => (
     <label htmlFor={id}>
       <span>{labelStr}</span>
-      {required && ' *'}
-      {creatable && (
-        <CreateButton
-          {...{
-            onClick
-          }}
-        />
-      )}
+      { required && ' *'}
+      { creatable && <CreateButton {...{
+        onClick,
+        to: relModelName
+      }} /> }
     </label>
   )
 

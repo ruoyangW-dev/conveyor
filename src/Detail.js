@@ -285,14 +285,13 @@ export const DetailCreateButton = ({
     schema.getActions(targetModelName)
   )
 
-  const onClick = () =>
-    onCreateClick({
-      modelName: targetModelName,
-      path,
-      targetInverseFieldName,
-      node
-    })
-  return <CreateButton {...{ onClick }} />
+  const onClick = () => onCreateClick({
+    modelName: targetModelName,
+    path,
+    targetInverseFieldName,
+    node
+  })
+  return <CreateButton {...{ onClick, to: targetModelName }} />
 }
 
 export const DefaultDetailTableTitleWrapper = ({ children }) => {
