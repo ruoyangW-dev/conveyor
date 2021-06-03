@@ -40,6 +40,10 @@ body {
   background-color: #DEEBFF;
 }
 
+.conv-failed-validation {
+  outline: 2px solid #FF0000;
+}
+
 .edit-icon {
   display: inline-block;
   height: 20px;

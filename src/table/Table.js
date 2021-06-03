@@ -24,6 +24,14 @@ export const DetailViewButton = ({ modelName, id }) => (
   </Link>
 )
 
+/**
+ * React Component for Delete Button
+ * @param modalId id of delete modal shown
+ * @param onDeleteWarning function to warn that a delete is imminent, called on click
+ * @param modelName name of the model
+ * @param id id of the object to be deleted
+ * @return Rendered React Component
+ */
 export const DeleteButton = ({ modalId, onDeleteWarning, modelName, id }) => {
   return (
     <button
@@ -153,6 +161,23 @@ export const TableButtonGroup = ({
   )
 }
 
+/**
+ * React Component wrapping a table field/cell
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName name of the field
+ * @param node data of the object associated with the row
+ * @param detailField name of the field that containing the name of the object
+ * > also links to that object
+ * @param editData information on what is being edited, current state and any errors
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param parentNode object data of the parent object, if being shown from Detail page
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const TableRowWithEdit = ({
   modelName,
   fieldName,
@@ -162,6 +187,7 @@ export const TableRowWithEdit = ({
   editData,
   tooltipData,
   selectOptions,
+  failedValidation,
   parentNode,
   customProps
 }) => {
@@ -192,6 +218,7 @@ export const TableRowWithEdit = ({
           editData: fieldEditData,
           error,
           selectOptions,
+          failedValidation,
           customProps
         }}
       />
@@ -242,6 +269,28 @@ export const TableRowWithEdit = ({
   )
 }
 
+/**
+ * React Component for the Table Cell with buttons, on right hand side
+ * @param modelName the name of the model
+ * @param parentModelName name of parent model, if being shown from Detail page
+ * @param node data of the object associated with the row
+ * @param schema model schema
+ * @param detailField name of the field that containing the name of the object
+ * > also links to that object
+ * @param editData information on what is being edited, current state and any errors
+ * @param onEditSubmit function called when a row is edited
+ * @param onEditCancel function called when a row edit is canceled
+ * @param deletable boolean may delete this object
+ * @param editable boolean may edit this object
+ * @param parentId id of parent, if being shown from Detail page
+ * @param modalData delete detail modal information
+ * @param parentFieldName name of parent field, if being shown from Detail page
+ * @param onDelete function called when a row is deleted
+ * @param idx index of the row
+ * @param fromIndex boolean, whether or not the table is an Index table
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const TableButtonCell = ({
   modelName,
   parentModelName,
@@ -306,6 +355,7 @@ const TDList = ({
   tooltipData,
   editData,
   selectOptions,
+  failedValidation,
   parentNode,
   node,
   fromIndex,
@@ -337,6 +387,7 @@ const TDList = ({
             editData,
             tooltipData,
             selectOptions,
+            failedValidation,
             parentNode,
             customProps
           }}
@@ -363,6 +414,7 @@ const TRList = ({
   tableEditable,
   deletable,
   selectOptions,
+  failedValidation,
   parentNode,
   fromIndex,
   customProps,
@@ -394,6 +446,7 @@ const TRList = ({
             tableEditable,
             deletable,
             selectOptions,
+            failedValidation,
             parentNode,
             node,
             fromIndex,
@@ -449,6 +502,7 @@ export const TBody = ({
   tableEditable,
   deletable,
   selectOptions,
+  failedValidation,
   parentNode,
   fromIndex,
   customProps,
@@ -476,6 +530,7 @@ export const TBody = ({
           tableEditable,
           deletable,
           selectOptions,
+          failedValidation,
           parentNode,
           fromIndex,
           customProps,
@@ -488,6 +543,35 @@ export const TBody = ({
 }
 
 /* Generic Overidable Table. To Override th/td pass in Table with <thead>/<tbody> component overriden. */
+/**
+ * Overridable React Component for Tables
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param node object data of the parent object, if being shown from Detail page
+ * @param data data in the table
+ * @param fieldOrder all fields in column order
+ * @param onDelete function called when a row is deleted
+ * @param onEditSubmit function called when a row is edited
+ * @param modalData delete detail modal information
+ * @param editData information on what is being edited, current state and any errors
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param parentId id of parent, if being shown from Detail page
+ * @param parentModelName name of parent model, if being shown from Detail page
+ * @param parentFieldName name of parent field, if being shown from Detail page
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param Head override table header
+ * @param Body override table body
+ * @param Foot override table footer
+ * @param collapse boolean, whether or not the table is collapsed
+ * @param fromIndex boolean, whether or not the table is an Index table
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 export const Table = ({
   schema,
   modelName,
@@ -499,6 +583,7 @@ export const Table = ({
   modalData,
   editData,
   selectOptions,
+  failedValidation,
   parentId,
   parentModelName,
   parentFieldName,
@@ -589,6 +674,7 @@ export const Table = ({
             parentFieldName,
             modalData,
             selectOptions,
+            failedValidation,
             editData,
             deletable,
             tableEditable: editable,

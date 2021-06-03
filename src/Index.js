@@ -6,6 +6,17 @@ import { FilterModal, FilterModalButton } from './table/Filter'
 import { Redirect } from 'react-router-dom'
 import { skipOverride, useOverride } from './Utils'
 
+/**
+ * Overridable React Component for the Index Page Title
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param selectOptions options used by the select input type
+ * @param path relative path to current page
+ * @param data data in the table
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultIndexTitle = ({
   schema,
   modelName,
@@ -63,6 +74,24 @@ const PageNotFound = () => (
   </div>
 )
 
+/**
+ * Overridable React Component for the Whole Index Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param data data in the table
+ * @param modalData delete detail modal information
+ * @param editData information on what is being edited, current state and any errors
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param path relative path to current page
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 export const DefaultIndex = ({
   schema,
   modelName,
@@ -70,6 +99,7 @@ export const DefaultIndex = ({
   modalData,
   editData,
   selectOptions,
+  failedValidation,
   path,
   tooltipData,
   tableView,
@@ -123,6 +153,7 @@ export const DefaultIndex = ({
           modalData,
           editData,
           selectOptions,
+          failedValidation,
           tooltipData,
           tableView,
           customProps,
@@ -137,6 +168,24 @@ export const DefaultIndex = ({
   )
 }
 
+/**
+ * Top Level React Component for the Index Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param data data in the table
+ * @param modalData delete detail modal information
+ * @param editData information on what is being edited, current state and any errors
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param path relative path to current page
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @param customProps user defined props and customization
+ * @param summary summary information for the footer
+ * > ex: sum of table column, optional if no footer
+ * @return Rendered React Component
+ */
 const Index = ({
   schema,
   modelName,
@@ -144,6 +193,7 @@ const Index = ({
   modalData,
   editData,
   selectOptions,
+  failedValidation,
   path,
   tooltipData,
   tableView,
@@ -191,6 +241,7 @@ const Index = ({
         modalData,
         editData,
         selectOptions,
+        failedValidation,
         path,
         tooltipData,
         tableView,
