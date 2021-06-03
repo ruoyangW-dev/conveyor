@@ -235,6 +235,7 @@ export const Field = ({
         <FieldLink {...{ prefix: 'mailto:', noDataDisplayValue, ...props }} />
       )
     case consts.inputTypes.BOOLEAN_TYPE:
+    case consts.inputTypes.CHECKBOX_TYPE:
       return <FieldBoolean {...props} />
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />
