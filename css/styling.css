@@ -238,6 +238,7 @@ body {
 }
 
 .conv-color-swatch {
+  display: inline-block;
   width: 50px;
   height: 27px;
   border-radius: 3px;
