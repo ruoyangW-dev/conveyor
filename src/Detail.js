@@ -514,12 +514,15 @@ export const DefaultDetailM2MFieldLabel = ({
     customProps
   })
   const required = R.prop('required', schema.getField(modelName, fieldName))
+  const fieldLabel = schema.getFieldLabel({
+    modelName,
+    fieldName,
+    node,
+    customProps
+  })
   const Label = () => (
     <div className="title-label-container">
-      <h4>
-        {schema.getFieldLabel({ modelName, fieldName, node, customProps })}
-      </h4>
-      {required && ' *'}
+      <h4 className={required ? 'required-field-label' : ''}>{fieldLabel}</h4>
       {creatable && (
         <DetailCreateButton
           {...{
