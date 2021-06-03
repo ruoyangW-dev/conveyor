@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * React Component for Create Button
+ * @param onClick
+ * @return Rendered React Component
+ */
 const CreateButton = ({ onClick }) => (
   <Link
     to="/Create"

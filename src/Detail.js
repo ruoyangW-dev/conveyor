@@ -34,6 +34,15 @@ const LabelInfoPopover = ({ LabelInfoComponent, fieldLabel }) => (
   />
 )
 
+/**
+ * React Component for Table Collapse button
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param id id of the object
+ * @param collapse boolean, whether or not the table is collapsed
+ * @param collapseTableChange method called whenever the table is collapsed or opened
+ * @return Rendered React Component
+ */
 export const CollapseTableButton = ({
   modelName,
   fieldName,
@@ -323,6 +332,15 @@ export const DefaultDetailAttribute = ({
   }
 }
 
+/**
+ * React Component for Create Button
+ * @param schema model schema
+ * @param targetModelName the name of the other model linked to by this table
+ * @param path relative path to current page
+ * @param targetInverseFieldName the name of the field on the other model that refers to this model
+ * @param node all information about the object (object data as Magql would return it)
+ * @return Rendered React Component
+ */
 export const DetailCreateButton = ({
   schema,
   targetModelName,

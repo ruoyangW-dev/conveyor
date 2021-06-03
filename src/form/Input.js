@@ -58,7 +58,7 @@ export const DisabledInput = ({ value, label }) => (
 )
 
 /**
- * Top Level React Component for the Inputs
+ * React Component for the Input
  * @param schema model schema
  * @param modelName the name of the model
  * @param fieldName the name of the field

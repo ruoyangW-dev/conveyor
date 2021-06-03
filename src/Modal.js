@@ -2,6 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PrintButton from './PrintButton'
 
+/**
+ * React Component Modal
+ * @param id id of modal div
+ * @param title title of Modal
+ * @param className css className for Modal, optional
+ * @param children
+ * @return Rendered React Component
+ */
 export const Modal = ({ id, title, className = '', children }) => (
   <div className={'conv-modal ' + className} id={id} tabIndex={-1}>
     <div className="modal-dialog">

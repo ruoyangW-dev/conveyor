@@ -24,6 +24,14 @@ export const DetailViewButton = ({ modelName, id }) => (
   </Link>
 )
 
+/**
+ * React Component for Delete Button
+ * @param modalId id of delete modal shown
+ * @param onDeleteWarning function to warn that a delete is imminent, called on click
+ * @param modelName name of the model
+ * @param id id of the object to be deleted
+ * @return Rendered React Component
+ */
 export const DeleteButton = ({ modalId, onDeleteWarning, modelName, id }) => {
   return (
     <button
