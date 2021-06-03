@@ -2,7 +2,6 @@ import React from 'react'
 import * as consts from '../consts'
 import * as R from 'ramda'
 import DetailLink from '../DetailLink'
-import Switch from 'rc-switch'
 import { ImageLinkModal } from '../Modal'
 import Tooltip from '../Tooltip'
 
@@ -26,7 +25,7 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
 
 const FieldBoolean = ({ fieldName, node }) => {
   const displayBool = R.propOr(false, fieldName, node) // need propOr(false...
-  return <Switch checked={displayBool} />
+  return <input type="checkbox" defaultChecked={displayBool} disabled="disabled" />
 }
 
 // Render a link to the value. If the value does not start with any of the prefixes,

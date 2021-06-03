@@ -239,6 +239,7 @@ const InputInnerCore = ({
     case inputTypes.CURRENCY_TYPE:
     case inputTypes.PASSWORD_TYPE:
     case inputTypes.FILE_TYPE:
+    case inputTypes.CHECKBOX_TYPE:
       return <FlexibleInput {...defaultProps} />
     case inputTypes.FLOAT_TYPE:
       return (

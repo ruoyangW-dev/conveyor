@@ -5,6 +5,7 @@
 Standardize in line with other autoinvent projects
 Add typedoc
 Begin extraction of styling
+Change rc-switch to checkbox
 
 ## Version 0.7.0
 

@@ -3,7 +3,6 @@ import Select, { createFilter } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import DatePicker from 'react-datepicker'
 import CurrencyInput from 'react-currency-input'
-import Switch from 'rc-switch'
 import * as R from 'ramda'
 import { inputTypes } from '../consts'
 import { optimizeSelect } from '../utils/optimizeSelect'
@@ -736,13 +735,14 @@ export const InputSwitch = ({
       className={`${className} ${inline ? ' form-check-inline' : ''}`}
     >
       &nbsp;
-      <Switch
-        onChange={(evt) => {
-          const val = typeof evt === typeof false ? evt : false
-          return onChange(val)
-        }}
-        checked={value}
-        {...customInput}
+      <input
+          className="form-check-input"
+          type="checkbox"
+          onChange={(evt) => {
+            return onChange(evt.target.checked)
+          }}
+          checked={value}
+          {...customInput}
       />
     </div>
   </FormGroup>
