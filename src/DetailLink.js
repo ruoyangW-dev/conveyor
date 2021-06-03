@@ -1,6 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * React Component for Link to Detail
+ * @param modelName the name of the model
+ * @param id id of object associated with the row
+ * @param children
+ * @return Rendered React Component
+ */
 const DetailLink = ({ modelName, id, children }) => (
   <Link to={`/${modelName}/${id}`}>{children}</Link>
 )

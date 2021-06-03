@@ -147,6 +147,20 @@ const ReviewTable = ({ schema, table, customProps }) => {
   )
 }
 
+/**
+ * React Component Delete Warning Modal
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param id id of the object to be deleted
+ * @param modalId id of modal div
+ * @param title title of Modal, default 'Confirm Delete'
+ * @param onDelete function called when a row is deleted
+ * @param modalData delete detail modal information
+ * @param parentId id of parent, if being shown from Detail page
+ * @param parentModelName name of parent model, if being shown from Detail page
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DeleteDetail = ({
   schema,
   modelName,
