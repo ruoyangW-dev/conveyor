@@ -249,6 +249,7 @@ body {
   border: 1px solid #000;
 }
 
+
 .conv-color-input-swatch {
   cursor: pointer;
   width: 50px;
@@ -257,6 +258,10 @@ body {
   padding-top: 3px;
   padding-bottom: 3px;
   border: 1px solid #000;
+}
+
+.required-field-label::after {
+  content: " *";
 }
 
 /*!
@@ -11348,3 +11353,5 @@ h3 {
 .conv-tree-table-header-label {
   flexGrow: 1;
 }
+
+/*# sourceMappingURL=index.css.map */

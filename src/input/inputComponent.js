@@ -55,7 +55,12 @@ export const FormGroup = ({
     labelComp = customLabelContent
   } else if (labelStr) {
     labelStrContent = (
-      <label htmlFor={htmlFor}>{`${labelStr} ${required ? ' *' : ''}`}</label>
+      <label
+        htmlFor={htmlFor}
+        className={required ? 'required-field-label' : ''}
+      >
+        {labelStr}
+      </label>
     )
     labelComp = labelStrContent
   }
@@ -860,7 +865,9 @@ export const InputCheckbox = ({
           }}
           {...customInput}
         />
-        {`${labelStr} ${required ? ' *' : ''}`}
+        <span className={required ? 'required-field-label' : ''}>
+          {labelStr}
+        </span>
       </label>
       {error && customError({ error, id })}
     </div>

@@ -368,8 +368,6 @@ export const FilterComp = ({
   }
   const value = R.prop('value', filterInput)
   const operator = R.prop('operator', filterInput)
-  const actions = schema.getActions(modelName)
-  const onMenuOpen = R.path(['input', 'onMenuOpen'], actions)
   return (
     <div className={'conv-filter-comp conv-filter-comp-' + modelName}>
       <div className="filter-operator-dropdown">
@@ -396,7 +394,6 @@ export const FilterComp = ({
                 onChange: onFilterChange,
                 inline: true,
                 selectOptions,
-                onMenuOpen,
                 customInput: {
                   placeholder: 'Enter value...'
                 }

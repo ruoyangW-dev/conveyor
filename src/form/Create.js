@@ -48,6 +48,13 @@ const getDisabledValue = ({ schema, modelName, fieldName, form }) => {
   }
 }
 
+/**
+ * Overridable React Component for the Create Page Title
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultCreateTitle = ({ schema, modelName, customProps }) => {
   return <h1>Create {schema.getModelLabel({ modelName, customProps })}</h1>
 }
@@ -128,6 +135,17 @@ const FieldInputList = ({
   })
 }
 
+/**
+ * Overridable React Component for the Create Page Content
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param formStack information about calling page and also information about errors
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultCreatePage = ({
   schema,
   modelName,
@@ -211,6 +229,17 @@ export const DefaultCreatePage = ({
   )
 }
 
+/**
+ * Overridable React Component for the Whole Create Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param formStack information about calling page
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultCreate = ({
   schema,
   modelName,
@@ -257,6 +286,17 @@ export const DefaultCreate = ({
   )
 }
 
+/**
+ * Top Level React Component for the Create Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param formStack information about calling page
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 const Create = ({
   schema,
   modelName,

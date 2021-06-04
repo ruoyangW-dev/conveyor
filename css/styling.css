@@ -254,3 +254,8 @@ body {
   padding-bottom: 3px;
   border: 1px solid #000;
 }
+
+.required-field-label::after {
+  content: " *";
+}
+

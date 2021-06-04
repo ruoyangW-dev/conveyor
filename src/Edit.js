@@ -138,7 +138,6 @@ export const EditInput = ({
           onEditInputChange({ id: node.id, modelName, ...props }),
         fieldName,
         modelName,
-        node,
         value: editData,
         error,
         inline: true,

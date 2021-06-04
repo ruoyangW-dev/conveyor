@@ -199,6 +199,17 @@ export const FieldToMany = ({
   )
 }
 
+/**
+ * React Component for Table Field
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName name of the field
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param node data of the object associated with the row
+ * @param id id of object associated with the row
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const Field = ({
   schema,
   modelName,
