@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import * as consts from '../consts'
 import * as R from 'ramda'
 import DetailLink from '../DetailLink'
@@ -24,8 +25,15 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
 }
 
 const FieldBoolean = ({ fieldName, node }) => {
-  const displayBool = R.propOr(false, fieldName, node) // need propOr(false...
-  return <input type="checkbox" defaultChecked={displayBool} disabled="disabled" />
+  return (
+    <div>
+      {R.propOr(false, fieldName, node) ? (
+        <MdCheckBox />
+      ) : (
+        <MdCheckBoxOutlineBlank />
+      )}
+    </div>
+  )
 }
 
 // Render a link to the value. If the value does not start with any of the prefixes,
@@ -235,7 +243,6 @@ export const Field = ({
         <FieldLink {...{ prefix: 'mailto:', noDataDisplayValue, ...props }} />
       )
     case consts.inputTypes.BOOLEAN_TYPE:
-    case consts.inputTypes.CHECKBOX_TYPE:
       return <FieldBoolean {...props} />
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />

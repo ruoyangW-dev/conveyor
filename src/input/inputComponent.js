@@ -1,5 +1,6 @@
 import React from 'react'
 import Select, { createFilter } from 'react-select'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
 import CreatableSelect from 'react-select/creatable'
 import DatePicker from 'react-datepicker'
 import CurrencyInput from 'react-currency-input'
@@ -687,7 +688,7 @@ export const InputFile = ({
 }
 
 /**
- * Singular component for Switch Type.
+ * Singular component for boolean checkbox Type.
  *
  * See React Switch documentation for details on which attributes to override
  *
@@ -704,7 +705,7 @@ export const InputFile = ({
  * @property { function } customLabel
  */
 
-export const InputSwitch = ({
+export const InputCheckbox = ({
   onChange,
   value,
   inline,
@@ -724,7 +725,7 @@ export const InputSwitch = ({
     htmlFor={id}
     error={error}
     required={required}
-    className="conv-input-component conv-input-type-switch"
+    className="conv-input-component conv-input-type-checkbox"
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
@@ -735,75 +736,17 @@ export const InputSwitch = ({
       className={`${className} ${inline ? ' form-check-inline' : ''}`}
     >
       &nbsp;
-      <input
-          className="form-check-input"
-          type="checkbox"
-          onChange={(evt) => {
-            return onChange(evt.target.checked)
-          }}
-          checked={value}
-          {...customInput}
-      />
+      <div
+        onClick={() => {
+          return onChange(!value)
+        }}
+        {...customInput}
+      >
+        {value ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+      </div>
     </div>
   </FormGroup>
 )
-
-/**
- * Singular component for Checkbox Type.
- *
- * This component has no customLabel option
- *
- * @property { function } onChange - returns evt.target.checked:
- *     evt => onChange(evt.target.checked)
- * @property { string } id
- * @property { string } [labelStr]
- * @property { string } [error]
- * @property { any } value - FlexibleInput component sets default to: false
- * @property { string } className - FlexibleInput component sets default to: 'form-group form-check'
- * @property { object } [customInput]
- * @property { boolean } required
- * @property { function } customError
- */
-
-export const InputCheckbox = ({
-  onChange,
-  value,
-  id,
-  className,
-  labelStr,
-  error,
-  required,
-  customInput,
-  customError
-}) => {
-  customError = R.defaultTo(CustomErrorComponent, customError)
-  return (
-    <div
-      key={`checkbox-${id}`}
-      className={'conv-input-component conv-input-type-checkbox ' + className}
-    >
-      <label className="form-check-label">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          id={id}
-          value={value}
-          checked={value}
-          onChange={(evt) => {
-            const val =
-              typeof evt.target.checked === typeof false
-                ? evt.target.checked
-                : false
-            return onChange(val)
-          }}
-          {...customInput}
-        />
-        {`${labelStr} ${required ? ' *' : ''}`}
-      </label>
-      {error && customError({ error, id })}
-    </div>
-  )
-}
 
 /**
  * Singular component for Select Type.

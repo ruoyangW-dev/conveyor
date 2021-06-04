@@ -10,7 +10,6 @@ import {
   InputTextArea,
   InputRadio,
   InputFile,
-  InputSwitch,
   InputCheckbox,
   InputSelect,
   InputCreatableStringSelect
@@ -47,8 +46,7 @@ const defaultTypeMap = {
   [inputTypes.RADIO_TYPE]: InputRadio,
   [inputTypes.SELECT_TYPE]: InputSelect,
   [inputTypes.CREATABLE_STRING_SELECT_TYPE]: InputCreatableStringSelect,
-  [inputTypes.CHECKBOX_TYPE]: InputCheckbox,
-  [inputTypes.BOOLEAN_TYPE]: InputSwitch
+  [inputTypes.BOOLEAN_TYPE]: InputCheckbox
 }
 /**
  * @param { object } props
@@ -163,14 +161,6 @@ const FlexibleInput = (props) => {
       params['noOptionsMessage'] = R.defaultTo(
         () => 'No Options',
         params['noOptionsMessage']
-      )
-      break
-
-    case inputTypes.CHECKBOX_TYPE:
-      params['value'] = R.defaultTo(false, params['value'])
-      params['className'] = R.defaultTo(
-        'form-group form-check',
-        params['className']
       )
       break
 
