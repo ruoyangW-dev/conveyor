@@ -244,6 +244,14 @@ export const IndexPagination = ({ schema, modelName, tableView }) => {
   )
 }
 
+/**
+ * React Component for the Detail Table Pagination
+ * @param schema model schema
+ * @param modelName the name of the parent model
+ * @param fieldName the name of the field on the parent
+ * @param tableView has sort and pagination information, as well as filtering info
+ * @return Rendered React Component
+ */
 export const DetailPagination = ({
   schema,
   modelName,

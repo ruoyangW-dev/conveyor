@@ -6,6 +6,7 @@ import * as R from 'ramda'
 import DetailLink from '../DetailLink'
 import { ImageLinkModal } from '../Modal'
 import Tooltip from '../Tooltip'
+import { validColorCheck } from '../utils/colorHelper'
 
 // gets the schema of the relationship model, based on field meta
 export const getRelSchemaEntry = ({ schema, modelName, fieldName }) => {
@@ -23,6 +24,17 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
     R.isNil(value) || value === '' ? noDataDisplayValue : value
 
   return <span className="text-area-display">{displayString}</span>
+}
+
+const FieldColor = ({ fieldName, node }) => {
+  const value = R.prop(fieldName, node)
+  if (R.isNil(value) || !validColorCheck(value)) {
+    return <span className="text-area-display">N/A</span>
+  } else {
+    return (
+      <div className="conv-color-swatch" style={{ backgroundColor: value }} />
+    )
+  }
 }
 
 const FieldBoolean = ({ fieldName, node }) => {
@@ -197,6 +209,17 @@ export const FieldToMany = ({
   )
 }
 
+/**
+ * React Component for Table Field
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName name of the field
+ * @param tooltipData displayed tooltip data for objects referenced by the table.
+ * @param node data of the object associated with the row
+ * @param id id of object associated with the row
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const Field = ({
   schema,
   modelName,
@@ -249,6 +272,8 @@ export const Field = ({
       return <FieldBoolean {...props} />
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />
+    case consts.inputTypes.COLOR_TYPE:
+      return <FieldColor {...props} />
     case consts.inputTypes.MANY_TO_ONE_TYPE:
       return (
         <FieldToOne

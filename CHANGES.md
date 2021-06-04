@@ -4,8 +4,16 @@
 
 Standardize in line with other autoinvent projects
 Add typedoc
+
+Highlight fields that fail validation, ie are required, but not present.
+
 Begin extraction of styling
 Change rc-switch to checkbox
+
+Add Color input type
+
+Add css based required field asterisk
+
 
 ## Version 0.7.0
 

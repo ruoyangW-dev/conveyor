@@ -48,6 +48,13 @@ const getDisabledValue = ({ schema, modelName, fieldName, form }) => {
   }
 }
 
+/**
+ * Overridable React Component for the Create Page Title
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultCreateTitle = ({ schema, modelName, customProps }) => {
   return <h1>Create {schema.getModelLabel({ modelName, customProps })}</h1>
 }
@@ -59,6 +66,7 @@ const FieldInputList = ({
   stackIndex,
   form,
   selectOptions,
+  failedValidation,
   customProps,
   onKeyDown,
   onChange,
@@ -106,6 +114,7 @@ const FieldInputList = ({
             value,
             error,
             selectOptions,
+            failedValidation,
             onChange,
             disabled,
             formStack,
@@ -126,11 +135,23 @@ const FieldInputList = ({
   })
 }
 
+/**
+ * Overridable React Component for the Create Page Content
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param formStack information about calling page and also information about errors
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultCreatePage = ({
   schema,
   modelName,
   formStack,
   selectOptions,
+  failedValidation,
   customProps
 }) => {
   const stackIndex = R.prop('index', formStack)
@@ -173,6 +194,7 @@ export const DefaultCreatePage = ({
             stackIndex,
             form,
             selectOptions,
+            failedValidation,
             customProps,
             onKeyDown,
             onChange,
@@ -207,11 +229,23 @@ export const DefaultCreatePage = ({
   )
 }
 
+/**
+ * Overridable React Component for the Whole Create Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param formStack information about calling page
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 export const DefaultCreate = ({
   schema,
   modelName,
   formStack,
   selectOptions,
+  failedValidation,
   customProps
 }) => {
   const CreateTitleOverride = schema.getCreateTitleOverride(modelName)
@@ -244,6 +278,7 @@ export const DefaultCreate = ({
           modelName,
           formStack,
           selectOptions,
+          failedValidation,
           customProps
         }}
       />
@@ -251,11 +286,23 @@ export const DefaultCreate = ({
   )
 }
 
+/**
+ * Top Level React Component for the Create Page
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param formStack information about calling page
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param customProps user defined props and customization
+ * @return Rendered React Component
+ */
 const Create = ({
   schema,
   modelName,
   formStack,
   selectOptions,
+  failedValidation,
   customProps
 }) => {
   const CreateOverride = schema.getCreateOverride(modelName)
@@ -268,7 +315,14 @@ const Create = ({
 
   return (
     <CreateComponent
-      {...{ schema, modelName, formStack, selectOptions, customProps }}
+      {...{
+        schema,
+        modelName,
+        formStack,
+        selectOptions,
+        failedValidation,
+        customProps
+      }}
     />
   )
 }

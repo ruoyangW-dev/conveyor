@@ -24,8 +24,7 @@ export const relationshipLabelFactory = ({
 
   const Label = ({ labelStr }) => (
     <label htmlFor={id}>
-      <span>{labelStr}</span>
-      {required && ' *'}
+      <span className={required ? 'required-field-label' : ''}>{labelStr}</span>
       {creatable && (
         <CreateButton
           {...{
@@ -39,6 +38,12 @@ export const relationshipLabelFactory = ({
   return Label
 }
 
+/**
+ * React Component for Disabled Input, for Create page
+ * @param value
+ * @param label
+ * @return Rendered React Component
+ */
 export const DisabledInput = ({ value, label }) => (
   <div className="conv-disabled-input">
     <span>{label}</span>
@@ -51,16 +56,39 @@ export const DisabledInput = ({ value, label }) => (
   </div>
 )
 
+/**
+ * React Component for the Input
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param value current value of the input
+ * @param error error value display below input
+ * @param inline boolean, if false use a field label above input
+ * > field label only used on create page
+ * @param onChange function called when the input value is changed
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param disabled boolean if the input is disabled
+ * @param customLabel react component for a specialized type of label
+ * @param formStack information about calling page and also information about errors, if on a create page
+ * @param autoFocus refers to specific fields (see isAutoFocusInput()) that have autofocus input feature
+ * @param onKeyDown function called when a key has been pressed (on inside input), optional
+ * > if on create page save if enter pressed
+ * @param customProps user defined props and customization
+ * @param showPopover boolean show label info in a popover
+ * @return Rendered React Component
+ */
 const Input = ({
   schema,
   modelName,
   fieldName,
-  node,
   value,
   error,
   inline,
   onChange,
   selectOptions,
+  failedValidation,
   disabled,
   customLabel,
   formStack,
@@ -81,12 +109,12 @@ const Input = ({
         schema,
         modelName,
         fieldName,
-        node,
         value,
         error,
         inline,
         onChange,
         selectOptions,
+        failedValidation,
         disabled,
         customLabel,
         formStack,
@@ -101,6 +129,14 @@ const Input = ({
   )
 }
 
+/**
+ * Wraps the on change function in a function that knows which field is being changed
+ * and handles special input cases
+ * @param inputType the type of data the input handles
+ * @param onChange function called when change occurs
+ * @param fieldName name of the field targeted by the input
+ * @return wrapped onChange function
+ */
 export const getOnChange = ({ inputType, onChange, fieldName }) => {
   const defaultHandleOnChange = (val) =>
     onChange({
@@ -119,6 +155,32 @@ export const getOnChange = ({ inputType, onChange, fieldName }) => {
   }
 }
 
+/**
+ * Overridable React Component for Input
+ * @param schema model schema
+ * @param modelName the name of the model
+ * @param fieldName the name of the field
+ * @param value current value of the input
+ * @param error error value display below input
+ * @param inline boolean, if false use a field label above input
+ * > field label only used on create page
+ * @param onChange function called when the input value is changed
+ * @param selectOptions options used by the select input type
+ * @param failedValidation a function that determines if a field has failed validation
+ * > run with `failedValidation(modelName, fieldName)`
+ * @param disabled boolean if the input is disabled
+ * @param customLabel react component for a specialized type of label
+ * @param formStack information about calling page, if on a create page
+ * @param customInput Overrides any props passed into the component, or those set by default in this library.
+ * > For example, to override default settings for a "Date" component structure the data like so:
+ * > {placeholderText:'Click here', fixedHeight:false}
+ * @param autoFocus refers to specific fields (see isAutoFocusInput()) that have autofocus input feature
+ * @param onKeyDown function called when a key has been pressed (on inside input), optional
+ * > if on create page save if enter pressed
+ * @param customProps user defined props and customization
+ * @param showPopover boolean show label info in a popover
+ * @return Rendered React Component
+ */
 export const InputCore = ({
   schema,
   modelName,
@@ -128,11 +190,10 @@ export const InputCore = ({
   inline,
   onChange,
   selectOptions,
+  failedValidation,
   disabled,
   customLabel,
   formStack,
-  onMenuOpen,
-  onCreatableMenuOpen,
   customInput, // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
@@ -151,9 +212,13 @@ export const InputCore = ({
   }
 
   const fieldHelp = schema.getFieldHelpText(modelName, fieldName)
+  let failed = ''
+  if (failedValidation && failedValidation(modelName, fieldName)) {
+    failed = ' conv-failed-validation'
+  }
 
   return (
-    <div className={'conv-input conv-input-model-' + modelName}>
+    <div className={'conv-input conv-input-model-' + modelName + failed}>
       <InputInnerCore
         {...{
           schema,
@@ -165,8 +230,6 @@ export const InputCore = ({
           onChange,
           selectOptions,
           customLabel,
-          onMenuOpen,
-          onCreatableMenuOpen,
           customInput, // optional; used for FlexibleInput only; differs from 'customProps'
           autoFocus,
           onKeyDown,
@@ -189,8 +252,6 @@ const InputInnerCore = ({
   onChange,
   selectOptions,
   customLabel,
-  onMenuOpen,
-  onCreatableMenuOpen,
   customInput, // optional; used for FlexibleInput only; differs from 'customProps'
   autoFocus,
   onKeyDown,
@@ -198,6 +259,9 @@ const InputInnerCore = ({
   showPopover
 }) => {
   const inputType = schema.getType(modelName, fieldName)
+  const actions = schema.getActions(modelName)
+  const onMenuOpen = R.path(['input', 'onMenuOpen'], actions)
+  const onCreatableMenuOpen = R.path(['input', 'onCreatableMenuOpen'], actions)
 
   const defaultHandleOnChange = getOnChange({ inputType, onChange, fieldName })
   const fieldLabel = schema.getFieldLabel({
@@ -232,6 +296,7 @@ const InputInnerCore = ({
     case inputTypes.TEXTAREA_TYPE:
     case inputTypes.DATE_TYPE:
     case inputTypes.DATETIME_TYPE:
+    case inputTypes.COLOR_TYPE:
     case inputTypes.URL_TYPE:
     case inputTypes.EMAIL_TYPE:
     case inputTypes.PHONE_TYPE:
