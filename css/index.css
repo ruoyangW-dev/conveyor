@@ -1,8 +1,8 @@
-/**
-* WARNING THIS FILE IS GENERATED
-* to regenerate run: sass styles.scss > index.css
-*/
 @charset "UTF-8";
+/**
+* TOP LEVEL FILE
+* Rebuild index.css by running: sass styles.scss > index.css
+*/
 body {
   margin: 0;
   padding: 0;
@@ -235,6 +235,17 @@ body {
 
 .conv-tree-table-header-label {
   flex-grow: 1;
+}
+
+.input-checkbox-icon {
+  display: inline;
+  height: 24px;
+  width: 24px;
+}
+
+.checkbox-icon {
+  height: 24px;
+  width: 24px;
 }
 
 /*!

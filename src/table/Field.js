@@ -1,5 +1,6 @@
 import React from 'react'
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { IconContext } from 'react-icons/lib'
 import * as consts from '../consts'
 import * as R from 'ramda'
 import DetailLink from '../DetailLink'
@@ -26,13 +27,15 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
 
 const FieldBoolean = ({ fieldName, node }) => {
   return (
-    <div>
-      {R.propOr(false, fieldName, node) ? (
-        <MdCheckBox />
-      ) : (
-        <MdCheckBoxOutlineBlank />
-      )}
-    </div>
+    <span>
+      <IconContext.Provider value={{ className: "checkbox-icon"}}>
+        {R.propOr(false, fieldName, node) ? (
+          <MdCheckBox />
+        ) : (
+          <MdCheckBoxOutlineBlank />
+        )}
+      </IconContext.Provider>
+    </span>
   )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Select, { createFilter } from 'react-select'
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { IconContext } from 'react-icons/lib'
 import CreatableSelect from 'react-select/creatable'
 import DatePicker from 'react-datepicker'
 import CurrencyInput from 'react-currency-input'
@@ -13,6 +14,7 @@ import {
 } from '../utils/timezoneHelpers'
 import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
+
 
 const errorBuilder = ({ error, id }) =>
   error.map((r) => (
@@ -742,7 +744,9 @@ export const InputCheckbox = ({
         }}
         {...customInput}
       >
-        {value ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        <IconContext.Provider value={{ className: "input-checkbox-icon"}}>
+          {value ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </IconContext.Provider>
       </div>
     </div>
   </FormGroup>
