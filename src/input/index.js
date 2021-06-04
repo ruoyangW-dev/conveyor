@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import {
   InputDate,
   InputDateTime,
+  InputColor,
   InputString,
   InputPassword,
   InputInt,
@@ -43,6 +44,7 @@ const defaultTypeMap = {
   [inputTypes.PASSWORD_TYPE]: InputPassword,
   [inputTypes.DATE_TYPE]: InputDate,
   [inputTypes.DATETIME_TYPE]: InputDateTime,
+  [inputTypes.COLOR_TYPE]: InputColor,
   [inputTypes.FILE_TYPE]: InputFile,
   [inputTypes.RADIO_TYPE]: InputRadio,
   [inputTypes.SELECT_TYPE]: InputSelect,
@@ -127,6 +129,9 @@ const FlexibleInput = (props) => {
     case inputTypes.CURRENCY_TYPE:
       params['value'] = R.defaultTo('', params['value'])
       params['className'] = R.defaultTo('form-control', params['className'])
+      break
+    case inputTypes.COLOR_TYPE:
+      params['value'] = R.defaultTo('#ffffff', params['value'])
       break
 
     case inputTypes.DATE_TYPE:

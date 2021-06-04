@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@autoinvent/conveyor-schema": "^0.3.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "print-js": "^1.0.63",
     "ramda": "^0.26.1",
@@ -24,7 +25,7 @@
     "react-datepicker": "^3.6.0",
     "react-icons": "^3.8.0",
     "react-select": "^3.0.4",
-    "react-tippy": "github:codebloodedchris/react-tippy",
+    "react-tippy": "github:ChristopherCarson/react-tippy",
     "react-window": "^1.8.5"
   },
   "devDependencies": {

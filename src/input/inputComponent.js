@@ -11,8 +11,10 @@ import {
   convertLocalToUTCDate,
   convertUTCToLocalDate
 } from '../utils/timezoneHelpers'
+import { validColorCheck } from '../utils/colorHelper'
 import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
+import _ from 'lodash'
 
 const errorBuilder = ({ error, id }) =>
   error.map((r) => (
@@ -261,6 +263,66 @@ export const InputDateTime = ({
           showTimeSelect
           timeIntervals={15}
           timeFormat={timeFormat}
+          {...customInput}
+        />
+      </div>
+    </FormGroup>
+  )
+}
+
+/**
+ * Singular component for Color Type.
+ *
+ * should NOT have onKeyDown because the 'enter' key should be reserved for DatePicker operations
+
+ * @property { function } onChange - returns evt:
+ *      evt => onChange(evt)
+ * @property { string } id
+ * @property { string } [labelStr]
+ * @property { string } [error]
+ * @property { any } value - FlexibleInput component sets default to: null
+ * @property { string } className - FlexibleInput component sets default to: 'form-control'
+ * @property { object } [customInput]
+ * @property { boolean } required
+ * @property { function } customError
+ * @property { function } customLabel
+ */
+
+export const InputColor = ({
+  onChange,
+  id,
+  labelStr,
+  error,
+  value,
+  required,
+  customInput,
+  customError,
+  customLabel,
+  LabelInfoComponent,
+  showPopover
+}) => {
+  const debounceOnChange = _.debounce((val) => onChange(val), 500)
+
+  //TODO: Add styling class for color
+  return (
+    <FormGroup
+      labelStr={labelStr}
+      htmlFor={id}
+      error={error}
+      required={required}
+      className="conv-input-component conv-input-type-color"
+      customError={R.defaultTo(CustomErrorComponent, customError)}
+      customLabel={customLabel}
+      LabelInfoComponent={LabelInfoComponent}
+      showPopover={showPopover}
+    >
+      <div>
+        <input
+          type="color"
+          onChange={(evt) => debounceOnChange(evt.target.value)}
+          onClick={value === '#ffffff' ? () => onChange('#ffffff') : null}
+          className="conv-color-input-swatch"
+          value={validColorCheck(value) ? value : '#ffffff'}
           {...customInput}
         />
       </div>

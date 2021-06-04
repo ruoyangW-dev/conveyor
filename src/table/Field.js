@@ -5,6 +5,7 @@ import DetailLink from '../DetailLink'
 import Switch from 'rc-switch'
 import { ImageLinkModal } from '../Modal'
 import Tooltip from '../Tooltip'
+import { validColorCheck } from '../utils/colorHelper'
 
 // gets the schema of the relationship model, based on field meta
 export const getRelSchemaEntry = ({ schema, modelName, fieldName }) => {
@@ -22,6 +23,17 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
     R.isNil(value) || value === '' ? noDataDisplayValue : value
 
   return <span className="text-area-display">{displayString}</span>
+}
+
+const FieldColor = ({ fieldName, node }) => {
+  const value = R.prop(fieldName, node)
+  if (R.isNil(value) || !validColorCheck(value)) {
+    return <span className="text-area-display">N/A</span>
+  } else {
+    return (
+      <div className="conv-color-swatch" style={{ backgroundColor: value }} />
+    )
+  }
 }
 
 const FieldBoolean = ({ fieldName, node }) => {
@@ -250,6 +262,8 @@ export const Field = ({
       return <FieldBoolean {...props} />
     case consts.inputTypes.CURRENCY_TYPE:
       return <FieldCurrency {...props} />
+    case consts.inputTypes.COLOR_TYPE:
+      return <FieldColor {...props} />
     case consts.inputTypes.MANY_TO_ONE_TYPE:
       return (
         <FieldToOne
