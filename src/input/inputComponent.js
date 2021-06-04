@@ -15,7 +15,6 @@ import {
 import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
 
-
 const errorBuilder = ({ error, id }) =>
   error.map((r) => (
     <div key={`${r}-${id}-error`}>
@@ -744,7 +743,7 @@ export const InputCheckbox = ({
         }}
         {...customInput}
       >
-        <IconContext.Provider value={{ className: "input-checkbox-icon"}}>
+        <IconContext.Provider value={{ className: 'input-checkbox-icon' }}>
           {value ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </IconContext.Provider>
       </div>

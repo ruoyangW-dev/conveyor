@@ -28,7 +28,7 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
 const FieldBoolean = ({ fieldName, node }) => {
   return (
     <span>
-      <IconContext.Provider value={{ className: "checkbox-icon"}}>
+      <IconContext.Provider value={{ className: 'checkbox-icon' }}>
         {R.propOr(false, fieldName, node) ? (
           <MdCheckBox />
         ) : (
