@@ -21,7 +21,8 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/explicit-function-return-type': ['off'],
-    '@typescript-eslint/explicit-module-boundary-types': ['off']
+    '@typescript-eslint/explicit-module-boundary-types': ['off'],
+    '@typescript-eslint/ban-ts-comment': 'off'
   },
   ignorePatterns: ['lib/**/*', 'docs/**/*', '__tests__/**/*']
 }
