@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
  * @param to
  * @return Rendered React Component
  */
-type CreateButtonProps = { onClick: any, to: string }
+type CreateButtonProps = { onClick: any; to: string }
 const CreateButton = ({ onClick, to }: CreateButtonProps) => (
   <Link
     to="/Create"
