@@ -1,7 +1,7 @@
 import React from 'react'
 import printJS from 'print-js'
 
-const PrintButton = ({ url }) => (
+const PrintButton: React.FunctionComponent<{ url: string }> = ({ url }) => (
   <button
     onClick={() =>
       printJS({
