@@ -23,7 +23,14 @@ import { inputTypes } from './consts'
 import { DeleteDetail } from './delete/DeleteDetail'
 import { FaAngleDown, FaAngleRight } from 'react-icons/fa'
 
-const LabelInfoPopover = ({ LabelInfoComponent, fieldLabel }) => (
+type LabelInfoPopoverProps = {
+  LabelInfoComponent: any
+  fieldLabel: string
+}
+const LabelInfoPopover = ({
+  LabelInfoComponent,
+  fieldLabel
+}: LabelInfoPopoverProps) => (
   <Popover
     Content={
       <PopoverContent>
@@ -43,13 +50,20 @@ const LabelInfoPopover = ({ LabelInfoComponent, fieldLabel }) => (
  * @param collapseTableChange method called whenever the table is collapsed or opened
  * @return Rendered React Component
  */
+type CollapseTableButtonProps = {
+  modelName: string
+  fieldName: string
+  id: string
+  collapse: boolean
+  collapseTableChange: any
+}
 export const CollapseTableButton = ({
   modelName,
   fieldName,
   id,
   collapse,
   collapseTableChange
-}) => {
+}: CollapseTableButtonProps) => {
   const CollapseTableIcon = collapse ? FaAngleRight : FaAngleDown
   return (
     <CollapseTableIcon
@@ -70,13 +84,20 @@ export const CollapseTableButton = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultDetailLabelProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  node: any
+  customProps: any
+}
 export const DefaultDetailLabel = ({
   schema,
   modelName,
   fieldName,
   node,
   customProps
-}) => {
+}: DefaultDetailLabelProps) => {
   const LabelInfoComponent = R.path(
     ['components', 'labelInfo'],
     schema.getField(modelName, fieldName)
@@ -112,6 +133,19 @@ export const DefaultDetailLabel = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultDetailAttributeProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  node: any
+  editData: any
+  tooltipData: any
+  selectOptions: any
+  failedValidation: any
+  id: string
+  path: string
+  customProps: any
+}
 export const DefaultDetailAttribute = ({
   schema,
   modelName,
@@ -124,7 +158,7 @@ export const DefaultDetailAttribute = ({
   id,
   path,
   customProps
-}) => {
+}: DefaultDetailAttributeProps) => {
   const actions = schema.getActions(modelName)
 
   const LabelOverride = schema.getDetailLabelOverride(modelName, fieldName)
@@ -149,12 +183,15 @@ export const DefaultDetailAttribute = ({
     const relSchemaEntry = getRelSchemaEntry({ schema, modelName, fieldName })
     const relModelName = R.prop('modelName', relSchemaEntry)
 
-    const onEditCancelClick = R.path(['edit', 'onAttributeEditCancel'], actions)
-    const onEditSubmitClick = R.path(
+    const onEditCancelClick = R.path<any>(
+      ['edit', 'onAttributeEditCancel'],
+      actions
+    )
+    const onEditSubmitClick = R.path<any>(
       ['edit', 'onDetailAttributeSubmit'],
       actions
     )
-    const onFileSubmit = R.path(['edit', 'onFileSubmit'], actions)
+    const onFileSubmit = R.path<any>(['edit', 'onFileSubmit'], actions)
 
     const fieldEditData = getFieldEditData(
       editData,
@@ -213,36 +250,6 @@ export const DefaultDetailAttribute = ({
               <DetailCreateButton
                 {...{
                   schema,
-                  modelName,
-                  fieldName,
-                  node,
-                  editData: fieldEditData,
-                  error,
-                  selectOptions
-                }}
-              />
-            )}
-          </div>
-          <div className="inline-btn-group">
-            <EditSaveButton
-              {...{
-                onClick:
-                  fieldType === 'file'
-                    ? () => onFileSubmit({ modelName, fieldName, id })
-                    : () => onEditSubmitClick({ modelName, fieldName, id })
-              }}
-            />
-            <EditCancelButton
-              {...{
-                onClick: () => onEditCancelClick({ modelName, id, fieldName }),
-                modelName,
-                id
-              }}
-            />
-            {R.type(fieldType) === 'Object' && creatable && (
-              <DetailCreateButton
-                {...{
-                  schema,
                   targetInverseFieldName,
                   targetModelName,
                   path,
@@ -255,8 +262,8 @@ export const DefaultDetailAttribute = ({
       </React.Fragment>
     )
   } else {
-    const onEdit = R.path(['edit', 'onAttributeEdit'], actions)
-    const onFileDelete = R.path(['delete', 'onFileDelete'], actions)
+    const onEdit = R.path<any>(['edit', 'onAttributeEdit'], actions)
+    const onFileDelete = R.path<any>(['delete', 'onFileDelete'], actions)
     const isFileType = fieldType === inputTypes.FILE_TYPE
     const hasValue = R.propOr(false, fieldName, node)
 
@@ -316,14 +323,21 @@ export const DefaultDetailAttribute = ({
  * @param node all information about the object (object data as Magql would return it)
  * @return Rendered React Component
  */
+type DetailCreateButtonProps = {
+  schema: any
+  targetModelName: string
+  path: string
+  targetInverseFieldName: string
+  node: any
+}
 export const DetailCreateButton = ({
   schema,
   targetModelName,
   path,
   targetInverseFieldName,
   node
-}) => {
-  const onCreateClick = R.path(
+}: DetailCreateButtonProps) => {
+  const onCreateClick = R.path<any>(
     ['create', 'onDetailCreate'],
     schema.getActions(targetModelName)
   )
@@ -338,7 +352,12 @@ export const DetailCreateButton = ({
   return <CreateButton {...{ onClick, to: targetModelName }} />
 }
 
-export const DefaultDetailTableTitleWrapper = ({ children }) => {
+type DefaultDetailTableTitleWrapperProps = {
+  children: React.ReactNode
+}
+export const DefaultDetailTableTitleWrapper = ({
+  children
+}: DefaultDetailTableTitleWrapperProps) => {
   return (
     <div className="title-label-container">
       <h4>{children}</h4>
@@ -362,6 +381,20 @@ export const DefaultDetailTableTitleWrapper = ({ children }) => {
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultDetailO2MTableTitleProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  id: string
+  targetInverseFieldName: string
+  targetModelName: string
+  path: string
+  node: any
+  collapsable: boolean
+  collapse: boolean
+  collapseTableChange: any
+  customProps: any
+}
 export const DefaultDetailO2MTableTitle = ({
   schema,
   modelName,
@@ -375,7 +408,7 @@ export const DefaultDetailO2MTableTitle = ({
   collapse,
   collapseTableChange,
   customProps
-}) => {
+}: DefaultDetailO2MTableTitleProps) => {
   const creatable = schema.isCreatable({
     modelName: targetModelName,
     parentNode: node,
@@ -429,6 +462,20 @@ export const DefaultDetailO2MTableTitle = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultDetailM2MTableTitleProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  id: string
+  targetInverseFieldName: string
+  targetModelName: string
+  path: string
+  node: any
+  collapsable: boolean
+  collapse: boolean
+  collapseTableChange: any
+  customProps: any
+}
 export const DefaultDetailM2MTableTitle = ({
   schema,
   modelName,
@@ -442,7 +489,7 @@ export const DefaultDetailM2MTableTitle = ({
   collapse,
   collapseTableChange,
   customProps
-}) => {
+}: DefaultDetailM2MTableTitleProps) => {
   const editable = schema.isFieldEditable({
     modelName,
     fieldName,
@@ -498,6 +545,16 @@ export const DefaultDetailM2MTableTitle = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultDetailM2MFieldLabelProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  targetInverseFieldName: string
+  targetModelName: string
+  path: string
+  node: any
+  customProps: any
+}
 export const DefaultDetailM2MFieldLabel = ({
   schema,
   modelName,
@@ -507,7 +564,7 @@ export const DefaultDetailM2MFieldLabel = ({
   path,
   targetModelName,
   customProps
-}) => {
+}: DefaultDetailM2MFieldLabelProps) => {
   const creatable = schema.isCreatable({
     modelName: targetModelName,
     parentNode: node,
@@ -559,6 +616,22 @@ export const DefaultDetailM2MFieldLabel = ({
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type DefaultDetailTableProps = {
+  schema: any
+  modelName: string
+  id: string
+  fieldName: string
+  node: any
+  path: string
+  editData: any
+  selectOptions: any
+  failedValidation: any
+  tooltipData: any
+  tableView: any
+  modalData: any
+  customProps: any
+  summary: any
+}
 export const DefaultDetailTable = ({
   schema,
   modelName,
@@ -574,21 +647,21 @@ export const DefaultDetailTable = ({
   modalData,
   customProps,
   summary
-}) => {
+}: DefaultDetailTableProps) => {
   const fieldType = R.path(
     [modelName, 'fields', fieldName, 'type'],
     schema.schemaJSON
   )
-  const targetInverseFieldName = R.prop('backref', fieldType)
-  const targetModelName = R.prop('target', fieldType)
+  const targetInverseFieldName = R.prop<any, any>('backref', fieldType)
+  const targetModelName = R.prop<any, any>('target', fieldType)
   const data = R.propOr(null, fieldName, node)
   const fieldOrder = R.path(
     [modelName, 'fields', fieldName, 'type', 'tableFields'],
     schema.schemaJSON
   )
   const actions = schema.getActions(modelName)
-  const onDelete = R.path(['delete', 'onDetailDelete'], actions)
-  const onEditSubmit = R.path(['edit', 'onDetailTableEditSubmit'], actions)
+  const onDelete = R.path<any>(['delete', 'onDetailDelete'], actions)
+  const onEditSubmit = R.path<any>(['edit', 'onDetailTableEditSubmit'], actions)
   const type = schema.getType(modelName, fieldName)
   const collapse = R.path(
     [modelName, 'fields', fieldName, 'collapse'],
@@ -665,9 +738,18 @@ export const DefaultDetailTable = ({
   } else if (type === 'ManyToMany') {
     if (isFieldEditing(editData, modelName, id, fieldName)) {
       const actions = schema.getActions(modelName)
-      const onEditInputChange = R.path(['edit', 'onEditInputChange'], actions)
-      const onSaveClick = R.path(['edit', 'onDetailAttributeSubmit'], actions)
-      const onCancelClick = R.path(['edit', 'onAttributeEditCancel'], actions)
+      const onEditInputChange = R.path<any>(
+        ['edit', 'onEditInputChange'],
+        actions
+      )
+      const onSaveClick = R.path<any>(
+        ['edit', 'onDetailAttributeSubmit'],
+        actions
+      )
+      const onCancelClick = R.path<any>(
+        ['edit', 'onAttributeEditCancel'],
+        actions
+      )
 
       const LabelOverride = schema.getDetailLabelOverride(modelName, fieldName)
       const DetailLabel =
@@ -793,21 +875,28 @@ export const DefaultDetailTable = ({
   }
 }
 
+type partitionDetailFieldsProps = {
+  schema: any
+  modelName: string
+  node: any
+  include?: any
+  customProps?: any
+}
 export const partitionDetailFields = ({
   schema,
   modelName,
   node,
   include = null,
   customProps
-}) => {
+}: partitionDetailFieldsProps) => {
   let detailFields = schema.getDetailFields({ modelName, node, customProps })
 
   if (include) {
-    detailFields = detailFields.filter((fieldName) =>
+    detailFields = detailFields.filter((fieldName: string) =>
       R.includes(fieldName, include)
     )
   }
-  return R.partition((fieldName) => {
+  return R.partition((fieldName: string) => {
     const detailAttribute = R.prop(
       'detailAttribute',
       schema.getField(modelName, fieldName)
@@ -831,13 +920,20 @@ export const partitionDetailFields = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultDetailPageTitle = {
+  schema: any
+  modelName: string
+  node: any
+  modalData: any
+  customProps: any
+}
 export const DefaultDetailPageTitle = ({
   schema,
   modelName,
   node,
   modalData,
   customProps
-}) => {
+}: DefaultDetailPageTitle) => {
   const model = schema.getModelLabel({ modelName, node, customProps })
   const label = schema.getDisplayValue({ modelName, node, customProps })
   const actions = schema.getActions(modelName)
@@ -880,6 +976,21 @@ export const DefaultDetailPageTitle = ({
   )
 }
 
+type DetailAttributeListProps = {
+  schema: any
+  modelName: string
+  id: string
+  node: any
+  modalData: any
+  descriptionList: any
+  editData: any
+  tooltipData: any
+  selectOptions: any
+  failedValidation: any
+  path: string
+  tableView: any
+  customProps: any
+}
 const DetailAttributeList = ({
   schema,
   modelName,
@@ -894,8 +1005,8 @@ const DetailAttributeList = ({
   path,
   tableView,
   customProps
-}) => {
-  return descriptionList.map((fieldName) => {
+}: DetailAttributeListProps) => {
+  return descriptionList.map((fieldName: string) => {
     if (
       schema.shouldDisplayDetail({
         modelName,
@@ -933,6 +1044,22 @@ const DetailAttributeList = ({
   })
 }
 
+type DetailTableListProps = {
+  schema: any
+  modelName: string
+  id: string
+  node: any
+  modalData: any
+  tableFields: any
+  editData: any
+  tooltipData: any
+  selectOptions: any
+  failedValidation: any
+  path: string
+  tableView: any
+  customProps: any
+  summary: any
+}
 const DetailTableList = ({
   schema,
   modelName,
@@ -948,8 +1075,8 @@ const DetailTableList = ({
   tableView,
   customProps,
   summary
-}) => {
-  return tableFields.map((fieldName) => {
+}: DetailTableListProps) => {
+  return tableFields.map((fieldName: string) => {
     if (
       schema.shouldDisplayDetail({
         modelName,
@@ -1009,6 +1136,23 @@ const DetailTableList = ({
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type DetailFieldsProps = {
+  schema: any
+  modelName: string
+  id: string
+  node: any
+  modalData: any
+  tableFields: any
+  descriptionList: any
+  editData: any
+  tooltipData: any
+  selectOptions: any
+  failedValidation: any
+  path: string
+  tableView: any
+  customProps: any
+  summary: any
+}
 export const DetailFields = ({
   schema,
   modelName,
@@ -1025,7 +1169,7 @@ export const DetailFields = ({
   tableView,
   customProps,
   summary
-}) => {
+}: DetailFieldsProps) => {
   if (!node) {
     return <div className="container">Loading...</div>
   }
@@ -1087,7 +1231,11 @@ export const DetailFields = ({
   )
 }
 
-const Wrapper = ({ children, modelName }) => (
+type WrapperProps = {
+  children: React.ReactNode
+  modelName: string
+}
+const Wrapper = ({ children, modelName }: WrapperProps) => (
   <div className={'conv-detail-wrapper conv-detail-wrapper-' + modelName}>
     <div>
       <div>{children}</div>
@@ -1115,6 +1263,22 @@ const Wrapper = ({ children, modelName }) => (
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type DefaultDetailProps = {
+  schema: any
+  modelName: string
+  id: string
+  node: any
+  modalData: any
+  editData: any
+  path: string
+  match: any
+  tooltipData: any
+  selectOptions: any
+  failedValidation: any
+  tableView: any
+  customProps: any
+  summary: any
+}
 export const DefaultDetail = ({
   schema,
   modelName,
@@ -1130,7 +1294,7 @@ export const DefaultDetail = ({
   failedValidation,
   customProps,
   summary
-}) => {
+}: DefaultDetailProps) => {
   const DetailTitleOverride = schema.getDetailTitleOverride(modelName)
   const DetailPageOverride = schema.getDetailPageOverride(modelName)
 
@@ -1221,6 +1385,22 @@ export const DefaultDetail = ({
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type DetailProps = {
+  schema: any
+  modelName: string
+  id: string
+  node: any
+  modalData: any
+  editData: any
+  path: string
+  match: any
+  tooltipData: any
+  selectOptions: any
+  failedValidation: any
+  tableView: any
+  customProps: any
+  summary: any
+}
 const Detail = ({
   schema,
   modelName,
@@ -1236,7 +1416,7 @@ const Detail = ({
   failedValidation,
   customProps,
   summary
-}) => {
+}: DetailProps) => {
   const DetailOverride = schema.getDetailOverride(modelName)
 
   const DetailComponent = useOverride(DetailOverride, DefaultDetail)
