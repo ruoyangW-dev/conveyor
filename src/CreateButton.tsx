@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
  * @return Rendered React Component
  */
 const CreateButton: React.FunctionComponent<{
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onClick: any
 }> = ({ onClick }) => (
   <Link
     to="/Create"
