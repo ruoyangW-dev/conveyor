@@ -1,7 +1,11 @@
 import React from 'react'
 import { IoMdSunny, IoMdMoon } from 'react-icons/io'
 
-export const DarkModeToggle: React.FunctionComponent<{ onClick: any, isDarkMode: boolean, className: string }> = ({ onClick, isDarkMode, className }) => {
+export const DarkModeToggle: React.FunctionComponent<{
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  isDarkMode: boolean
+  className: string
+}> = ({ onClick, isDarkMode, className }) => {
   const ModeIndicator = isDarkMode ? IoMdSunny : IoMdMoon
   return (
     <button onClick={onClick} className={'conv-dark-mode-toggle ' + className}>
