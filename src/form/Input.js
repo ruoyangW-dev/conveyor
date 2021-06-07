@@ -28,7 +28,8 @@ export const relationshipLabelFactory = ({
       {creatable && (
         <CreateButton
           {...{
-            onClick
+            onClick,
+            to: relModelName
           }}
         />
       )}
