@@ -1,5 +1,5 @@
 import React from 'react'
 
-export const NullComponent: React.FunctionComponent<any> = () => <></>
+export const NullComponent = () => <></>
 
 export default NullComponent

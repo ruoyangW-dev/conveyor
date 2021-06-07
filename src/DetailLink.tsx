@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom'
  * @param children
  * @return Rendered React Component
  */
-const DetailLink: React.FunctionComponent<{
+type DetailLinkProps = {
   modelName: string
   id: string
   children: React.ReactNode
-}> = ({ modelName, id, children }) => (
+}
+const DetailLink = ({ modelName, id, children }: DetailLinkProps) => (
   <Link to={`/${modelName}/${id}`}>{children}</Link>
 )
 
