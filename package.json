@@ -1,6 +1,6 @@
 {
   "name": "@autoinvent/conveyor",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A frontend dashboard generator for inventory data.",
   "repository": "github:autoinvent/conveyor",
   "main": "lib/main.js",
