@@ -86,15 +86,15 @@ const Input = ({
   fieldName,
   value,
   error,
-  inline,
+  inline = undefined, //false
   onChange,
   selectOptions,
   failedValidation,
-  disabled,
+  disabled = undefined, //false
   customLabel,
-  formStack,
-  autoFocus,
-  onKeyDown,
+  formStack = undefined,
+  autoFocus = undefined, //???
+  onKeyDown = undefined,
   customProps,
   showPopover = false
 }) => {

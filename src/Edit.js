@@ -123,7 +123,7 @@ export const EditInput = ({
   error,
   selectOptions,
   failedValidation,
-  customProps
+  customProps = undefined
 }) => {
   const actions = schema.getActions(modelName)
   const onEditInputChange = R.path(['edit', 'onEditInputChange'], actions)

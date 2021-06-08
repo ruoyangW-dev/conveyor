@@ -169,8 +169,8 @@ export const DeleteDetail = ({
   title = 'Confirm Delete',
   onDelete,
   modalData,
-  parentModelName,
-  parentId,
+  parentModelName = undefined,
+  parentId = undefined,
   customProps
 }) => {
   const modalStore = R.prop('Delete', modalData)
