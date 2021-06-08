@@ -1150,7 +1150,7 @@ export const DefaultDetail = ({
     )
   }
 
-  if ('result' in node && node.result == null) {
+  if ('result' in node && node.result === null) {
     return <Redirect to={`/${modelName}`} />
   }
 
