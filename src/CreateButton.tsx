@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 /**
  * React Component for Create Button
  * @param onClick
+ * @param to
  * @return Rendered React Component
  */
-const CreateButton = ({ onClick }) => (
+type CreateButtonProps = { onClick: any; to: string }
+const CreateButton = ({ onClick, to }: CreateButtonProps) => (
   <Link
-    to="/Create"
+    to={`/Create/${to}`}
     onClick={onClick}
     className="conv-create-button"
     role="button"

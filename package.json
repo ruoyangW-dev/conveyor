@@ -1,6 +1,6 @@
 {
   "name": "@autoinvent/conveyor",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A frontend dashboard generator for inventory data.",
   "repository": "github:autoinvent/conveyor",
   "main": "lib/main.js",
@@ -28,7 +28,9 @@
     "react-window": "^1.8.5"
   },
   "devDependencies": {
+    "@types/ramda": "^0.27.40",
     "@types/react": "^17.0.7",
+    "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "bootstrap": "4.6.0",
