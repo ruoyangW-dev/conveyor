@@ -2,20 +2,25 @@
 
 ## Unreleased
 
-Standardize in line with other autoinvent projects
-Add typedoc
-
-Highlight fields that fail validation, ie are required, but not present.
-
-Begin extraction of styling
 Change rc-switch to checkbox
 
+#Conveyor Changelog
+
+## Version 0.8.0
+
+Released 6-8-21
+
+Standardize in line with other autoinvent projects
+Add typedoc
+Highlight fields that fail validation, ie are required, but not present
+Begin extraction of styling
 Add Color input type
-
 Add css based required field asterisk
-
+Begin conversion to TypeScript
 
 ## Version 0.7.0
+
+Released 4-15-21
 
 Add classNames to common components Issue #13
 Refactor, added NullComponent branched lists to own branches
@@ -28,7 +33,6 @@ Released 3-10-21
 
 Add DateTime input type
 
-
 ## Version 0.5.0
 
 Released 1-26-21
@@ -38,7 +42,6 @@ Added Alerts component
 Added ability to turn off pagination on model or detail level
 Added a prop noDataDisplayString that allows user to customize the string that displays when a field has no data
 Fix disappearing select options, broken initialOffset
-
 
 ## Version 0.4.0
 
@@ -51,20 +54,17 @@ Added EXISTS and DOESNOTEXIST string operators for the filter
 Fixed CollapseTableIcon being set to FaAngleDown instead of FaAngleRight when collapsed
 Removed href=# (anchor to top of page) from PaginationLink
 
-
 ## Version 0.3.0
 
 Released 3-22-20
 
 Updated pagination to start at index 1; updated tableView structure (not backwards compatible change)
 
-
 ## Version 0.2.0
 
 Released 3-4-20
 
 Extracted helper functions into conveyor-schema library (not backwards compatible change)
-
 
 ## Version 0.1.0
 
