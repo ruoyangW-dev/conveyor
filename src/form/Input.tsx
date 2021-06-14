@@ -6,13 +6,20 @@ import { useOverride } from '../Utils'
 import CreateButton from '../CreateButton'
 import { getRelSchemaEntry } from '../table/Field'
 
+type RelationshipLabelProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  onClick: any
+  customProps: any
+}
 export const relationshipLabelFactory = ({
   schema,
   modelName,
   fieldName,
   onClick,
   customProps
-}) => {
+}: RelationshipLabelProps) => {
   const relSchemaEntry = getRelSchemaEntry({ schema, modelName, fieldName })
   const relModelName = R.prop('modelName', relSchemaEntry)
   const id = `input-${modelName}-${fieldName}`
@@ -22,7 +29,8 @@ export const relationshipLabelFactory = ({
     customProps
   })
 
-  const Label = ({ labelStr }) => (
+  type LabelType = { labelStr: string }
+  const Label = ({ labelStr }: LabelType) => (
     <label htmlFor={id}>
       <span className={required ? 'required-field-label' : ''}>{labelStr}</span>
       {creatable && (
@@ -45,7 +53,8 @@ export const relationshipLabelFactory = ({
  * @param label
  * @return Rendered React Component
  */
-export const DisabledInput = ({ value, label }) => (
+type DisabledInputType = { value: any; label: string }
+export const DisabledInput = ({ value, label }: DisabledInputType) => (
   <div className="conv-disabled-input">
     <span>{label}</span>
     {
@@ -80,6 +89,25 @@ export const DisabledInput = ({ value, label }) => (
  * @param showPopover boolean show label info in a popover
  * @return Rendered React Component
  */
+type InputType = {
+  schema: any
+  modelName: string
+  fieldName: string
+  value: any
+  error: any
+  inline: any
+  onChange: any
+  selectOptions: any
+  failedValidation: any
+  disabled: boolean | undefined
+  customLabel: string
+  customInput: any
+  formStack: any
+  autoFocus: any
+  onKeyDown: any
+  customProps: any
+  showPopover: boolean
+}
 const Input = ({
   schema,
   modelName,
@@ -97,7 +125,7 @@ const Input = ({
   onKeyDown = undefined,
   customProps,
   showPopover = false
-}) => {
+}: InputType) => {
   const InputOverride = schema.getInputOverride(modelName, fieldName)
   const ChosenInput = useOverride(InputOverride, InputCore)
   const actions = schema.getActions(modelName)
@@ -138,8 +166,17 @@ const Input = ({
  * @param fieldName name of the field targeted by the input
  * @return wrapped onChange function
  */
-export const getOnChange = ({ inputType, onChange, fieldName }) => {
-  const defaultHandleOnChange = (val) =>
+type OnChangeProps = {
+  inputType: any
+  onChange: any
+  fieldName: string
+}
+export const getOnChange = ({
+  inputType,
+  onChange,
+  fieldName
+}: OnChangeProps) => {
+  const defaultHandleOnChange = (val: any) =>
     onChange({
       fieldName,
       value: val
@@ -149,7 +186,7 @@ export const getOnChange = ({ inputType, onChange, fieldName }) => {
     return defaultHandleOnChange
   }
 
-  return (evt) => {
+  return (evt: any) => {
     if (evt.target.files.length > 0) {
       defaultHandleOnChange(evt.target.files[0])
     }
@@ -200,7 +237,7 @@ export const InputCore = ({
   onKeyDown,
   customProps,
   showPopover
-}) => {
+}: InputType) => {
   if (disabled) {
     const label = schema.getFieldLabel({
       modelName,
@@ -243,6 +280,22 @@ export const InputCore = ({
   )
 }
 
+type InputInnerCoreType = {
+  schema: any
+  modelName: string
+  fieldName: string
+  value: any
+  error: any
+  inline: any
+  onChange: any
+  selectOptions: any
+  customLabel: string
+  customInput: any
+  autoFocus: any
+  onKeyDown: any
+  customProps: any
+  showPopover: boolean
+}
 const InputInnerCore = ({
   schema,
   modelName,
@@ -258,11 +311,14 @@ const InputInnerCore = ({
   onKeyDown,
   customProps,
   showPopover
-}) => {
+}: InputInnerCoreType) => {
   const inputType = schema.getType(modelName, fieldName)
   const actions = schema.getActions(modelName)
-  const onMenuOpen = R.path(['input', 'onMenuOpen'], actions)
-  const onCreatableMenuOpen = R.path(['input', 'onCreatableMenuOpen'], actions)
+  const onMenuOpen: any = R.path(['input', 'onMenuOpen'], actions)
+  const onCreatableMenuOpen: any = R.path(
+    ['input', 'onCreatableMenuOpen'],
+    actions
+  )
 
   const defaultHandleOnChange = getOnChange({ inputType, onChange, fieldName })
   const fieldLabel = schema.getFieldLabel({
@@ -320,7 +376,7 @@ const InputInnerCore = ({
       options = schema.getOptionsOverride({
         modelName,
         fieldName,
-        options: enumChoiceOrder.map((choice) => ({
+        options: enumChoiceOrder.map((choice: any) => ({
           label: enumChoices[choice],
           value: choice
         })),
