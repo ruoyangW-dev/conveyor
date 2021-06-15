@@ -6,20 +6,19 @@ import { useOverride } from '../Utils'
 import CreateButton from '../CreateButton'
 import { getRelSchemaEntry } from '../table/Field'
 
-type RelationshipLabelProps = {
-  schema: any
-  modelName: string
-  fieldName: string
-  onClick: any
-  customProps: any
-}
 export const relationshipLabelFactory = ({
   schema,
   modelName,
   fieldName,
   onClick,
   customProps
-}: RelationshipLabelProps) => {
+}: {
+  schema: any
+  modelName: string
+  fieldName: string
+  onClick: any
+  customProps: any
+}) => {
   const relSchemaEntry = getRelSchemaEntry({ schema, modelName, fieldName })
   const relModelName = R.prop('modelName', relSchemaEntry)
   const id = `input-${modelName}-${fieldName}`
@@ -103,10 +102,10 @@ type InputType = {
   customLabel: any
   customInput?: any
   formStack?: any
-  autoFocus: any
-  onKeyDown: any
+  autoFocus?: any
+  onKeyDown?: any
   customProps: any
-  showPopover: boolean
+  showPopover?: boolean
 }
 const Input = ({
   schema,
@@ -166,16 +165,15 @@ const Input = ({
  * @param fieldName name of the field targeted by the input
  * @return wrapped onChange function
  */
-type OnChangeProps = {
-  inputType: any
-  onChange: any
-  fieldName: string
-}
 export const getOnChange = ({
   inputType,
   onChange,
   fieldName
-}: OnChangeProps) => {
+}: {
+  inputType: any
+  onChange: any
+  fieldName: string
+}) => {
   const defaultHandleOnChange = (val: any) =>
     onChange({
       fieldName,

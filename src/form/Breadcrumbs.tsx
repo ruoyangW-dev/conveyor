@@ -7,16 +7,15 @@ import * as R from 'ramda'
  * @param formStack information about calling page and errors
  * @param customProps user defined props and customization
  */
-type BreadcrumbProps = {
-  schema: any
-  formStack: any
-  customProps: any
-}
 export const Breadcrumbs = ({
   schema,
   formStack,
   customProps
-}: BreadcrumbProps) => {
+}: {
+  schema: any
+  formStack: any
+  customProps: any
+}) => {
   const stack = R.prop('stack', formStack)
   const index = R.prop('index', formStack)
   return (

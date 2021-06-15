@@ -6,30 +6,27 @@ import { Breadcrumbs } from './Breadcrumbs'
 import { isAutoFocusInput } from '../input/index'
 import { skipOverride, useOverride } from '../Utils'
 
-type FieldErrorCreateProps = {
-  formStack: any
-  stackIndex: any
-  fieldName: string
-}
 const getFieldErrorCreate = ({
   formStack,
   stackIndex,
   fieldName
-}: FieldErrorCreateProps) =>
-  R.path(['stack', stackIndex, 'errors', fieldName], formStack)
-
-type CreateLabelProps = {
-  schema: any
-  modelName: string
+}: {
+  formStack: any
+  stackIndex: any
   fieldName: string
-  customProps: any
-}
+}) => R.path(['stack', stackIndex, 'errors', fieldName], formStack)
+
 export const makeCreateLabel = ({
   schema,
   modelName,
   fieldName,
   customProps
-}: CreateLabelProps) => {
+}: {
+  schema: any
+  modelName: string
+  fieldName: string
+  customProps: any
+}) => {
   const type = R.prop('type', schema.getField(modelName, fieldName))
   if (R.type(type) !== 'Object') {
     return null
@@ -53,18 +50,17 @@ export const makeCreateLabel = ({
   return CreateLabel
 }
 
-type DisabledValueProps = {
-  schema: any
-  modelName: string
-  fieldName: string
-  form: any
-}
 const getDisabledValue = ({
   schema,
   modelName,
   fieldName,
   form
-}: DisabledValueProps) => {
+}: {
+  schema: any
+  modelName: string
+  fieldName: string
+  form: any
+}) => {
   const type = schema.getType(modelName, fieldName)
 
   if (type.includes('ToMany')) {
@@ -81,32 +77,18 @@ const getDisabledValue = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
-type DefaultCreateTitleProps = {
-  schema: any
-  modelName: string
-  customProps: any
-}
 export const DefaultCreateTitle = ({
   schema,
   modelName,
   customProps
-}: DefaultCreateTitleProps) => {
+}: {
+  schema: any
+  modelName: string
+  customProps: any
+}) => {
   return <h1>Create {schema.getModelLabel({ modelName, customProps })}</h1>
 }
 
-type FieldInputListProps = {
-  schema: any
-  modelName: string
-  formStack: any
-  stackIndex: any
-  form: any
-  selectOptions: any
-  failedValidation: any
-  customProps: any
-  onKeyDown: any
-  onChange: any
-  fieldOrder: any
-}
 const FieldInputList = ({
   schema,
   modelName,
@@ -119,7 +101,19 @@ const FieldInputList = ({
   onKeyDown,
   onChange,
   fieldOrder
-}: FieldInputListProps) => {
+}: {
+  schema: any
+  modelName: string
+  formStack: any
+  stackIndex: any
+  form: any
+  selectOptions: any
+  failedValidation: any
+  customProps: any
+  onKeyDown: any
+  onChange: any
+  fieldOrder: any
+}) => {
   let autoFocusAdded = false
 
   return fieldOrder.map((fieldName: string) => {
