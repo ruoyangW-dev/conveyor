@@ -17,7 +17,7 @@ import {
   InputCreatableStringSelect
 } from './inputComponent'
 
-export const isAutoFocusInput = (type) => {
+export const isAutoFocusInput = (type: any) => {
   switch (type) {
     case inputTypes.STRING_TYPE:
     case inputTypes.TEXTAREA_TYPE:
@@ -111,7 +111,7 @@ const defaultTypeMap = {
  *
  * @returns { object } - Single input component
  */
-const FlexibleInput = (props) => {
+const FlexibleInput = (props: any) => {
   const params = { ...props }
 
   switch (params.type) {
