@@ -95,14 +95,14 @@ type InputType = {
   fieldName: string
   value: any
   error: any
-  inline: any
+  inline?: any
   onChange: any
   selectOptions: any
-  failedValidation: any
-  disabled: boolean | undefined
-  customLabel: string
-  customInput: any
-  formStack: any
+  failedValidation?: any
+  disabled?: boolean | undefined
+  customLabel: any
+  customInput?: any
+  formStack?: any
   autoFocus: any
   onKeyDown: any
   customProps: any
@@ -280,22 +280,6 @@ export const InputCore = ({
   )
 }
 
-type InputInnerCoreType = {
-  schema: any
-  modelName: string
-  fieldName: string
-  value: any
-  error: any
-  inline: any
-  onChange: any
-  selectOptions: any
-  customLabel: string
-  customInput: any
-  autoFocus: any
-  onKeyDown: any
-  customProps: any
-  showPopover: boolean
-}
 const InputInnerCore = ({
   schema,
   modelName,
@@ -311,7 +295,7 @@ const InputInnerCore = ({
   onKeyDown,
   customProps,
   showPopover
-}: InputInnerCoreType) => {
+}: InputType) => {
   const inputType = schema.getType(modelName, fieldName)
   const actions = schema.getActions(modelName)
   const onMenuOpen: any = R.path(['input', 'onMenuOpen'], actions)
