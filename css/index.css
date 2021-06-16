@@ -241,6 +241,18 @@ body {
   flex-grow: 1;
 }
 
+.input-checkbox-icon {
+  display: inline;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+}
+
+.checkbox-icon {
+  height: 24px;
+  width: 24px;
+}
+
 .conv-color-swatch {
   display: inline-block;
   width: 50px;

@@ -1,9 +1,10 @@
 import React from 'react'
 import Select, { createFilter } from 'react-select'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { IconContext } from 'react-icons/lib'
 import CreatableSelect from 'react-select/creatable'
 import DatePicker from 'react-datepicker'
 import CurrencyInput from 'react-currency-input'
-import Switch from 'rc-switch'
 import * as R from 'ramda'
 import { inputTypes } from '../consts'
 import { optimizeSelect } from '../utils/optimizeSelect'
@@ -916,7 +917,7 @@ export const InputFile = ({
 }
 
 /**
- * Singular component for Switch Type.
+ * Singular component for boolean checkbox Type.
  *
  * See React Switch documentation for details on which attributes to override
  *
@@ -932,7 +933,7 @@ export const InputFile = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-type InputSwitchProps = {
+type InputCheckboxProps = {
   onChange: any
   value: any
   inline: boolean
@@ -947,7 +948,7 @@ type InputSwitchProps = {
   LabelInfoComponent: any
   showPopover: boolean
 }
-export const InputSwitch = ({
+export const InputCheckbox = ({
   onChange,
   value,
   inline,
@@ -961,13 +962,13 @@ export const InputSwitch = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}: InputSwitchProps) => (
+}: InputCheckboxProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
     error={error}
     required={required}
-    className="conv-input-component conv-input-type-switch"
+    className="conv-input-component conv-input-type-checkbox"
     customError={R.defaultTo(CustomErrorComponent, customError)}
     customLabel={customLabel}
     LabelInfoComponent={LabelInfoComponent}
@@ -978,86 +979,19 @@ export const InputSwitch = ({
       className={`${className} ${inline ? ' form-check-inline' : ''}`}
     >
       &nbsp;
-      <Switch
-        onChange={(evt) => {
-          const val = typeof evt === typeof false ? evt : false
-          return onChange(val)
+      <div
+        onClick={() => {
+          return onChange(!value)
         }}
-        checked={value}
         {...customInput}
-      />
+      >
+        <IconContext.Provider value={{ className: 'input-checkbox-icon' }}>
+          {value ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        </IconContext.Provider>
+      </div>
     </div>
   </FormGroup>
 )
-
-/**
- * Singular component for Checkbox Type.
- *
- * This component has no customLabel option
- *
- * @property { function } onChange - returns evt.target.checked:
- *     evt => onChange(evt.target.checked)
- * @property { string } id
- * @property { string } [labelStr]
- * @property { string } [error]
- * @property { any } value - FlexibleInput component sets default to: false
- * @property { string } className - FlexibleInput component sets default to: 'form-group form-check'
- * @property { object } [customInput]
- * @property { boolean } required
- * @property { function } customError
- */
-type InputCheckboxProps = {
-  onChange: any
-  value: any
-  id: string
-  className: string
-  labelStr: string
-  error: any
-  required: boolean
-  customInput: any
-  customError: any
-}
-export const InputCheckbox = ({
-  onChange,
-  value,
-  id,
-  className,
-  labelStr,
-  error,
-  required,
-  customInput,
-  customError
-}: InputCheckboxProps) => {
-  customError = R.defaultTo(CustomErrorComponent, customError)
-  return (
-    <div
-      key={`checkbox-${id}`}
-      className={'conv-input-component conv-input-type-checkbox ' + className}
-    >
-      <label className="form-check-label">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          id={id}
-          value={value}
-          checked={value}
-          onChange={(evt) => {
-            const val =
-              typeof evt.target.checked === typeof false
-                ? evt.target.checked
-                : false
-            return onChange(val)
-          }}
-          {...customInput}
-        />
-        <span className={required ? 'required-field-label' : ''}>
-          {labelStr}
-        </span>
-      </label>
-      {error && customError({ error, id })}
-    </div>
-  )
-}
 
 /**
  * Singular component for Select Type.

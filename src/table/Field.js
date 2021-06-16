@@ -1,8 +1,9 @@
 import React from 'react'
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md'
+import { IconContext } from 'react-icons/lib'
 import * as consts from '../consts'
 import * as R from 'ramda'
 import DetailLink from '../DetailLink'
-import Switch from 'rc-switch'
 import { ImageLinkModal } from '../Modal'
 import Tooltip from '../Tooltip'
 import { validColorCheck } from '../utils/colorHelper'
@@ -37,8 +38,17 @@ const FieldColor = ({ fieldName, node }) => {
 }
 
 const FieldBoolean = ({ fieldName, node }) => {
-  const displayBool = R.propOr(false, fieldName, node) // need propOr(false...
-  return <Switch checked={displayBool} />
+  return (
+    <span>
+      <IconContext.Provider value={{ className: 'checkbox-icon' }}>
+        {R.propOr(false, fieldName, node) ? (
+          <MdCheckBox />
+        ) : (
+          <MdCheckBoxOutlineBlank />
+        )}
+      </IconContext.Provider>
+    </span>
+  )
 }
 
 // Render a link to the value. If the value does not start with any of the prefixes,
