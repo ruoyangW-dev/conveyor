@@ -2,7 +2,6 @@ import React from 'react'
 import Select, { createFilter } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import DatePicker from 'react-datepicker'
-// @ts-ignore
 import CurrencyInput from 'react-currency-input'
 import Switch from 'rc-switch'
 import * as R from 'ramda'

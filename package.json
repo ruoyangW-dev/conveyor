@@ -15,7 +15,7 @@
     "docs:watch": "npx typedoc --watch --out docs src/main.js"
   },
   "dependencies": {
-    "@autoinvent/conveyor-schema": "^0.3.1",
+    "@autoinvent/conveyor-schema": "^0.4.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "print-js": "^1.0.63",
