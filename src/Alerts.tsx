@@ -1,6 +1,12 @@
 import React from 'react'
 
-export const Alerts = ({ alerts, dismissAlert }: {alerts: any[], dismissAlert: any}) => (
+export const Alerts = ({
+  alerts,
+  dismissAlert
+}: {
+  alerts: any[]
+  dismissAlert: any
+}) => (
   <div className="alerts">
     {alerts.map((alert, idx) => (
       <div

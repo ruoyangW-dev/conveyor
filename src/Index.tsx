@@ -18,12 +18,12 @@ import { skipOverride, useOverride } from './Utils'
  * @return Rendered React Component
  */
 type DefaultIndexTitleProps = {
-  schema: any,
-  modelName: string,
-  selectOptions: any[],
-  path: string,
-  data: any,
-  tableView: any,
+  schema: any
+  modelName: string
+  selectOptions: any[]
+  path: string
+  data: any
+  tableView: any
   customProps: any
 }
 export const DefaultIndexTitle = ({
@@ -102,17 +102,17 @@ const PageNotFound = () => (
  * @return Rendered React Component
  */
 type DefaultIndexProps = {
-  schema: any,
-  modelName: string,
-  data: any,
-  modalData: any,
-  editData: any,
-  selectOptions: any[],
-  failedValidation: any,
-  path: string,
-  tooltipData: any,
-  tableView: any,
-  customProps: any,
+  schema: any
+  modelName: string
+  data: any
+  modalData: any
+  editData: any
+  selectOptions: any[]
+  failedValidation: any
+  path: string
+  tooltipData: any
+  tableView: any
+  customProps: any
   summary: any
 }
 export const DefaultIndex = ({
@@ -210,17 +210,17 @@ export const DefaultIndex = ({
  * @return Rendered React Component
  */
 type IndexProps = {
-  schema: any,
-  modelName: string,
-  data: any,
-  modalData: any,
-  editData: any,
-  selectOptions: any,
-  failedValidation: any,
-  path: string,
-  tooltipData: any,
-  tableView: any,
-  customProps: any,
+  schema: any
+  modelName: string
+  data: any
+  modalData: any
+  editData: any
+  selectOptions: any
+  failedValidation: any
+  path: string
+  tooltipData: any
+  tableView: any
+  customProps: any
   summary: any
 }
 const Index = ({

@@ -17,7 +17,7 @@ import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
 import _ from 'lodash'
 
-const errorBuilder = ({ error, id }: {error: any, id: string}) =>
+const errorBuilder = ({ error, id }: { error: any; id: string }) =>
   error.map((r: any) => (
     <div key={`${r}-${id}-error`}>
       {r}
@@ -26,15 +26,15 @@ const errorBuilder = ({ error, id }: {error: any, id: string}) =>
   ))
 
 type FormGroupProps = {
-  labelStr: string,
-  htmlFor: string,
-  error: any,
-  children: any,
-  className: string,
-  required: boolean,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  labelStr: string
+  htmlFor: string
+  error: any
+  children: any
+  className: string
+  required: boolean
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const FormGroup = ({
@@ -106,7 +106,7 @@ export const FormGroup = ({
  * @property: { list } error - list of strings containing error messages
  */
 
-const CustomErrorComponent = ({ error, id }: {error: any, id: string}) => (
+const CustomErrorComponent = ({ error, id }: { error: any; id: string }) => (
   <div className="conv-error-component">{errorBuilder({ error, id })}</div>
 )
 
@@ -134,18 +134,18 @@ const CustomErrorComponent = ({ error, id }: {error: any, id: string}) => (
  * @property { function } customLabel
  */
 type InputDateProps = {
-  onChange: any,
-  id: string,
-  labelStr: any,
-  error: any,
-  value: any,
-  dateFormat: any,
-  isClearable: boolean,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: any
+  error: any
+  value: any
+  dateFormat: any
+  isClearable: boolean
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 // TODO: get classname for invalid from new react-datepicker
@@ -235,20 +235,20 @@ export const InputDate = ({
  * @property { function } customLabel
  */
 type InputDateTimeProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  dateFormat: any,
-  timeFormat: any,
-  isClearable: boolean,
-  useUTC: boolean,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  dateFormat: any
+  timeFormat: any
+  isClearable: boolean
+  useUTC: boolean
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 // TODO: get classname for invalid from new react-datepicker
@@ -331,16 +331,16 @@ export const InputDateTime = ({
  * @property { function } customLabel
  */
 type InputColorProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputColor = ({
@@ -411,21 +411,21 @@ const inputStringTypeMap = {
  * @property { boolean } spellCheck
  */
 type InputStringProps = {
-  type: any,
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  className: string,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  autoFocus: any,
-  onKeyDown: any,
-  spellCheck: any,
-  LabelInfoComponent: any,
+  type: any
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  spellCheck: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputString = ({
@@ -488,19 +488,19 @@ export const InputString = ({
  * @property { boolean } autoFocus; update isAutoFocusInput() when changing
  */
 type InputPasswordProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  className: string,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  autoFocus: any,
-  onKeyDown: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputPassword = ({
@@ -566,19 +566,19 @@ const MAX_SQL_INT_SIZE = Math.pow(2, 31) - 1
 const MIN_SQL_INT_SIZE = -Math.pow(2, 31)
 
 type InputIntProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  className: string,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  autoFocus: any,
-  onKeyDown: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputInt = ({
@@ -633,19 +633,19 @@ export const InputInt = ({
 }
 
 type InputCurrencyProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  className: string,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  autoFocus: any,
-  onKeyDown: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputCurrency = ({
@@ -718,19 +718,19 @@ export const InputCurrency = ({
  */
 
 type InputTextAreaProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  className: string,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  autoFocus: any,
-  spellCheck: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  spellCheck: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputTextArea = ({
@@ -790,19 +790,19 @@ export const InputTextArea = ({
  * @property { function } customLabel
  */
 type InputRadioProps = {
-  onChange: any,
-  id: string,
-  labelStr: string,
-  error: any,
-  value: any,
-  className: string,
-  options: any,
-  inline: boolean,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  options: any
+  inline: boolean
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputRadio = ({
@@ -868,16 +868,16 @@ export const InputRadio = ({
  * @property { function } customLabel
  */
 type InputFileProps = {
-  onChange: any,
-  error: any,
-  id: string,
-  labelStr: string,
-  className: string,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  onChange: any
+  error: any
+  id: string
+  labelStr: string
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputFile = ({
@@ -934,18 +934,18 @@ export const InputFile = ({
  * @property { function } customLabel
  */
 type InputSwitchProps = {
-  onChange: any,
-  value: any,
-  inline: boolean,
-  id: string,
-  className: string,
-  labelStr: string,
-  error: any,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  onChange: any
+  value: any
+  inline: boolean
+  id: string
+  className: string
+  labelStr: string
+  error: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputSwitch = ({
@@ -1008,14 +1008,14 @@ export const InputSwitch = ({
  * @property { function } customError
  */
 type InputCheckboxProps = {
-  onChange: any,
-  value: any,
-  id: string,
-  className: string,
-  labelStr: string,
-  error: any,
-  required: boolean,
-  customInput: any,
+  onChange: any
+  value: any
+  id: string
+  className: string
+  labelStr: string
+  error: any
+  required: boolean
+  customInput: any
   customError: any
 }
 export const InputCheckbox = ({
@@ -1085,22 +1085,22 @@ export const InputCheckbox = ({
  * @property { function } customLabel
  */
 type InputSelectProps = {
-  labelStr: string,
-  id: string,
-  error: any,
-  className: string,
-  isClearable: boolean,
-  isMulti: boolean,
-  value: any,
-  options: any,
-  onChange: any,
-  noOptionsMessage: any,
-  onMenuOpen: any,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  labelStr: string
+  id: string
+  error: any
+  className: string
+  isClearable: boolean
+  isMulti: boolean
+  value: any
+  options: any
+  onChange: any
+  noOptionsMessage: any
+  onMenuOpen: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputSelect = ({
@@ -1173,19 +1173,19 @@ export const InputSelect = ({
  * @property { function } customLabel
  */
 type InputCreatableStringSelectProps = {
-  labelStr: string,
-  id: string,
-  error: any,
-  className: string,
-  value: any,
-  options: any,
-  onChange: any,
-  onMenuOpen: any,
-  required: boolean,
-  customInput: any,
-  customError: any,
-  customLabel: any,
-  LabelInfoComponent: any,
+  labelStr: string
+  id: string
+  error: any
+  className: string
+  value: any
+  options: any
+  onChange: any
+  onMenuOpen: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
   showPopover: boolean
 }
 export const InputCreatableStringSelect = ({
