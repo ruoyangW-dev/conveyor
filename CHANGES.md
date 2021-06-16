@@ -1,5 +1,9 @@
 #Conveyor Changelog
 
+## Unreleased
+
+Change rc-switch to checkbox
+
 ## Version 0.8.0
 
 Released 6-8-21
