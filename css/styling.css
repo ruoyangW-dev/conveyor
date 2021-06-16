@@ -239,6 +239,7 @@ body {
 
 .input-checkbox-icon {
   display: inline;
+  cursor: pointer;
   height: 24px;
   width: 24px;
 }

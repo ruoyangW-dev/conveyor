@@ -243,6 +243,7 @@ body {
 
 .input-checkbox-icon {
   display: inline;
+  cursor: pointer;
   height: 24px;
   width: 24px;
 }
@@ -11363,3 +11364,5 @@ h3 {
 .conv-tree-table-header-label {
   flexGrow: 1;
 }
+
+/*# sourceMappingURL=index.css.map */
