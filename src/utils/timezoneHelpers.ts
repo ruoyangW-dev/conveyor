@@ -1,4 +1,4 @@
-export const convertUTCToLocalDate = (date) => {
+export const convertUTCToLocalDate = (date: any) => {
   if (!date) {
     return date
   }
@@ -13,7 +13,7 @@ export const convertUTCToLocalDate = (date) => {
   return date
 }
 
-export const convertLocalToUTCDate = (date) => {
+export const convertLocalToUTCDate = (date: any) => {
   if (!date) {
     return date
   }

@@ -1,4 +1,4 @@
-export const validColorCheck = (colorStr) => {
+export const validColorCheck = (colorStr: string) => {
   if (
     !(colorStr === null || typeof colorStr === 'undefined') &&
     colorStr.length === 7
