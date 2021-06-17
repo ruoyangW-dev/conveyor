@@ -28,10 +28,10 @@ export const Breadcrumbs = ({
             modelName,
             customProps
           })
-          const onBreadcrumbClick: any = R.path(
+          const onBreadcrumbClick = R.path(
             ['create', 'onBreadcrumbClick'],
             actions
-          )
+          ) as any
           return (
             <li
               className={`conv-breadcrumb-item ${index === idx && 'active'}`}

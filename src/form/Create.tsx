@@ -32,7 +32,7 @@ export const makeCreateLabel = ({
     return null
   }
   const actions = schema.getActions(modelName)
-  const onStackCreate: any = R.path(['create', 'onStackCreate'], actions)
+  const onStackCreate = R.path(['create', 'onStackCreate'], actions) as any
   const targetModel = R.path(
     ['type', 'target'],
     schema.getField(modelName, fieldName)
@@ -221,8 +221,8 @@ export const DefaultCreatePage = ({
 
   const actions = schema.getActions(modelName)
   const onChange = R.path(['create', 'onInputChange'], actions)
-  const onCancel: any = R.path(['create', 'onCancel'], actions)
-  const onSave: any = R.path(['create', 'onSave'], actions)
+  const onCancel = R.path(['create', 'onCancel'], actions) as any
+  const onSave = R.path(['create', 'onSave'], actions) as any
   const disableButtons = stackIndex !== stack.length - 1
 
   const onKeyDown = (evt: any) => {
