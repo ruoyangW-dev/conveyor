@@ -41,6 +41,34 @@ const HighlightString = ({ searchText, textToHighlight }) => {
   )
 }
 
+export const SearchResults = ({ entries, onLinkClick, location }) => {
+  const searchText = location.pathname.split('/')[2]
+
+  return (
+    <div>
+      <p style={{ textAlign: 'center' }}>
+        {entries.length} results found for "{searchText}".
+      </p>
+      {entries.map((entry) => (
+        <Link
+          key={entry.name}
+          onClick={() => onLinkClick()}
+          className="conv-dropdown-item"
+          to={entry.detailURL}
+        >
+          <HighlightString
+            searchText={searchText}
+            textToHighlight={entry.name}
+          />
+          <div className="conv-search-dropdown-model-label">
+            {entry.modelLabel}
+          </div>
+        </Link>
+      ))}
+    </div>
+  )
+}
+
 export const Search = ({
   queryText,
   entries,
@@ -100,6 +128,16 @@ export const Search = ({
           ))}
         </div>
       )}
+      <Link
+        to={`/Search/${queryText}`}
+        onClick={() => {
+          onTriggerSearch({ queryText })
+          onBlur()
+        }}
+        className="nav-link"
+      >
+        Search
+      </Link>
     </div>
   )
 }

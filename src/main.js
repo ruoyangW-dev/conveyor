@@ -26,6 +26,7 @@ export { CollapseTableButton } from './Detail'
 export { DeleteDetail } from './delete/DeleteDetail'
 export { DeleteButton } from './table/Table'
 export { Search } from './Search'
+export { SearchResults } from './Search'
 export { DetailPagination } from './Pagination'
 // model overrides
 export { DefaultDetail } from './Detail'
