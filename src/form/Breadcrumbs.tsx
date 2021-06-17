@@ -1,20 +1,34 @@
 import React from 'react'
 import * as R from 'ramda'
 
-export const Breadcrumbs = ({ schema, formStack, customProps }) => {
+/**
+ * React component for page breadcrumbs
+ * @param schema model schema
+ * @param formStack information about calling page and errors
+ * @param customProps user defined props and customization
+ */
+export const Breadcrumbs = ({
+  schema,
+  formStack,
+  customProps
+}: {
+  schema: any
+  formStack: any
+  customProps: any
+}) => {
   const stack = R.prop('stack', formStack)
   const index = R.prop('index', formStack)
   return (
     <nav aria-label="breadcrumbs" className="conv-breadcrumbs">
       <ol>
-        {stack.map((crumb, idx) => {
+        {stack.map((crumb: any, idx: string) => {
           const modelName = R.prop('modelName', crumb)
           const actions = schema.getActions(modelName)
           const modelDisplayName = schema.getModelLabel({
             modelName,
             customProps
           })
-          const onBreadcrumbClick = R.path(
+          const onBreadcrumbClick: any = R.path(
             ['create', 'onBreadcrumbClick'],
             actions
           )

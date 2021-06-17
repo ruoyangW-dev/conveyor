@@ -2,31 +2,37 @@ import React from 'react'
 import * as R from 'ramda'
 import { Modal } from '../Modal'
 
-const exclusionCondition = (key) => !R.includes(key, ['__typename', 'id'])
+const exclusionCondition = (key: string) =>
+  !R.includes(key, ['__typename', 'id'])
 
-const getHeaders = (schema, modelName, node) =>
-  R.pipe(
-    R.pickBy((_, key) => exclusionCondition(key)),
-    R.keys()
-  )(node)
+const getHeaders = (schema: any, modelName: string, node: any) =>
+  R.keys(R.pickBy((_, key) => exclusionCondition(key))(node))
 
-const getRowFields = (schema, modelName, node, nodeOrder) => {
+const getRowFields = (
+  schema: any,
+  modelName: string,
+  node: any,
+  nodeOrder?: any[]
+) => {
   const fieldDefinitions = schema.getFields(modelName)
   if (!nodeOrder) {
     nodeOrder = Object.keys(node)
   }
   // 'key' is fieldName, id, or __typename
-  const fields = nodeOrder.map((key) => {
+  const fields = nodeOrder.map((key: any) => {
     const value = R.prop(key, node)
     const override = R.path(
       [modelName, 'deleteModal', 'rows', key],
       schema.schemaJSON
-    )
+    ) as any
     if (override) {
       return override({ schema, modelName, node, fieldName: key })
     }
     if (value === Object(value)) {
-      const targetModel = R.path([key, 'type', 'target'], fieldDefinitions)
+      const targetModel = R.path(
+        [key, 'type', 'target'],
+        fieldDefinitions
+      ) as string
       return getRowFields(schema, targetModel, value)
     }
 
@@ -38,40 +44,52 @@ const getRowFields = (schema, modelName, node, nodeOrder) => {
         return value
       }
     }
-  })
+  }) as Array<any>
 
-  return R.pipe(
-    R.reject((val) => val === undefined),
-    // Makes sure the row never has more columns than the header
-    R.map(R.when(Array.isArray, R.join(' '))),
-    R.flatten
-  )(fields)
+  // Issues with R.pipe
+  return R.flatten(
+    R.map(R.when(Array.isArray, R.join(' ')))(
+      R.reject((val) => val === undefined)(fields)
+    )
+  )
 }
 
-const Row = ({ schema, nodeModelName, node, editedHeaderFields }) => {
-  const fields = getRowFields(schema, nodeModelName, node, editedHeaderFields)
+type RowProps = {
+  schema: any
+  nodeModelName: string
+  node: any
+  editedHeaderFields: string[]
+}
+const Row = ({ schema, nodeModelName, node, editedHeaderFields }: RowProps) => {
+  const fields = getRowFields(
+    schema,
+    nodeModelName,
+    node,
+    editedHeaderFields
+  ) as any
   return (
     <tr>
-      {fields.map((field, index) => (
+      {fields.map((field: any, index: any) => (
         <td key={index}>{field}</td>
       ))}
     </tr>
   )
 }
 
-const HeaderRow = ({ headers }) => {
+const HeaderRow = ({ headers }: { headers: string[] }) => {
   return (
     <tr>
-      {headers.map((head, index) => (
+      {headers.map((head: any, index: any) => (
         <th key={index}>{head}</th>
       ))}
     </tr>
   )
 }
 
-const ReviewTable = ({ schema, table, customProps }) => {
+type ReviewTableProps = { schema: any; table: any[]; customProps: any }
+const ReviewTable = ({ schema, table, customProps }: ReviewTableProps) => {
   let headers = []
-  let editedHeaderFields
+  let editedHeaderFields = undefined as any
   const node = table[0]
   const nodeModelName = R.prop('__typename', node)
   if (!R.isEmpty(table)) {
@@ -88,11 +106,11 @@ const ReviewTable = ({ schema, table, customProps }) => {
         [],
         'fieldOrder',
         schema.getModel(nodeModelName)
-      )
+      ) as string[]
 
       editedHeaderFields = R.filter(
-        R.identity,
-        fieldOrder.map((field) =>
+        R.identity as any,
+        fieldOrder.map((field: string) =>
           R.includes(field, headerFields) ? field : undefined
         )
       )
@@ -101,7 +119,7 @@ const ReviewTable = ({ schema, table, customProps }) => {
     }
 
     // turn fieldNames in to labels
-    headers = editedHeaderFields.map((fieldName) =>
+    headers = editedHeaderFields.map((fieldName: string) =>
       schema.getFieldLabel({
         modelName: nodeModelName,
         fieldName,
@@ -130,7 +148,7 @@ const ReviewTable = ({ schema, table, customProps }) => {
             }}
           />
           {table &&
-            table.map((node, index) => (
+            table.map((node: any, index: number) => (
               <Row
                 key={`${index}-${node.id}`}
                 {...{
@@ -161,6 +179,18 @@ const ReviewTable = ({ schema, table, customProps }) => {
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DeleteDetailProps = {
+  schema: any
+  modelName: string
+  id: string
+  modalId: string
+  title?: string
+  onDelete: any
+  modalData: { Delete: any[] }
+  parentModelName?: string
+  parentId?: string
+  customProps: any
+}
 export const DeleteDetail = ({
   schema,
   modelName,
@@ -172,10 +202,10 @@ export const DeleteDetail = ({
   parentModelName = undefined,
   parentId = undefined,
   customProps
-}) => {
+}: DeleteDetailProps) => {
   const modalStore = R.prop('Delete', modalData)
   const actions = schema.getActions(modelName)
-  const onCancelDelete = R.path(['delete', 'onCancelDelete'], actions)
+  const onCancelDelete = R.path(['delete', 'onCancelDelete'], actions) as any
   return (
     <Modal {...{ id: modalId, title, className: 'conv-delete-modal' }}>
       <span>
@@ -183,7 +213,7 @@ export const DeleteDetail = ({
       </span>
       {!modalStore && <div className={'text-center'}>...loading</div>}
       {modalStore &&
-        modalStore.map((table, index) => (
+        modalStore.map((table: any, index: any) => (
           <ReviewTable
             key={`${index}-${R.propOr('', '__typename', R.head(table))}`}
             {...{ schema, table, customProps }}
@@ -218,6 +248,19 @@ export const DeleteDetail = ({
   )
 }
 
+type RemoveDetailProps = {
+  schema: any
+  id: string
+  modalId: string
+  title: string
+  onRemove: any
+  modelName: string
+  parentModelName: string
+  parentFieldName: string
+  parentId: string
+  node: any
+  customProps: any
+}
 export const RemoveDetail = ({
   schema,
   id,
@@ -230,7 +273,7 @@ export const RemoveDetail = ({
   parentId,
   node,
   customProps
-}) => {
+}: RemoveDetailProps) => {
   const name = schema.getDisplayValue({ modelName, node, customProps })
   const parentField = schema.getFieldLabel({
     modelName: parentModelName,

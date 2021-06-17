@@ -6,21 +6,33 @@ import { Breadcrumbs } from './Breadcrumbs'
 import { isAutoFocusInput } from '../input/index'
 import { skipOverride, useOverride } from '../Utils'
 
-const getFieldErrorCreate = ({ formStack, stackIndex, fieldName }) =>
-  R.path(['stack', stackIndex, 'errors', fieldName], formStack)
+const getFieldErrorCreate = ({
+  formStack,
+  stackIndex,
+  fieldName
+}: {
+  formStack: any
+  stackIndex: any
+  fieldName: string
+}) => R.path(['stack', stackIndex, 'errors', fieldName], formStack)
 
 export const makeCreateLabel = ({
   schema,
   modelName,
   fieldName,
   customProps
+}: {
+  schema: any
+  modelName: string
+  fieldName: string
+  customProps: any
 }) => {
   const type = R.prop('type', schema.getField(modelName, fieldName))
   if (R.type(type) !== 'Object') {
     return null
   }
   const actions = schema.getActions(modelName)
-  const onStackCreate = R.path(['create', 'onStackCreate'], actions)
+  const onStackCreate: any = R.path(['create', 'onStackCreate'], actions)
   const targetModel = R.path(
     ['type', 'target'],
     schema.getField(modelName, fieldName)
@@ -38,7 +50,17 @@ export const makeCreateLabel = ({
   return CreateLabel
 }
 
-const getDisabledValue = ({ schema, modelName, fieldName, form }) => {
+const getDisabledValue = ({
+  schema,
+  modelName,
+  fieldName,
+  form
+}: {
+  schema: any
+  modelName: string
+  fieldName: string
+  form: any
+}) => {
   const type = schema.getType(modelName, fieldName)
 
   if (type.includes('ToMany')) {
@@ -55,7 +77,15 @@ const getDisabledValue = ({ schema, modelName, fieldName, form }) => {
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
-export const DefaultCreateTitle = ({ schema, modelName, customProps }) => {
+export const DefaultCreateTitle = ({
+  schema,
+  modelName,
+  customProps
+}: {
+  schema: any
+  modelName: string
+  customProps: any
+}) => {
   return <h1>Create {schema.getModelLabel({ modelName, customProps })}</h1>
 }
 
@@ -71,10 +101,22 @@ const FieldInputList = ({
   onKeyDown,
   onChange,
   fieldOrder
+}: {
+  schema: any
+  modelName: string
+  formStack: any
+  stackIndex: any
+  form: any
+  selectOptions: any
+  failedValidation: any
+  customProps: any
+  onKeyDown: any
+  onChange: any
+  fieldOrder: any
 }) => {
   let autoFocusAdded = false
 
-  return fieldOrder.map((fieldName) => {
+  return fieldOrder.map((fieldName: string) => {
     if (
       schema.shouldDisplayCreate({ modelName, fieldName, customProps }) ===
       false
@@ -146,6 +188,14 @@ const FieldInputList = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultCreateProps = {
+  schema: any
+  modelName: string
+  formStack: any
+  selectOptions: any
+  failedValidation: any
+  customProps: any
+}
 export const DefaultCreatePage = ({
   schema,
   modelName,
@@ -153,7 +203,7 @@ export const DefaultCreatePage = ({
   selectOptions,
   failedValidation,
   customProps
-}) => {
+}: DefaultCreateProps) => {
   const stackIndex = R.prop('index', formStack)
   const originFieldName = R.prop('originFieldName', formStack)
   const stack = R.prop('stack', formStack)
@@ -171,11 +221,11 @@ export const DefaultCreatePage = ({
 
   const actions = schema.getActions(modelName)
   const onChange = R.path(['create', 'onInputChange'], actions)
-  const onCancel = R.path(['create', 'onCancel'], actions)
-  const onSave = R.path(['create', 'onSave'], actions)
+  const onCancel: any = R.path(['create', 'onCancel'], actions)
+  const onSave: any = R.path(['create', 'onSave'], actions)
   const disableButtons = stackIndex !== stack.length - 1
 
-  const onKeyDown = (evt) => {
+  const onKeyDown = (evt: any) => {
     if (evt.key === 'Enter') {
       return onSave({ modelName })
     }
@@ -247,7 +297,7 @@ export const DefaultCreate = ({
   selectOptions,
   failedValidation,
   customProps
-}) => {
+}: DefaultCreateProps) => {
   const CreateTitleOverride = schema.getCreateTitleOverride(modelName)
   const CreatePageOverride = schema.getCreatePageOverride(modelName)
 
@@ -304,7 +354,7 @@ const Create = ({
   selectOptions,
   failedValidation,
   customProps
-}) => {
+}: DefaultCreateProps) => {
   const CreateOverride = schema.getCreateOverride(modelName)
 
   const CreateComponent = useOverride(CreateOverride, DefaultCreate)

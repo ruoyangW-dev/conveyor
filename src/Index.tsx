@@ -17,6 +17,15 @@ import { skipOverride, useOverride } from './Utils'
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type DefaultIndexTitleProps = {
+  schema: any
+  modelName: string
+  selectOptions: any[]
+  path: string
+  data: any
+  tableView: any
+  customProps: any
+}
 export const DefaultIndexTitle = ({
   schema,
   modelName,
@@ -25,9 +34,9 @@ export const DefaultIndexTitle = ({
   data,
   tableView,
   customProps
-}) => {
+}: DefaultIndexTitleProps) => {
   const actions = schema.getActions(modelName)
-  const onCreateClick = R.path(['create', 'onIndexCreate'], actions)
+  const onCreateClick = R.path(['create', 'onIndexCreate'], actions) as any
   const onClick = () => onCreateClick({ modelName, path })
   const creatable = schema.isCreatable({ modelName, data, customProps })
   const filterable = schema.isTableFilterable({ modelName, data, customProps })
@@ -92,6 +101,20 @@ const PageNotFound = () => (
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type DefaultIndexProps = {
+  schema: any
+  modelName: string
+  data: any
+  modalData: any
+  editData: any
+  selectOptions: any[]
+  failedValidation: any
+  path: string
+  tooltipData: any
+  tableView: any
+  customProps: any
+  summary: any
+}
 export const DefaultIndex = ({
   schema,
   modelName,
@@ -105,7 +128,7 @@ export const DefaultIndex = ({
   tableView,
   customProps,
   summary
-}) => {
+}: DefaultIndexProps) => {
   if (!schema.getHasIndex(modelName) || R.isNil(schema.getModel(modelName))) {
     return <PageNotFound />
   }
@@ -186,6 +209,20 @@ export const DefaultIndex = ({
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type IndexProps = {
+  schema: any
+  modelName: string
+  data: any
+  modalData: any
+  editData: any
+  selectOptions: any
+  failedValidation: any
+  path: string
+  tooltipData: any
+  tableView: any
+  customProps: any
+  summary: any
+}
 const Index = ({
   schema,
   modelName,
@@ -199,7 +236,7 @@ const Index = ({
   tableView,
   customProps,
   summary
-}) => {
+}: IndexProps) => {
   // if singleton, Index redirects to Detail pg
   if (schema.getSingleton(modelName)) {
     const singleton = R.last(data)
@@ -210,7 +247,7 @@ const Index = ({
     }
     // if no singleId exists, must create
     const actions = schema.getActions(modelName)
-    const onCreateClick = R.path(['create', 'onIndexCreate'], actions)
+    const onCreateClick = R.path(['create', 'onIndexCreate'], actions) as any
     return (
       <div className="conv-index">
         <h1>

@@ -17,14 +17,26 @@ import moment from 'moment'
 import { Popover, PopoverContent } from '../Popover'
 import _ from 'lodash'
 
-const errorBuilder = ({ error, id }) =>
-  error.map((r) => (
+const errorBuilder = ({ error, id }: { error: any; id: string }) =>
+  error.map((r: any) => (
     <div key={`${r}-${id}-error`}>
       {r}
       <br />
     </div>
   ))
 
+type FormGroupProps = {
+  labelStr: string
+  htmlFor: string
+  error: any
+  children: any
+  className: string
+  required: boolean
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const FormGroup = ({
   labelStr,
   htmlFor,
@@ -36,7 +48,7 @@ export const FormGroup = ({
   customLabel = null,
   LabelInfoComponent,
   showPopover
-}) => {
+}: FormGroupProps) => {
   let errorComp
   if (!customError && error) {
     errorComp = (
@@ -72,7 +84,7 @@ export const FormGroup = ({
           <LabelInfoComponent />
         </PopoverContent>
       )
-    }
+    } as any
     if (customLabel) popoverContent['labelValue'] = customLabelContent
     else if (labelStr) popoverContent['labelValue'] = labelStrContent
     labelComp = <Popover {...popoverContent} />
@@ -94,7 +106,7 @@ export const FormGroup = ({
  * @property: { list } error - list of strings containing error messages
  */
 
-const CustomErrorComponent = ({ error, id }) => (
+const CustomErrorComponent = ({ error, id }: { error: any; id: string }) => (
   <div className="conv-error-component">{errorBuilder({ error, id })}</div>
 )
 
@@ -121,7 +133,21 @@ const CustomErrorComponent = ({ error, id }) => (
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputDateProps = {
+  onChange: any
+  id: string
+  labelStr: any
+  error: any
+  value: any
+  dateFormat: any
+  isClearable: boolean
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 // TODO: get classname for invalid from new react-datepicker
 export const InputDate = ({
   onChange,
@@ -137,7 +163,7 @@ export const InputDate = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => {
+}: InputDateProps) => {
   let date
   if (value) {
     date = new Date(value)
@@ -164,7 +190,7 @@ export const InputDate = ({
           fixedHeight={true}
           dateFormat={dateFormat}
           selected={date} // yyyy/MM/dd required for Date()
-          onChange={(evt) => {
+          onChange={(evt: any) => {
             if (evt === undefined || evt === null) {
               return onChange(null)
             }
@@ -208,7 +234,23 @@ export const InputDate = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputDateTimeProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  dateFormat: any
+  timeFormat: any
+  isClearable: boolean
+  useUTC: boolean
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 // TODO: get classname for invalid from new react-datepicker
 export const InputDateTime = ({
   onChange,
@@ -226,7 +268,7 @@ export const InputDateTime = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => {
+}: InputDateTimeProps) => {
   if (!value) {
     value = ''
   }
@@ -249,7 +291,7 @@ export const InputDateTime = ({
           fixedHeight={true}
           dateFormat={dateFormat}
           selected={useUTC ? convertUTCToLocalDate(value) : new Date(value)}
-          onChange={(date) => {
+          onChange={(date: any) => {
             if (date === undefined || date === null) {
               return onChange(null)
             }
@@ -288,7 +330,19 @@ export const InputDateTime = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputColorProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputColor = ({
   onChange,
   id,
@@ -301,8 +355,8 @@ export const InputColor = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => {
-  const debounceOnChange = _.debounce((val) => onChange(val), 500)
+}: InputColorProps) => {
+  const debounceOnChange = _.debounce((val: any) => onChange(val), 500)
 
   //TODO: Add styling class for color
   return (
@@ -356,7 +410,24 @@ const inputStringTypeMap = {
  * @property { boolean } autoFocus; update isAutoFocusInput() when changing
  * @property { boolean } spellCheck
  */
-
+type InputStringProps = {
+  type: any
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  spellCheck: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputString = ({
   type,
   onChange,
@@ -374,7 +445,7 @@ export const InputString = ({
   spellCheck,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputStringProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -416,7 +487,22 @@ export const InputString = ({
  * @property { function } customLabel
  * @property { boolean } autoFocus; update isAutoFocusInput() when changing
  */
-
+type InputPasswordProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputPassword = ({
   onChange,
   id,
@@ -432,7 +518,7 @@ export const InputPassword = ({
   onKeyDown,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputPasswordProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -479,6 +565,22 @@ const MAX_SQL_INT_SIZE = Math.pow(2, 31) - 1
 
 const MIN_SQL_INT_SIZE = -Math.pow(2, 31)
 
+type InputIntProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputInt = ({
   onChange,
   id,
@@ -494,7 +596,7 @@ export const InputInt = ({
   onKeyDown,
   LabelInfoComponent,
   showPopover
-}) => {
+}: InputIntProps) => {
   if (value > MAX_SQL_INT_SIZE || value < MIN_SQL_INT_SIZE) {
     error = R.append('Number too large.', error)
   }
@@ -530,6 +632,22 @@ export const InputInt = ({
   )
 }
 
+type InputCurrencyProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  onKeyDown: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputCurrency = ({
   onChange,
   id,
@@ -545,7 +663,7 @@ export const InputCurrency = ({
   onKeyDown,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputCurrencyProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -567,7 +685,7 @@ export const InputCurrency = ({
         placeholder={'0.00'}
         value={value}
         onKeyDown={onKeyDown}
-        onChange={(evt) => {
+        onChange={(evt: any) => {
           if (evt === '' || evt === undefined || evt === null) {
             return onChange(null)
           }
@@ -599,6 +717,22 @@ export const InputCurrency = ({
  * @property { boolean } spellCheck
  */
 
+type InputTextAreaProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  autoFocus: any
+  spellCheck: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputTextArea = ({
   onChange,
   id,
@@ -614,7 +748,7 @@ export const InputTextArea = ({
   spellCheck,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputTextAreaProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -655,7 +789,22 @@ export const InputTextArea = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputRadioProps = {
+  onChange: any
+  id: string
+  labelStr: string
+  error: any
+  value: any
+  className: string
+  options: any
+  inline: boolean
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputRadio = ({
   onChange,
   id,
@@ -671,7 +820,7 @@ export const InputRadio = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputRadioProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -683,7 +832,7 @@ export const InputRadio = ({
     LabelInfoComponent={LabelInfoComponent}
     showPopover={showPopover}
   >
-    {options.map((option, idx) => (
+    {options.map((option: any, idx: number) => (
       <div
         key={`radio-${idx}-${id}`}
         className={`${className} ${inline ? ' form-check-inline' : ''}`}
@@ -718,7 +867,19 @@ export const InputRadio = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputFileProps = {
+  onChange: any
+  error: any
+  id: string
+  labelStr: string
+  className: string
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputFile = ({
   onChange,
   error,
@@ -731,7 +892,7 @@ export const InputFile = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => {
+}: InputFileProps) => {
   return (
     <FormGroup
       labelStr={labelStr}
@@ -772,7 +933,21 @@ export const InputFile = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputCheckboxProps = {
+  onChange: any
+  value: any
+  inline: boolean
+  id: string
+  className: string
+  labelStr: string
+  error: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputCheckbox = ({
   onChange,
   value,
@@ -787,7 +962,7 @@ export const InputCheckbox = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputCheckboxProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -842,7 +1017,25 @@ export const InputCheckbox = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputSelectProps = {
+  labelStr: string
+  id: string
+  error: any
+  className: string
+  isClearable: boolean
+  isMulti: boolean
+  value: any
+  options: any
+  onChange: any
+  noOptionsMessage: any
+  onMenuOpen: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputSelect = ({
   labelStr,
   id,
@@ -861,7 +1054,7 @@ export const InputSelect = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => (
+}: InputSelectProps) => (
   <FormGroup
     labelStr={labelStr}
     htmlFor={id}
@@ -880,7 +1073,7 @@ export const InputSelect = ({
       isMulti={isMulti}
       value={value}
       options={options}
-      isOptionDisabled={(option) => R.prop('disabled', option) === true}
+      isOptionDisabled={(option: any) => R.prop('disabled', option) === true}
       onChange={onChange}
       id={id}
       onMenuOpen={onMenuOpen}
@@ -912,7 +1105,22 @@ export const InputSelect = ({
  * @property { function } customError
  * @property { function } customLabel
  */
-
+type InputCreatableStringSelectProps = {
+  labelStr: string
+  id: string
+  error: any
+  className: string
+  value: any
+  options: any
+  onChange: any
+  onMenuOpen: any
+  required: boolean
+  customInput: any
+  customError: any
+  customLabel: any
+  LabelInfoComponent: any
+  showPopover: boolean
+}
 export const InputCreatableStringSelect = ({
   labelStr,
   id,
@@ -928,7 +1136,7 @@ export const InputCreatableStringSelect = ({
   customLabel,
   LabelInfoComponent,
   showPopover
-}) => {
+}: InputCreatableStringSelectProps) => {
   return (
     <FormGroup
       labelStr={labelStr}
@@ -946,7 +1154,7 @@ export const InputCreatableStringSelect = ({
         classNamePrefix="select"
         id={id}
         options={options}
-        onChange={(selectedOption) => onChange(selectedOption.value)}
+        onChange={(selectedOption: any) => onChange(selectedOption.value)}
         value={{ label: value, value }}
         onMenuOpen={onMenuOpen}
         createOptionPosition={'first'}

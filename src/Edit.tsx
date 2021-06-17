@@ -5,11 +5,11 @@ import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 import { Modal } from './Modal'
 
-export const InlineEditButton = ({ onEditClick }) => (
+export const InlineEditButton = ({ onEditClick }: { onEditClick: any }) => (
   <FaEdit className="edit-icon" onClick={onEditClick} />
 )
 
-export const FileDeleteIcon = ({ modalId }) => (
+export const FileDeleteIcon = ({ modalId }: { modalId: string }) => (
   <MdDelete
     className="trash-icon"
     data-toggle="modal"
@@ -17,7 +17,15 @@ export const FileDeleteIcon = ({ modalId }) => (
   />
 )
 
-export const FileDelete = ({ id, fieldName, onFileDelete }) => {
+export const FileDelete = ({
+  id,
+  fieldName,
+  onFileDelete
+}: {
+  id: string
+  fieldName: string
+  onFileDelete: any
+}) => {
   // do not begin modalId with number
   const modalId = `${fieldName}-${id}-file-delete-modal`
   return (
@@ -49,21 +57,34 @@ export const FileDelete = ({ id, fieldName, onFileDelete }) => {
   )
 }
 
-export const getFieldEditData = (editData, modelName, fieldName, id) =>
-  R.path([modelName, id, fieldName, 'currentValue'], editData)
+export const getFieldEditData = (
+  editData: any,
+  modelName: string,
+  fieldName: string,
+  id: string
+) => R.path([modelName, id, fieldName, 'currentValue'], editData)
 
-export const getFieldErrorEdit = (editData, modelName, fieldName, id) =>
-  R.path([modelName, id, fieldName, 'errors'], editData)
+export const getFieldErrorEdit = (
+  editData: any,
+  modelName: string,
+  fieldName: string,
+  id: string
+) => R.path([modelName, id, fieldName, 'errors'], editData)
 
-export const isEditing = (editData, modelName, id) =>
+export const isEditing = (editData: any, modelName: string, id: string) =>
   R.pathOr(false, [modelName, id], editData)
 
-export const isFieldEditing = (editData, modelName, id, fieldName) => {
+export const isFieldEditing = (
+  editData: any,
+  modelName: string,
+  id: string,
+  fieldName: string
+) => {
   const idEditData = R.pathOr({}, [modelName, id], editData)
   return fieldName in idEditData
 }
 
-const EditButton = ({ onClick }) => {
+const EditButton = ({ onClick }: { onClick: any }) => {
   return (
     <button className="conv-edit-button" onClick={onClick}>
       Edit
@@ -71,17 +92,41 @@ const EditButton = ({ onClick }) => {
   )
 }
 
-export const RowEditButton = ({ schema, modelName, id, node }) => {
+type RowEditButtonProps = {
+  schema: any
+  modelName: string
+  id: string
+  node: any
+}
+export const RowEditButton = ({
+  schema,
+  modelName,
+  id,
+  node
+}: RowEditButtonProps) => {
   const actions = schema.getActions(modelName)
-  const onEditClick = R.path(['edit', 'onTableRowEdit'], actions)
+  const onEditClick = R.path(['edit', 'onTableRowEdit'], actions) as any
   return (
     <EditButton {...{ onClick: () => onEditClick({ modelName, id, node }) }} />
   )
 }
 
-export const TableEditButton = ({ schema, modelName, id, fieldName, node }) => {
+type TableEditButtonProps = {
+  schema: any
+  modelName: string
+  id: string
+  fieldName: string
+  node: any
+}
+export const TableEditButton = ({
+  schema,
+  modelName,
+  id,
+  fieldName,
+  node
+}: TableEditButtonProps) => {
   const actions = schema.getActions(modelName)
-  const onEditClick = R.path(['edit', 'onAttributeEdit'], actions)
+  const onEditClick = R.path(['edit', 'onAttributeEdit'], actions) as any
 
   return (
     <EditButton
@@ -98,7 +143,7 @@ export const TableEditButton = ({ schema, modelName, id, fieldName, node }) => {
   )
 }
 
-export const EditSaveButton = ({ onClick }) => {
+export const EditSaveButton = ({ onClick }: { onClick: any }) => {
   return (
     <button className="conv-edit-save-button" onClick={onClick}>
       Save
@@ -106,7 +151,7 @@ export const EditSaveButton = ({ onClick }) => {
   )
 }
 
-export const EditCancelButton = ({ onClick }) => {
+export const EditCancelButton = ({ onClick }: { onClick: any }) => {
   return (
     <button className="conv-edit-cancel-button" onClick={onClick}>
       Cancel
@@ -114,6 +159,17 @@ export const EditCancelButton = ({ onClick }) => {
   )
 }
 
+type EditInputProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  node: any
+  editData: any
+  error: any
+  selectOptions: any
+  failedValidation: any
+  customProps?: any
+}
 export const EditInput = ({
   schema,
   modelName,
@@ -124,9 +180,12 @@ export const EditInput = ({
   selectOptions,
   failedValidation,
   customProps = undefined
-}) => {
+}: EditInputProps) => {
   const actions = schema.getActions(modelName)
-  const onEditInputChange = R.path(['edit', 'onEditInputChange'], actions)
+  const onEditInputChange = R.path(
+    ['edit', 'onEditInputChange'],
+    actions
+  ) as any
   return (
     <Input
       key={fieldName}
@@ -141,7 +200,8 @@ export const EditInput = ({
         value: editData,
         error,
         inline: true,
-        customProps
+        customProps,
+        customLabel: undefined // TODO: Optional param in ./form/input
       }}
     />
   )
