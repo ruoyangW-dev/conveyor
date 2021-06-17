@@ -3,7 +3,7 @@ import * as consts from '../consts'
 import * as R from 'ramda'
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa'
 
-const getSortIcon = (sortKey) => {
+const getSortIcon = (sortKey: string) => {
   switch (sortKey) {
     case undefined:
       return FaSort
@@ -14,7 +14,7 @@ const getSortIcon = (sortKey) => {
   }
 }
 
-export const getNextSortKey = (sortKey) => {
+export const getNextSortKey = (sortKey: string) => {
   switch (sortKey) {
     case undefined:
       return consts.ASC
@@ -25,12 +25,23 @@ export const getNextSortKey = (sortKey) => {
   }
 }
 
-export const SortButton = ({ modelName, fieldName, onSort, sortKeyObj }) => {
-  let sortKey
+type SortButtonProps = {
+  modelName: string
+  fieldName: string
+  onSort: any
+  sortKeyObj: any
+}
+export const SortButton = ({
+  modelName,
+  fieldName,
+  onSort,
+  sortKeyObj
+}: SortButtonProps) => {
+  let sortKey = undefined as any
   if (R.prop('fieldName', sortKeyObj) === fieldName) {
     sortKey = R.prop('sortKey', sortKeyObj)
   }
-  const SortIcon = getSortIcon(sortKey)
+  const SortIcon = getSortIcon(sortKey) as any
 
   const fillColor = sortKey ? 'lightgreen' : 'black'
   return (

@@ -6,7 +6,18 @@ import { inputTypes } from '../consts'
 import FlexibleInput from '../input'
 import { Modal } from '../Modal'
 
-const getFilterableFields = ({ schema, modelName, data, customProps }) => {
+type getFilterableFieldsProps = {
+  schema: any
+  modelName: string
+  data: any
+  customProps: any
+}
+const getFilterableFields = ({
+  schema,
+  modelName,
+  data,
+  customProps
+}: getFilterableFieldsProps) => {
   const fields = R.pathOr([], [modelName, 'fieldOrder'], schema.schemaJSON)
   const filterables = fields.filter((fieldName) =>
     schema.isFilterable({ modelName, fieldName, data, customProps })
@@ -14,12 +25,18 @@ const getFilterableFields = ({ schema, modelName, data, customProps }) => {
   return filterables
 }
 
+type FilterButtonsProps = {
+  modelName: string
+  onFilterSubmit: any
+  clearFilters: any
+  addFilter: any
+}
 const FilterButtons = ({
   modelName,
   onFilterSubmit,
   clearFilters,
   addFilter
-}) => (
+}: FilterButtonsProps) => (
   <div className="conv-filter-buttons">
     <button
       className="conv-add-filter-button"
@@ -49,6 +66,22 @@ const FilterButtons = ({
   </div>
 )
 
+type formatFilterProps = {
+  fieldName: string
+  index: number
+  modelName: string
+  schema: any
+  data: any
+  onChange: any
+  selectOptions: any
+  filterOrder: any
+  onFilterChange: any
+  onFilterSubmit: any
+  onFilterDropdown: any
+  filterInputs: any
+  deleteFilter: any
+  customProps: any
+}
 const formatFilter = ({
   fieldName,
   index,
@@ -64,7 +97,7 @@ const formatFilter = ({
   filterInputs,
   deleteFilter,
   customProps
-}) => {
+}: formatFilterProps) => {
   const filterInput = R.prop(fieldName, filterInputs)
   const filterables = getFilterableFields({
     schema,
@@ -72,7 +105,7 @@ const formatFilter = ({
     data,
     customProps
   })
-  const toOptions = (fieldName) => ({
+  const toOptions = (fieldName: string) => ({
     label: schema.getFieldLabel({ modelName, fieldName, data, customProps }),
     value: fieldName
   })
@@ -94,7 +127,7 @@ const formatFilter = ({
           <FlexibleInput
             {...{
               type: inputTypes.SELECT_TYPE,
-              onChange: (evt) =>
+              onChange: (evt: any) =>
                 onChange({
                   modelName,
                   fieldName: R.prop('value', evt),
@@ -123,7 +156,7 @@ const formatFilter = ({
                 onFilterChange({
                   modelName,
                   schema,
-                  onFilterChange: (evt) =>
+                  onFilterChange: (evt: any) =>
                     onFilterChange({
                       modelName,
                       ...evt
@@ -144,6 +177,22 @@ const formatFilter = ({
   )
 }
 
+type ActiveFiltersProps = {
+  modelName: string
+  schema: any
+  data: any
+  addFilter: any
+  deleteFilter: any
+  onChange: any
+  selectOptions: any
+  filterOrder: any
+  clearFilters: any
+  onFilterChange: any
+  onFilterSubmit: any
+  onFilterDropdown: any
+  filterInputs: any
+  customProps: any
+}
 const ActiveFilters = ({
   modelName,
   schema,
@@ -159,7 +208,7 @@ const ActiveFilters = ({
   onFilterDropdown,
   filterInputs,
   customProps
-}) => (
+}: ActiveFiltersProps) => (
   <div
     id={'active-filters-' + modelName}
     className={'conv-active-filters conv-active-filters-' + modelName}
@@ -174,7 +223,7 @@ const ActiveFilters = ({
           Add a rule to get started...
         </li>
       ) : (
-        filterOrder.map((fieldName, index) =>
+        filterOrder.map((fieldName: string, index: number) =>
           formatFilter({
             fieldName,
             index,
@@ -205,6 +254,15 @@ const ActiveFilters = ({
   </div>
 )
 
+type FilterModalProps = {
+  schema: any
+  modelName: string
+  selectOptions: any
+  data: any
+  filterOrder: any
+  filterInputs: any
+  customProps: any
+}
 export const FilterModal = ({
   schema,
   modelName,
@@ -213,7 +271,7 @@ export const FilterModal = ({
   filterOrder,
   filterInputs,
   customProps
-}) => {
+}: FilterModalProps) => {
   const actions = schema.getActions(modelName)
   const tableOptions = R.prop('tableOptions', actions)
   const addFilter = R.prop('addFilter', tableOptions)
@@ -252,7 +310,13 @@ export const FilterModal = ({
   )
 }
 
-export const FilterModalButton = ({ modelName, filtersAreActive }) => (
+export const FilterModalButton = ({
+  modelName,
+  filtersAreActive
+}: {
+  modelName: string
+  filtersAreActive: boolean
+}) => (
   <button
     className={'conv-filter-modal-button conv-filter-modal-button-' + modelName}
     data-toggle="modal"
@@ -292,13 +356,20 @@ const dateOptions = [{ label: 'Before', value: 'BEFORE' }]
 
 const booleanOptions = [{ label: 'Equals', value: 'EQUALS' }]
 
+type FilterOptionsProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  operator: any
+  onFilterDropdown: any
+}
 const FilterOptions = ({
   schema,
   modelName,
   fieldName,
   operator,
   onFilterDropdown
-}) => {
+}: FilterOptionsProps) => {
   const inputType = schema.getType(modelName, fieldName)
 
   let options
@@ -332,7 +403,7 @@ const FilterOptions = ({
       <FlexibleInput
         key={`FlexibleInput-${modelName}-${fieldName}`}
         type={inputTypes.SELECT_TYPE}
-        onChange={(val) =>
+        onChange={(val: any) =>
           onFilterDropdown({
             modelName,
             fieldName,
@@ -352,7 +423,16 @@ const FilterOptions = ({
 // case inputTypes.DATE_TYPE:
 // case inputTypes.PHONE_TYPE:
 // case inputTypes.BOOLEAN_TYPE:
-
+type FilterCompProps = {
+  fieldName: string
+  modelName: string
+  schema: any
+  onFilterChange: any
+  onFilterSubmit?: any
+  onFilterDropdown?: any
+  filterInput?: any
+  selectOptions?: any
+}
 export const FilterComp = ({
   fieldName,
   modelName,
@@ -362,7 +442,7 @@ export const FilterComp = ({
   onFilterDropdown,
   filterInput,
   selectOptions
-}) => {
+}: FilterCompProps) => {
   if (R.isNil(fieldName) || R.isEmpty(fieldName)) {
     return <div className="filter-padded">Select a field</div>
   }
