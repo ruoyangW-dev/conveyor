@@ -130,7 +130,10 @@ export const Search = ({
       )}
       <Link
         to={`/Search/${queryText}`}
-        onClick={() => onTriggerSearch({ queryText })}
+        onClick={() => {
+          onTriggerSearch({ queryText })
+          onBlur()
+        }}
         className="nav-link"
       >
         Search
