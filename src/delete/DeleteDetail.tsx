@@ -252,7 +252,7 @@ type RemoveDetailProps = {
   schema: any
   id: string
   modalId: string
-  title: string
+  title?: string
   onRemove: any
   modelName: string
   parentModelName: string

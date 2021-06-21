@@ -315,7 +315,7 @@ export const FilterModalButton = ({
   filtersAreActive
 }: {
   modelName: string
-  filtersAreActive: boolean
+  filtersAreActive: any
 }) => (
   <button
     className={'conv-filter-modal-button conv-filter-modal-button-' + modelName}

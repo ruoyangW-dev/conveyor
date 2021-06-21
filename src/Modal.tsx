@@ -10,7 +10,13 @@ import PrintButton from './PrintButton'
  * @param children
  * @return Rendered React Component
  */
-export const Modal = ({ id, title, className = '', children }) => (
+type ModalProps = {
+  id: string
+  title: string
+  className?: string
+  children: any
+}
+export const Modal = ({ id, title, className = '', children }: ModalProps) => (
   <div className={'conv-modal ' + className} id={id} tabIndex={-1}>
     <div className="modal-dialog">
       <div>
@@ -26,7 +32,13 @@ export const Modal = ({ id, title, className = '', children }) => (
   </div>
 )
 
-const ImageModal = ({ id, title, className, url }) => {
+type ImageModalProps = {
+  id: string
+  title: string
+  className?: string
+  url: string
+}
+const ImageModal = ({ id, title, className, url }: ImageModalProps) => {
   let child
   if (!url) {
     child = (
@@ -61,7 +73,18 @@ const ImageModal = ({ id, title, className, url }) => {
   return <Modal {...{ id, title, className }}>{child}</Modal>
 }
 
-export const ImageLinkModal = ({ id, title, className, url }) => {
+type ImageLinkModalProps = {
+  id: string
+  title: string
+  className?: string
+  url: string
+}
+export const ImageLinkModal = ({
+  id,
+  title,
+  className,
+  url
+}: ImageLinkModalProps) => {
   if (!url || url === 'None') {
     return <span>No Image</span>
   }

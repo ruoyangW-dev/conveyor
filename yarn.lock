@@ -2,14 +2,15 @@
 # yarn lockfile v1
 
 
-"@autoinvent/conveyor-schema@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@autoinvent/conveyor-schema/-/conveyor-schema-0.3.1.tgz#cbdce90385cdd76d360a8c6a18ddd4da07706599"
-  integrity sha512-cmesJOWoMCrib1VRYy3UT+EEUUPBvqbfzVFVWvrBUpZIAfyqzcVQ3hHT0faCMV8q7eRu7Bry+I8Xd6r2VuL2OA==
+"@autoinvent/conveyor-schema@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@autoinvent/conveyor-schema/-/conveyor-schema-0.4.0.tgz#e85a9b76c125a634ee86d3358ef7d5f00c8178eb"
+  integrity sha512-QQohfUFDuXktdejQqW9Uaw9+CZ1LawFvUcUhVk93YI+SilCwVn4dmUd1i5qPa0vtBmX2lz5AuLXpaLCOgwphnw==
   dependencies:
     core-js "^3.12.1"
     pluralize "^8.0.0"
     ramda "^0.27.1"
+    typedoc "^0.20.36"
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
@@ -819,6 +820,13 @@
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.1.tgz#e1a3cb278df7f47f17b5082b1b3da17170bd44b1"
   integrity sha512-vIo69qKKcYoJ8wKCJjwSgCTM+z3chw3g18dkrDfVX665tMH7tmbDxEAnPdey4gTlwZz5QuHGzd+hul0OVZDqqQ==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-window@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@types/react-window/-/react-window-1.8.3.tgz#14f74b144b4e3df9421eb31182dc580b7ccc7617"
+  integrity sha512-Xf+IR2Zyiyh/6z1CM8kv1aQba3S3X/hBXt4tH+T9bDSIGwFhle0GZFZGTSU8nw2cUT3UNbCHDjhxVQVZPtE8cA==
   dependencies:
     "@types/react" "*"
 

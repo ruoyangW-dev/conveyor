@@ -93,18 +93,18 @@ type InputType = {
   modelName: string
   fieldName: string
   value: any
-  error: any
+  error?: any
   inline?: any
   onChange: any
   selectOptions: any
   failedValidation?: any
   disabled?: boolean | undefined
-  customLabel: any
+  customLabel?: any
   customInput?: any
   formStack?: any
   autoFocus?: any
   onKeyDown?: any
-  customProps: any
+  customProps?: any
   showPopover?: boolean
 }
 const Input = ({
