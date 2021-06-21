@@ -3,15 +3,26 @@ import { Link } from 'react-router-dom'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
 
+type HighlightProps = {
+  searchText: string
+  rowLen: number
+  idx: number
+}
 /* returns empty span tag if we're at the end of the string */
-const Highlight = ({ searchText, rowLen, idx }) => {
+const Highlight = ({ searchText, rowLen, idx }: HighlightProps) => {
   if (rowLen !== idx + 1) {
     return <span className="conv-highlight">{searchText}</span>
   }
   return <span />
 }
 
-const HighlightString = ({ searchText, textToHighlight }) => {
+const HighlightString = ({
+  searchText,
+  textToHighlight
+}: {
+  searchText: string
+  textToHighlight: string
+}) => {
   if (!textToHighlight) return <></>
   const escapedText = searchText.replace(/\[|\]|[\\^$*+?.|()]/g, '\\$&')
   const insensitiveSplit = new RegExp(escapedText, 'i')
@@ -41,7 +52,17 @@ const HighlightString = ({ searchText, textToHighlight }) => {
   )
 }
 
-export const SearchResults = ({ entries, onLinkClick, location }) => {
+type SearchResultsProps = {
+  entries: any
+  onLinkClick: CallableFunction
+  location: any
+}
+
+export const SearchResults = ({
+  entries,
+  onLinkClick,
+  location
+}: SearchResultsProps) => {
   const searchText = location.pathname.split('/')[2]
 
   return (
@@ -49,7 +70,7 @@ export const SearchResults = ({ entries, onLinkClick, location }) => {
       <p style={{ textAlign: 'center' }}>
         {entries.length} results found for "{searchText}".
       </p>
-      {entries.map((entry) => (
+      {entries.map((entry: any) => (
         <Link
           key={entry.name}
           onClick={() => onLinkClick()}
@@ -69,6 +90,17 @@ export const SearchResults = ({ entries, onLinkClick, location }) => {
   )
 }
 
+type SearchProps = {
+  queryText: string
+  entries: any[]
+  onTextChange: any
+  onLinkClick: any
+  searchDropdown: boolean
+  searchOnChange: boolean
+  onTriggerSearch: any
+  onBlur: any
+}
+
 export const Search = ({
   queryText,
   entries,
@@ -78,7 +110,7 @@ export const Search = ({
   searchOnChange = true,
   onTriggerSearch,
   onBlur
-}) => {
+}: SearchProps) => {
   const showResults = queryText && entries.length > 0
   return (
     <div
@@ -93,7 +125,7 @@ export const Search = ({
         type={inputTypes.STRING_TYPE}
         id="searchbox"
         className="conv-search-box"
-        onChange={(evt) => {
+        onChange={(evt: any) => {
           const triggeredActions = [onTextChange({ queryText: evt })]
           if (searchOnChange === true) {
             triggeredActions.push(onTriggerSearch())
