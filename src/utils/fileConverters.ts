@@ -1,4 +1,4 @@
-export const arrayBufferToStoreValue = (arrayBuffer) => {
+export const arrayBufferToStoreValue = (arrayBuffer: ArrayBufferLike) => {
   const view = new DataView(arrayBuffer)
   const value = []
   for (let i = 0; i < arrayBuffer.byteLength; ++i) {
@@ -7,7 +7,7 @@ export const arrayBufferToStoreValue = (arrayBuffer) => {
   return value
 }
 
-export const storeValueToArrayBuffer = (value) => {
+export const storeValueToArrayBuffer = (value: any[]) => {
   const arrayBuffer = new ArrayBuffer(value.length)
   const view = new DataView(arrayBuffer)
   for (let i = 0; i < value.length; ++i) {

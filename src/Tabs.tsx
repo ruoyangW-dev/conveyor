@@ -3,6 +3,23 @@ import * as R from 'ramda'
 import { Route, Switch, NavLink, Redirect } from 'react-router-dom'
 import { DetailFields, partitionDetailFields } from './Detail'
 
+type TabFieldsProps = {
+  match: any
+  tabs: any
+  fields: any
+  component: any
+  schema: any
+  modelName: string
+  id: any
+  node: any
+  path: any
+  editData: any
+  tooltipData: any
+  modalData: any
+  selectOptions: any
+  tableView: any
+  customProps: any
+}
 const TabFields = ({
   match,
   tabs,
@@ -19,7 +36,7 @@ const TabFields = ({
   selectOptions,
   tableView,
   customProps
-}) => {
+}: TabFieldsProps) => {
   if (Component) {
     return (
       <Component
@@ -67,11 +84,31 @@ const TabFields = ({
           descriptionList,
           selectOptions,
           tableView,
-          customProps
+          customProps,
+          summary: undefined,
+          failedValidation: undefined
         }}
       />
     </div>
   )
+}
+
+type RecursiveTabProps = {
+  match: any
+  tabs: any
+  fields: any
+  component: any
+  schema: any
+  modelName: any
+  id: any
+  node: any
+  modalData: any
+  editData: any
+  tooltipData: any
+  path: any
+  selectOptions: any
+  tableView: any
+  customProps: any
 }
 
 export const RecursiveTab = ({
@@ -90,7 +127,7 @@ export const RecursiveTab = ({
   selectOptions,
   tableView,
   customProps
-}) => {
+}: RecursiveTabProps) => {
   if (tabs.length === 1) {
     return (
       <RecursiveTab
@@ -137,7 +174,7 @@ export const RecursiveTab = ({
         }}
       />
       <ul className="nav nav-pills">
-        {tabs.map((tab) => (
+        {tabs.map((tab: any) => (
           <li key={`${R.prop('pillId', tab)}-link`}>
             <NavLink
               to={`${R.prop('url', match)}/${R.prop('pillId', tab)}`}
@@ -149,7 +186,7 @@ export const RecursiveTab = ({
         ))}
       </ul>
       <Switch>
-        {tabs.map((tab) => {
+        {tabs.map((tab: any) => {
           const matchAppend = {
             isExact: R.prop('isExact', match),
             params: R.assoc(
@@ -183,7 +220,7 @@ export const RecursiveTab = ({
                     selectOptions,
                     tableView,
                     customProps,
-                    ...renderProps
+                    ...R.dissoc('match', renderProps)
                   }}
                 />
               )}

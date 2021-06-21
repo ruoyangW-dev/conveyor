@@ -98,7 +98,7 @@ type InputType = {
   onChange: any
   selectOptions: any
   failedValidation?: any
-  disabled?: boolean | undefined
+  disabled?: boolean
   customLabel?: any
   customInput?: any
   formStack?: any
@@ -296,11 +296,11 @@ const InputInnerCore = ({
 }: InputType) => {
   const inputType = schema.getType(modelName, fieldName)
   const actions = schema.getActions(modelName)
-  const onMenuOpen: any = R.path(['input', 'onMenuOpen'], actions)
-  const onCreatableMenuOpen: any = R.path(
+  const onMenuOpen = R.path(['input', 'onMenuOpen'], actions) as any
+  const onCreatableMenuOpen = R.path(
     ['input', 'onCreatableMenuOpen'],
     actions
-  )
+  ) as any
 
   const defaultHandleOnChange = getOnChange({ inputType, onChange, fieldName })
   const fieldLabel = schema.getFieldLabel({

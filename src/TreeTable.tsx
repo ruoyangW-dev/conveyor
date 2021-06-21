@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import * as R from 'ramda'
 import { FaAngleDown, FaAngleRight } from 'react-icons/fa'
 import { Tooltip } from 'react-tippy'
@@ -10,17 +10,17 @@ export const toggleState = {
 }
 
 // specify CSS for first column and rest of columns
-export const formatCSS = (first, rest) => ({
+export const formatCSS = (first: any, rest: any) => ({
   firstCSS: first,
   restCSS: rest
 })
 
-const makeOnClick = (stateNode, toggleRow) => {
+const makeOnClick = (stateNode: any, toggleRow: any) => {
   if (stateNode.toggle === toggleState.HIDDEN) {
-    return false
+    return undefined
   }
 
-  const onClick = (e) => {
+  const onClick = (e: MouseEvent) => {
     e.stopPropagation()
     toggleRow(stateNode.id)
   }
@@ -28,8 +28,8 @@ const makeOnClick = (stateNode, toggleRow) => {
 }
 
 // returns only the nodes of tree.state to be rendered
-const filterTree = (tree) => {
-  const traverse = (stateNode) => {
+const filterTree = (tree: any) => {
+  const traverse = (stateNode: any) => {
     const retNode = { ...stateNode, children: [] } // initially exclude children
     if (stateNode.toggle === toggleState.EXPAND) {
       retNode.children = stateNode.children.map(traverse)
@@ -40,12 +40,21 @@ const filterTree = (tree) => {
   return R.prop('state', tree).map(traverse)
 }
 
-const Indentation = ({ depth }) => {
+const Indentation = ({ depth }: { depth: number }) => {
   const padding = depth * 20
   return <span style={{ paddingLeft: `${padding}px` }} />
 }
 
-const ToggleContainer = ({ stateNode, toggleRow, children }) => {
+type ToggleContainerProps = {
+  stateNode: any
+  toggleRow: boolean
+  children: any
+}
+const ToggleContainer = ({
+  stateNode,
+  toggleRow,
+  children
+}: ToggleContainerProps) => {
   if (stateNode.toggle === toggleState.HIDDEN) {
     return <React.Fragment>{children}</React.Fragment>
   }
@@ -88,7 +97,13 @@ const ToggleContainer = ({ stateNode, toggleRow, children }) => {
   )
 }
 
-const Toggle = ({ stateNode, toggleRow }) => {
+const Toggle = ({
+  stateNode,
+  toggleRow
+}: {
+  stateNode: any
+  toggleRow: boolean
+}) => {
   let component
   switch (stateNode.toggle) {
     case toggleState.EXPAND:
@@ -107,6 +122,16 @@ const Toggle = ({ stateNode, toggleRow }) => {
   )
 }
 
+type renderRowProps = {
+  tree: any
+  stateNode: any
+  toggleRow: boolean
+  columnFields: any
+  renderFieldProps: any
+  renderField: CallableFunction
+  rowCSS?: any
+}
+
 // render a single row
 const renderRow = ({
   tree,
@@ -116,15 +141,15 @@ const renderRow = ({
   renderFieldProps,
   renderField,
   rowCSS
-}) => {
+}: renderRowProps) => {
   const nodeID = R.prop('id', stateNode)
   const node = R.path(['nodes', nodeID], tree)
 
   const fields = columnFields
-    .map((columnField) =>
+    .map((columnField: any) =>
       renderField({ ...renderFieldProps, tree, node, columnField, stateNode })
     )
-    .filter((col) => col !== null)
+    .filter((col: any) => col !== null)
 
   const handleClick = makeOnClick(stateNode, toggleRow)
   const firstColCSS = R.prop('firstCSS', rowCSS)
@@ -148,7 +173,7 @@ const renderRow = ({
           </div>
         </div>
       </td>
-      {fields.slice(1).map((field, index) => (
+      {fields.slice(1).map((field: string, index: number) => (
         <td className={restColCSS ? restColCSS(node) : ''} key={index}>
           {field}
         </td>
@@ -157,9 +182,18 @@ const renderRow = ({
   )
 }
 
+type getRowsProps = {
+  tree: any
+  toggleRow: any
+  columnFields: any
+  renderFieldProps: any
+  renderField: CallableFunction
+  rowCSS: any
+}
+
 // returns a list of <tr> elements
-export const getRows = ({ tree, ...props }) => {
-  const renderRows = (stateNode) => {
+export const getRows = ({ tree, ...props }: getRowsProps) => {
+  const renderRows = (stateNode: any) => {
     const row = {
       key: R.prop('id', stateNode),
       component: renderRow({
