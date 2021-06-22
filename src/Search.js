@@ -131,7 +131,7 @@ export const Search = ({
       <Link
         to={`/Search/${queryText}`}
         onClick={() => {
-          onTriggerSearch({ queryText })
+          onTriggerSearch({ queryText, isOnSearchPage: true })
           onBlur()
         }}
         className="nav-link"
