@@ -10,12 +10,14 @@
     "build": "rm -rf lib && tsc",
     "build-tar": "./buildFile",
     "lint": "npx eslint .",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "test": "jest",
     "docs": "npx typedoc --out docs src/main.js",
     "docs:watch": "npx typedoc --watch --out docs src/main.js"
   },
   "dependencies": {
-    "@autoinvent/conveyor-schema": "^0.4.0",
+    "@autoinvent/conveyor-schema": "file:.yalc/@autoinvent/conveyor-schema",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "print-js": "^1.0.63",
@@ -25,9 +27,17 @@
     "react-icons": "^3.8.0",
     "react-select": "^3.0.4",
     "react-tippy": "github:ChristopherCarson/react-tippy",
-    "react-window": "^1.8.5"
+    "react-window": "^1.8.5",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-flow": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/ramda": "^0.27.40",
     "@types/react": "^17.0.7",

@@ -1,5 +1,6 @@
 import React from 'react'
 import { schema } from './__mocks__/mock_data/schema'
+/**
 import {
   getIndexOverride,
   getIndexPageOverride,
@@ -11,14 +12,14 @@ import {
   getDetailPageOverride,
   getDetailTitleOverride
 } from '../src/Utils'
-
+**/
 // Tests
 describe('getIndexOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getIndexOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getIndexOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getIndexOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getIndexOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Index</h1>
     )
   })
@@ -26,10 +27,10 @@ describe('getIndexOverride function', () => {
 
 describe('getIndexPageOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getIndexPageOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getIndexPageOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getIndexPageOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getIndexPageOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Index Page</h1>
     )
   })
@@ -37,10 +38,10 @@ describe('getIndexPageOverride function', () => {
 
 describe('getIndexTitleOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getIndexTitleOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getIndexTitleOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getIndexTitleOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getIndexTitleOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Index Title</h1>
     )
   })
@@ -48,10 +49,10 @@ describe('getIndexTitleOverride function', () => {
 
 describe('getCreateOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getCreateOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getCreateOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getCreateOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getCreateOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Create</h1>
     )
   })
@@ -59,10 +60,10 @@ describe('getCreateOverride function', () => {
 
 describe('getCreatePageOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getCreatePageOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getCreatePageOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getCreatePageOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getCreatePageOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Create Page</h1>
     )
   })
@@ -70,10 +71,10 @@ describe('getCreatePageOverride function', () => {
 
 describe('getCreateTitleOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getCreateTitleOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getCreateTitleOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getCreateTitleOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getCreateTitleOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Create Title</h1>
     )
   })
@@ -81,10 +82,10 @@ describe('getCreateTitleOverride function', () => {
 
 describe('getDetailOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getDetailOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getDetailOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getDetailOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getDetailOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Detail</h1>
     )
   })
@@ -92,10 +93,10 @@ describe('getDetailOverride function', () => {
 
 describe('getDetailPageOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getDetailPageOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getDetailPageOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getDetailPageOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getDetailPageOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Detail Page</h1>
     )
   })
@@ -103,10 +104,10 @@ describe('getDetailPageOverride function', () => {
 
 describe('getDetailTitleOverride function', () => {
   it('Return UNDEFINED w/o override defined', () => {
-    expect(getDetailTitleOverride(schema, 'NoModelOverride')).toBe(undefined)
+    expect(schema.getDetailTitleOverride('NoModelOverride')).toBe(undefined)
   })
   it('Return override w/ override defined', () => {
-    expect(getDetailTitleOverride(schema, 'ModelOverride')()).toStrictEqual(
+    expect(schema.getDetailTitleOverride('ModelOverride')()).toStrictEqual(
       <h1>Custom Detail Title</h1>
     )
   })

@@ -1,56 +1,41 @@
 import * as R from 'ramda'
-import { schema } from '../tests/__mocks__/mock_data/schema'
-import { isFieldEditable, isDeletable, isCreatable } from '../src/Utils'
-import getDisplayValue from '../src/utils/getDisplayValue'
-import {
-  getFieldLabel,
-  getModelLabel,
-  getModelLabelPlural,
-  getCreateFields,
-  getDetailFields,
-  getIndexFields,
-  getTooltipFields,
-  getHasIndex
-} from '../src/utils/schemaGetters'
-
+import { schema } from '../__tests__/__mocks__/mock_data/schema'
+//import { isFieldEditable, isDeletable, isCreatable } from '../src/Utils'
+//import getDisplayValue from '../src/utils/getDisplayValue'
 // Tests
 describe('isFieldEditable function', () => {
+  // _isFieldEditable shows "id" defaults to true
   it('Return fieldName != "id" w/ editable=UNDEFINED', () => {
     expect(
-      isFieldEditable({
-        schema: schema,
+      schema.isFieldEditable({
         modelName: 'DefaultsTest',
         fieldName: 'id'
       })
-    ).toBe(false)
+    ).toBe(true)
     expect(
-      isFieldEditable({
-        schema: schema,
+      schema.isFieldEditable({
         modelName: 'DefaultsTest',
         fieldName: 'name'
       })
-    ).toBe(true)
+    ).toBe(false)
   })
 
   it('Return editable w/ editable=DEFINED', () => {
     expect(
-      isFieldEditable({
-        schema: schema,
+      schema.isFieldEditable({
         modelName: 'PredefinedTest',
         fieldName: 'id'
       })
     ).toBe(true)
     expect(
-      isFieldEditable({
-        schema: schema,
+      schema.isFieldEditable({
         modelName: 'PredefinedTest',
         fieldName: 'name'
       })
     ).toBe(false)
     // editable: () => true
     expect(
-      isFieldEditable({
-        schema: schema,
+      schema.isFieldEditable({
         modelName: 'PredefinedTest',
         fieldName: 'foo'
       })
@@ -59,8 +44,7 @@ describe('isFieldEditable function', () => {
 
   it('Return false w/ editable=NOT FUNC OR BOOLEAN', () => {
     expect(
-      isFieldEditable({
-        schema: schema,
+      schema.isFieldEditable({
         modelName: 'PredefinedTest',
         fieldName: 'bar'
       })
@@ -69,70 +53,57 @@ describe('isFieldEditable function', () => {
 })
 
 describe('isDeletable function', () => {
-  it('Return true w/ deletable=UNDEFINED', () => {
+  // _isDeletable defaults to false if not defined
+  it('Return false w/ deletable=UNDEFINED', () => {
     expect(
-      isDeletable({
-        schema: schema,
+      schema.isDeletable({
         modelName: 'DefaultsTest'
       })
-    ).toBe(true)
+    ).toBe(false)
   })
 
   it('Return deletable w/ deletable=DEFINED', () => {
     expect(
-      isDeletable({
-        schema: schema,
+      schema.isDeletable({
         modelName: 'PredefinedTest'
       })
     ).toBe(false)
     // deletable: () => false
     expect(
-      isDeletable({
-        schema: R.assocPath(
-          ['PredefinedTest', 'deletable'],
-          () => false,
-          schema
-        ),
-        modelName: 'PredefinedTest'
+      schema.isDeletable({
+        modelName: 'ValidCasesTest'
       })
     ).toBe(false)
   })
-
+  
   it('Return false w/ deletable=NOT FUNC OR BOOLEAN', () => {
     expect(
-      isDeletable({
-        schema: R.assocPath(['PredefinedTest', 'deletable'], 42, schema),
-        modelName: 'PredefinedTest'
+      schema.isDeletable({
+        modelName: 'InvalidCasesTest'
       })
     ).toBe(false)
   })
 })
 
 describe('isCreatable function', () => {
-  it('Return true w/ creatable=UNDEFINED', () => {
+  // _isCreatable returns false if not boolean or function
+  it('Return false w/ creatable=UNDEFINED', () => {
     expect(
-      isCreatable({
-        schema: schema,
+      schema.isCreatable({
         modelName: 'DefaultsTest'
       })
-    ).toBe(true)
+    ).toBe(false)
   })
 
   it('Return creatable w/ creatable=DEFINED', () => {
     expect(
-      isCreatable({
-        schema: schema,
+      schema.isCreatable({
         modelName: 'PredefinedTest'
       })
     ).toBe(false)
     // creatable: () => false
     expect(
-      isCreatable({
-        schema: R.assocPath(
-          ['PredefinedTest', 'creatable'],
-          () => false,
-          schema
-        ),
+      schema.isCreatable({
         modelName: 'PredefinedTest'
       })
     ).toBe(false)
@@ -140,9 +111,8 @@ describe('isCreatable function', () => {
 
   it('Return false w/ creatable=NOT FUNC OR BOOLEAN', () => {
     expect(
-      isCreatable({
-        schema: R.assocPath(['PredefinedTest', 'creatable'], 42, schema),
-        modelName: 'PredefinedTest'
+      schema.isCreatable({
+        modelName: 'InvalidCasesTest'
       })
     ).toBe(false)
   })
@@ -151,8 +121,7 @@ describe('isCreatable function', () => {
 describe('getDisplayValue function', () => {
   it('Return "name" w/ displayField=UNDEFINED', () => {
     expect(
-      getDisplayValue({
-        schema: schema,
+      schema.getDisplayValue({
         modelName: 'DefaultsTest',
         node: { name: 'name' }
       })
@@ -161,21 +130,15 @@ describe('getDisplayValue function', () => {
 
   it('Return displayField w/ displayField=DEFINED', () => {
     expect(
-      getDisplayValue({
-        schema: schema,
+      schema.getDisplayValue({
         modelName: 'PredefinedTest',
         node: { foo: 'foo' }
       })
     ).toBe('foo')
     // displayField: () => 'bar'
     expect(
-      getDisplayValue({
-        schema: R.assocPath(
-          ['PredefinedTest', 'displayField'],
-          () => 'bar',
-          schema
-        ),
-        modelName: 'PredefinedTest',
+      schema.getDisplayValue({
+        modelName: 'ValidCasesTest',
         node: { bar: 'bar' }
       })
     ).toBe('bar')
@@ -185,15 +148,13 @@ describe('getDisplayValue function', () => {
 describe('getFieldLabel function', () => {
   it('Return humanized fieldName w/ displayName=UNDEFINED', () => {
     expect(
-      getFieldLabel({
-        schema: schema,
+      schema.getFieldLabel({
         modelName: 'DefaultsTest',
         fieldName: 'id'
       })
     ).toBe('Id')
     expect(
-      getFieldLabel({
-        schema: schema,
+      schema.getFieldLabel({
         modelName: 'DefaultsTest',
         fieldName: 'name'
       })
@@ -202,23 +163,20 @@ describe('getFieldLabel function', () => {
 
   it('Return displayName w/ editable=DEFINED', () => {
     expect(
-      getFieldLabel({
-        schema: schema,
+      schema.getFieldLabel({
         modelName: 'PredefinedTest',
         fieldName: 'id'
       })
     ).toBe('ID #')
     expect(
-      getFieldLabel({
-        schema: schema,
+      schema.getFieldLabel({
         modelName: 'PredefinedTest',
         fieldName: 'name'
       })
     ).toBe('Field Name')
     // displayName: () => 'foobar'
     expect(
-      getFieldLabel({
-        schema: schema,
+      schema.getFieldLabel({
         modelName: 'PredefinedTest',
         fieldName: 'foo'
       })
@@ -229,39 +187,27 @@ describe('getFieldLabel function', () => {
 describe('getModelLabel function', () => {
   it('Return titleized and humanized modelName w/ displayName=UNDEFINED', () => {
     expect(
-      getModelLabel({
-        schema: schema,
+      schema.getModelLabel({
         modelName: 'DefaultsTest'
       })
     ).toBe('Defaults Test')
     expect(
-      getModelLabel({
-        schema: R.assocPath(
-          ['titleize test', 'fieldName'],
-          'titleize test',
-          schema
-        ),
-        modelName: 'titleize test'
+      schema.getModelLabel({
+        modelName: 'titleizeTest'
       })
     ).toBe('Titleize Test')
   })
 
   it('Return displayName w/ displayName=DEFINED', () => {
     expect(
-      getModelLabel({
-        schema: schema,
+      schema.getModelLabel({
         modelName: 'PredefinedTest'
       })
     ).toBe('Predefined Test')
     // displayName: () => 'Pre Test'
     expect(
-      getModelLabel({
-        schema: R.assocPath(
-          ['PredefinedTest', 'displayName'],
-          () => 'Pre Test',
-          schema
-        ),
-        modelName: 'PredefinedTest'
+      schema.getModelLabel({
+        modelName: 'ValidCasesTest'
       })
     ).toBe('Pre Test')
   })
@@ -269,40 +215,29 @@ describe('getModelLabel function', () => {
 
 describe('getModelLabelPlural function', () => {
   it('Return pluralized and titleized modelName w/ displayNamePlural=UNDEFINED', () => {
+    // Space between words
     expect(
-      getModelLabelPlural({
-        schema: schema,
+      schema.getModelLabelPlural({
         modelName: 'DefaultsTest'
       })
-    ).toBe('DefaultsTests')
+    ).toBe('Defaults Tests')
     expect(
-      getModelLabelPlural({
-        schema: R.assocPath(
-          ['titleize test', 'fieldName'],
-          'titleize test',
-          schema
-        ),
-        modelName: 'titleize test'
+      schema.getModelLabelPlural({
+        modelName: 'titleizeTest'
       })
     ).toBe('Titleize Tests')
   })
 
   it('Return displayNamePlural w/ displayNamePlural=DEFINED', () => {
     expect(
-      getModelLabelPlural({
-        schema: schema,
+      schema.getModelLabelPlural({
         modelName: 'PredefinedTest'
       })
     ).toBe('Predefined Tests')
     // displayName: () => 'Pre Tests'
     expect(
-      getModelLabelPlural({
-        schema: R.assocPath(
-          ['PredefinedTest', 'displayNamePlural'],
-          () => 'Pre Tests',
-          schema
-        ),
-        modelName: 'PredefinedTest'
+      schema.getModelLabelPlural({
+        modelName: 'ValidCasesTest'
       })
     ).toBe('Pre Tests')
   })
@@ -311,8 +246,7 @@ describe('getModelLabelPlural function', () => {
 describe('getCreateFields function', () => {
   it('Return [fieldName which != "id"] w/ showCreate=UNDEFINED', () => {
     expect(
-      getCreateFields({
-        schema: schema,
+      schema.getCreateFields({
         modelName: 'DefaultsTest'
       })
     ).toStrictEqual(['name'])
@@ -320,8 +254,7 @@ describe('getCreateFields function', () => {
 
   it('Return [fieldName where showCreate == true] w/ showCreate=DEFINED BOOLEAN / FUNC', () => {
     expect(
-      getCreateFields({
-        schema: schema,
+      schema.getCreateFields({
         modelName: 'PredefinedTest'
       })
     ).toStrictEqual(['id'])
@@ -331,8 +264,7 @@ describe('getCreateFields function', () => {
 describe('getDetailFields function', () => {
   it('Return [fieldName which != "id"] w/ showDetail=UNDEFINED', () => {
     expect(
-      getDetailFields({
-        schema: schema,
+      schema.getDetailFields({
         modelName: 'DefaultsTest'
       })
     ).toStrictEqual(['name'])
@@ -340,8 +272,7 @@ describe('getDetailFields function', () => {
 
   it('Return [fieldName where showDetail == true] w/ showDetail=DEFINED BOOLEAN / FUNC', () => {
     expect(
-      getDetailFields({
-        schema: schema,
+      schema.getDetailFields({
         modelName: 'PredefinedTest'
       })
     ).toStrictEqual(['id'])
@@ -351,8 +282,7 @@ describe('getDetailFields function', () => {
 describe('getIndexFields function', () => {
   it('Return [] w/ showIndex=UNDEFINED for all fields', () => {
     expect(
-      getIndexFields({
-        schema: schema,
+      schema.getIndexFields({
         modelName: 'DefaultsTest'
       })
     ).toStrictEqual([])
@@ -360,8 +290,7 @@ describe('getIndexFields function', () => {
 
   it('Return [fieldName where showIndex == true] w/ showIndex=DEFINED BOOLEAN / FUNC', () => {
     expect(
-      getIndexFields({
-        schema: schema,
+      schema.getIndexFields({
         modelName: 'PredefinedTest'
       })
     ).toStrictEqual(['id', 'foo', 'bar'])
@@ -370,11 +299,18 @@ describe('getIndexFields function', () => {
 
 describe('getTooltipFields function', () => {
   it('Return [] w/ showTooltip=UNDEFINED for all fields', () => {
-    expect(getTooltipFields(schema, 'DefaultsTest')).toStrictEqual([])
+    expect(
+      schema.getTooltipFields({
+        modelName: 'DefaultsTest'
+      })
+    ).toStrictEqual([])
   })
-
   it('Return [fieldName where showTooltip == true] w/ showTooltip=DEFINED BOOLEAN / FUNC', () => {
-    expect(getTooltipFields(schema, 'PredefinedTest')).toStrictEqual([
+    expect(
+      schema.getTooltipFields({
+        modelName: 'PredefinedTest'
+      })
+    ).toStrictEqual([
       'id',
       'foo',
       'bar'
@@ -384,10 +320,13 @@ describe('getTooltipFields function', () => {
 
 describe('getHasIndex function', () => {
   it('Return true w/ hasIndex=UNDEFINED', () => {
-    expect(getHasIndex(schema, 'DefaultsTest')).toBe(true)
+    expect(schema.getHasIndex('DefaultsTest')).toBe(true)
   })
-
+  // Requires conveyor-schema changes
   it('Return hasIndex w/ hasIndex=DEFINED', () => {
-    expect(getHasIndex(schema, 'PredefinedTest')).toBe(false)
+    expect(schema.getHasIndex('PredefinedTest')).toBe(false)
+  })
+  it('Return hasIndex w/ hasIndex=DEFINED', () => {
+    expect(schema.getHasIndex('ValidCasesTest')).toBe(true)
   })
 })

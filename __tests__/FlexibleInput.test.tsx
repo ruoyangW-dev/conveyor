@@ -18,8 +18,8 @@ const setupFlexibleInput = (props) => {
 describe('FlexibleInput component', () => {
   it('InputDate w/ type=DATE_TYPE w/ defaulted props', () => {
     const { wrapper } = setupFlexibleInput({ type: inputTypes.DATE_TYPE })
-    expect(wrapper.find('DatePicker')).toHaveLength(1)
-    expect(wrapper.find('DatePicker').prop('isClearable')).toBe(true)
+    expect(wrapper.find('.date-picker-container')).toHaveLength(1)
+    expect(wrapper.find('.date-picker-container').childAt(0).prop('isClearable')).toBe(true)
   })
   it('InputString w/ type=STRING_TYPE w/ defaulted props', () => {
     const { wrapper } = setupFlexibleInput({ type: inputTypes.STRING_TYPE })
@@ -111,26 +111,14 @@ describe('FlexibleInput component', () => {
     expect(wrapper.find('input').prop('type')).toBe('file')
     expect(wrapper.find('input').hasClass('form-control-file')).toBe(true)
   })
-  it('InputSwitch w/ type=BOOLEAN_TYPE w/ defaulted props', () => {
+  it('InputCheckbox w/ type=BOOLEAN_TYPE w/ defaulted props', () => {
     const { wrapper } = setupFlexibleInput({
       type: inputTypes.BOOLEAN_TYPE
     })
-    expect(wrapper.find('Switch')).toHaveLength(1)
+    expect(wrapper.find('MdCheckBoxOutlineBlank')).toHaveLength(1)
     expect(
-      wrapper.find('Switch').parent().hasClass('form-check') &&
-        wrapper.find('Switch').parent().hasClass('form-check-inline') &&
-        wrapper.find('Switch').prop('checked') === false
-    ).toBe(true)
-  })
-  it('InputCheckbox w/ type=CHECKBOX_TYPE w/ defaulted props', () => {
-    const { wrapper } = setupFlexibleInput({
-      type: inputTypes.CHECKBOX_TYPE
-    })
-    expect(wrapper.find('input')).toHaveLength(1)
-    expect(wrapper.find('input').prop('type')).toBe('checkbox')
-    expect(
-      wrapper.find('input').prop('value') === false &&
-        wrapper.find('div').hasClass('form-group form-check')
+      wrapper.exists('.form-check') &&
+        wrapper.exists('.form-check-inline')
     ).toBe(true)
   })
   it('InputSelect w/ type=SELECT_TYPE w/ defaulted props', () => {
@@ -179,7 +167,7 @@ describe('isAutoFocusInput function', () => {
     expect(isAutoFocusInput(inputTypes.FILE_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.RADIO_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.SELECT_TYPE)).toBe(false)
-    expect(isAutoFocusInput(inputTypes.CREATABLE_SELECT_TYPE)).toBe(false)
+    expect(isAutoFocusInput(inputTypes.CREATABLE_STRING_SELECT_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.CHECKBOX_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.BOOLEAN_TYPE)).toBe(false)
   })
