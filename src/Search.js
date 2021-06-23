@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
 
@@ -41,6 +41,7 @@ const HighlightString = ({ searchText, textToHighlight }) => {
   )
 }
 
+/* Displays search page */
 export const SearchResults = ({ entries, onLinkClick, location }) => {
   const searchText = location.pathname.split('/')[2]
 
@@ -80,13 +81,19 @@ export const Search = ({
   onBlur
 }) => {
   const showResults = queryText && entries.length > 0
+  const history = useHistory()
   return (
     <div
       className="conv-search"
       onKeyPress={(evt) => {
         if (evt.key === 'Enter') {
+          history.push(`/Search/${queryText}`)
+        } else {
           onTriggerSearch({ queryText })
         }
+      }}
+      onFocus={(evt) => {
+        onTriggerSearch({ queryText })
       }}
     >
       <FlexibleInput
