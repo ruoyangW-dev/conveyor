@@ -87,8 +87,8 @@ export const QuickSearch = ({
       onKeyPress={(evt) => {
         if (evt.key === 'Enter') {
           history.push(`/Search/${queryText}`)
-        } else {
-          onTriggerSearch({ queryText })
+          onTriggerSearch({ queryText, isOnSearchPage: true })
+          onBlur()
         }
       }}
       onFocus={(evt) => {
@@ -100,10 +100,10 @@ export const QuickSearch = ({
         id="searchbox"
         className="conv-search-box"
         onChange={(evt) => {
-          const triggeredActions = [onTextChange({ queryText: evt })]
-          if (searchOnChange === true) {
-            triggeredActions.push(onTriggerSearch())
-          }
+          const triggeredActions = [
+            onTextChange({ queryText: evt }),
+            onTriggerSearch({ queryText: evt })
+          ]
           return triggeredActions
         }}
         value={queryText}
