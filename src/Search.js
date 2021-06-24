@@ -42,30 +42,56 @@ const HighlightString = ({ searchText, textToHighlight }) => {
   )
 }
 
-export const SearchPage = ({ entries, onLinkClick, location }) => {
+export const SearchPage = ({
+  entries,
+  onLinkClick,
+  onFilterClick,
+  location
+}) => {
   const searchText = location.pathname.split('/')[2]
-
+  const flag = {}
+  const uniqueModels = []
+  entries.map((entry) => {
+    if (!flag[entry.modelName]) {
+      flag[entry.modelName] = true
+      uniqueModels.push(entry.modelName)
+    }
+  })
   return (
     <div>
       <p style={{ textAlign: 'center' }}>
         {entries.length} results found for "{searchText}".
       </p>
-      {entries.map((entry) => (
-        <Link
-          key={entry.name}
-          onClick={() => onLinkClick()}
-          className="conv-dropdown-item"
-          to={entry.detailURL}
-        >
-          <HighlightString
-            searchText={searchText}
-            textToHighlight={entry.name}
+      {entries
+        .filter((entry) => entry.show)
+        .map((entry) => (
+          <Link
+            key={entry.name}
+            onClick={() => onLinkClick()}
+            className="conv-dropdown-item"
+            to={entry.detailURL}
+          >
+            <HighlightString
+              searchText={searchText}
+              textToHighlight={entry.name}
+            />
+            <div className="conv-search-dropdown-model-label">
+              {entry.modelLabel}
+            </div>
+          </Link>
+        ))}
+      {uniqueModels.map((modelName) => {
+        return (
+          <FlexibleInput
+            key={`FlexibleInput-${modelName}-filter-checkbox`}
+            type={inputTypes.BOOLEAN_TYPE}
+            id={`${modelName}-filter-checkbox`}
+            labelStr={modelName}
+            value={true}
+            onChange={() => onFilterClick({ modelName })}
           />
-          <div className="conv-search-dropdown-model-label">
-            {entry.modelLabel}
-          </div>
-        </Link>
-      ))}
+        )
+      })}
     </div>
   )
 }
