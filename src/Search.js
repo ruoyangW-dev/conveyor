@@ -41,8 +41,7 @@ const HighlightString = ({ searchText, textToHighlight }) => {
   )
 }
 
-/* Displays search page */
-export const SearchResults = ({ entries, onLinkClick, location }) => {
+export const SearchPage = ({ entries, onLinkClick, location }) => {
   const searchText = location.pathname.split('/')[2]
 
   return (
@@ -70,7 +69,7 @@ export const SearchResults = ({ entries, onLinkClick, location }) => {
   )
 }
 
-export const Search = ({
+export const QuickSearch = ({
   queryText,
   entries,
   onTextChange,
@@ -138,7 +137,7 @@ export const Search = ({
       <Link
         to={`/Search/${queryText}`}
         onClick={() => {
-          onTriggerSearch({ queryText })
+          onTriggerSearch({ queryText, isOnSearchPage: true })
           onBlur()
         }}
         className="nav-link"
