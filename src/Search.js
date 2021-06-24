@@ -58,7 +58,7 @@ export const SearchPage = ({
       [entry]
     )[0]
   const filterEntries = (entries) =>
-    R.filter((entry) => getFilterObj(entry).show)(entries)
+    R.filter((entry) => getFilterObj(entry).checked)(entries)
   return (
     <div>
       <p style={{ textAlign: 'center' }}>
@@ -90,7 +90,7 @@ export const SearchPage = ({
             type={inputTypes.BOOLEAN_TYPE}
             id={`${filter.modelName}-filter-checkbox`}
             labelStr={filter.modelName}
-            value={filter.show}
+            value={filter.checked}
             onChange={() => onFilterClick({ modelName: filter.modelName })}
           />
         ),
