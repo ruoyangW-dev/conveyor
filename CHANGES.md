@@ -3,6 +3,7 @@
 ## Unreleased
 
 Change rc-switch to checkbox
+Improved quick search
 
 ## Version 0.8.0
 
