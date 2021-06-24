@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import * as R from 'ramda'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
 import { debounce } from 'lodash'
@@ -46,25 +47,25 @@ export const SearchPage = ({
   entries,
   onLinkClick,
   onFilterClick,
+  filters,
   location
 }) => {
   const searchText = location.pathname.split('/')[2]
-  const flag = {}
-  const uniqueModels = []
-  entries.map((entry) => {
-    if (!flag[entry.modelName]) {
-      flag[entry.modelName] = true
-      uniqueModels.push(entry.modelName)
-    }
-  })
+  const getFilterObj = (entry) =>
+    R.innerJoin(
+      (filter, entry) => filter.modelName === entry.modelName,
+      filters,
+      [entry]
+    )[0]
+  const filterEntries = (entries) =>
+    R.filter((entry) => getFilterObj(entry).show)(entries)
   return (
     <div>
       <p style={{ textAlign: 'center' }}>
         {entries.length} results found for "{searchText}".
       </p>
-      {entries
-        .filter((entry) => entry.show)
-        .map((entry) => (
+      {R.map(
+        (entry) => (
           <Link
             key={entry.name}
             onClick={() => onLinkClick()}
@@ -79,19 +80,22 @@ export const SearchPage = ({
               {entry.modelLabel}
             </div>
           </Link>
-        ))}
-      {uniqueModels.map((modelName) => {
-        return (
+        ),
+        filterEntries(entries)
+      )}
+      {R.map(
+        (filter) => (
           <FlexibleInput
-            key={`FlexibleInput-${modelName}-filter-checkbox`}
+            key={`FlexibleInput-${filter.modelName}-filter-checkbox`}
             type={inputTypes.BOOLEAN_TYPE}
-            id={`${modelName}-filter-checkbox`}
-            labelStr={modelName}
-            value={true}
-            onChange={() => onFilterClick({ modelName })}
+            id={`${filter.modelName}-filter-checkbox`}
+            labelStr={filter.modelName}
+            value={filter.show}
+            onChange={() => onFilterClick({ modelName: filter.modelName })}
           />
-        )
-      })}
+        ),
+        filters
+      )}
     </div>
   )
 }
