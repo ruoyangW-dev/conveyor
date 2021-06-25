@@ -83,7 +83,7 @@ export const QuickSearch = ({
   const showResults = queryText && entries.length > 0
   const history = useHistory()
   const debouncedOnTriggerSearch = useCallback(
-    debounce((evt) => onTriggerSearch({ queryText: evt }), 1000),
+    debounce((queryText) => onTriggerSearch({ queryText }), 500),
     []
   )
   return (
@@ -107,12 +107,8 @@ export const QuickSearch = ({
         id="searchbox"
         className="conv-search-box"
         onChange={(evt) => {
-          const triggeredActions = [onTextChange({ queryText: evt })]
-          const debouncedAction = debouncedOnTriggerSearch(evt)
-          if (debouncedAction !== undefined) {
-            triggeredActions.push(debouncedAction)
-          }
-          return triggeredActions
+          onTextChange({ queryText: evt })
+          debouncedOnTriggerSearch(evt)
         }}
         value={queryText}
         customInput={{
