@@ -4,6 +4,18 @@ import * as R from 'ramda'
 import { SortButton } from './Sort'
 import { getNextSortKey } from './Sort.js'
 
+type THeadProps = {
+  schema: any
+  modelName: string
+  fieldOrder: any
+  editable: boolean
+  deletable: boolean
+  detailField: any
+  data: any
+  tableView: any
+  fromIndex: any
+  customProps: any
+}
 export const THead = ({
   schema,
   modelName,
@@ -15,7 +27,7 @@ export const THead = ({
   tableView,
   fromIndex,
   customProps
-}) => {
+}: THeadProps) => {
   // first check if sortable on model level
   const tableSortable =
     fromIndex && schema.isTableSortable({ modelName, customProps })
@@ -48,6 +60,17 @@ export const THead = ({
   )
 }
 
+type THListProps = {
+  schema: any
+  modelName: string
+  fieldOrder: any
+  data: any
+  tableView: any
+  fromIndex: any
+  customProps: any
+  tableSortable: any
+  onSort: any
+}
 const THList = ({
   schema,
   modelName,
@@ -58,8 +81,8 @@ const THList = ({
   customProps,
   tableSortable,
   onSort
-}) => {
-  return fieldOrder.map((fieldName, idx) => {
+}: THListProps) => {
+  return fieldOrder.map((fieldName: string, idx: number) => {
     if (fromIndex === true) {
       if (
         schema.shouldDisplayIndex({
@@ -72,7 +95,7 @@ const THList = ({
       }
     }
 
-    const sortKeyObj = R.path([modelName, 'sort'], tableView)
+    const sortKeyObj = R.path([modelName, 'sort'], tableView) as any
     // now check if field level is sortable as well
     const showSort = tableSortable
       ? schema.isSortable({ modelName, fieldName, customProps })
@@ -115,6 +138,14 @@ const THList = ({
   })
 }
 
+type HeaderProps = {
+  modelName: string
+  fieldName: string
+  title: string
+  onSort: any
+  showSort: boolean
+  sortKeyObj: any
+}
 export const Header = ({
   modelName,
   fieldName,
@@ -122,7 +153,7 @@ export const Header = ({
   onSort,
   showSort,
   sortKeyObj
-}) => {
+}: HeaderProps) => {
   return (
     <div className="header">
       <div className="title">
