@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
+import { debounce } from 'lodash'
 
 /* returns empty span tag if we're at the end of the string */
 const Highlight = ({ searchText, rowLen, idx }) => {
@@ -81,6 +82,10 @@ export const QuickSearch = ({
 }) => {
   const showResults = queryText && entries.length > 0
   const history = useHistory()
+  const debouncedOnTriggerSearch = useCallback(
+    debounce((evt) => onTriggerSearch({ queryText: evt }), 1000),
+    []
+  )
   return (
     <div
       className="conv-search"
@@ -92,7 +97,9 @@ export const QuickSearch = ({
         }
       }}
       onFocus={(evt) => {
-        onTriggerSearch({ queryText })
+        if (queryText !== '') {
+          onTriggerSearch({ queryText })
+        }
       }}
     >
       <FlexibleInput
@@ -100,10 +107,11 @@ export const QuickSearch = ({
         id="searchbox"
         className="conv-search-box"
         onChange={(evt) => {
-          const triggeredActions = [
-            onTextChange({ queryText: evt }),
-            onTriggerSearch({ queryText: evt })
-          ]
+          const triggeredActions = [onTextChange({ queryText: evt })]
+          const debouncedAction = debouncedOnTriggerSearch(evt)
+          if (debouncedAction !== undefined) {
+            triggeredActions.push(debouncedAction)
+          }
           return triggeredActions
         }}
         value={queryText}
