@@ -60,42 +60,51 @@ export const SearchPage = ({
   const filterEntries = (entries) =>
     R.filter((entry) => getFilterObj(entry).checked)(entries)
   return (
-    <div>
-      <p style={{ textAlign: 'center' }}>
-        {entries.length} results found for "{searchText}".
-      </p>
-      {R.map(
-        (entry) => (
-          <Link
-            key={entry.name}
-            onClick={() => onLinkClick()}
-            className="conv-dropdown-item"
-            to={entry.detailURL}
-          >
-            <HighlightString
-              searchText={searchText}
-              textToHighlight={entry.name}
-            />
-            <div className="conv-search-dropdown-model-label">
-              {entry.modelLabel}
-            </div>
-          </Link>
-        ),
-        filterEntries(entries)
-      )}
-      {R.map(
-        (filter) => (
-          <FlexibleInput
-            key={`FlexibleInput-${filter.modelName}-filter-checkbox`}
-            type={inputTypes.BOOLEAN_TYPE}
-            id={`${filter.modelName}-filter-checkbox`}
-            labelStr={filter.modelName}
-            value={filter.checked}
-            onChange={() => onFilterClick({ modelName: filter.modelName })}
-          />
-        ),
-        filters
-      )}
+    <div className="conv-search-page">
+      <div className="conv-search-results-desc">
+        <p>
+          {entries.length} results found for "{searchText}".
+        </p>
+      </div>
+      <div className="conv-search-results">
+        <div className="conv-search-filters">
+          {R.map(
+            (filter) => (
+              <FlexibleInput
+                key={`FlexibleInput-${filter.modelName}-filter-checkbox`}
+                type={inputTypes.BOOLEAN_TYPE}
+                id={`${filter.modelName}-filter-checkbox`}
+                className="conv-search-filters-checkbox"
+                labelStr={`${filter.modelName}s`}
+                value={filter.checked}
+                onChange={() => onFilterClick({ modelName: filter.modelName })}
+              />
+            ),
+            filters
+          )}
+        </div>
+        <div className="conv-search-results-items">
+          {R.map(
+            (entry) => (
+              <Link
+                key={entry.name}
+                onClick={() => onLinkClick()}
+                className="conv-dropdown-item"
+                to={entry.detailURL}
+              >
+                <HighlightString
+                  searchText={searchText}
+                  textToHighlight={entry.name}
+                />
+                <div className="conv-search-dropdown-model-label">
+                  {entry.modelLabel}
+                </div>
+              </Link>
+            ),
+            filterEntries(entries)
+          )}
+        </div>
+      </div>
     </div>
   )
 }

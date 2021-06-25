@@ -249,6 +249,24 @@
 .conv-dropdown-item {
   @extend .dropdown-item;
 }
+.conv-search-page {
+  @extend .container;
+}
+.conv-search-results-desc {
+  @extend .row, .justify-content-center;
+}
+.conv-search-results {
+  @extend .row;
+}
+.conv-search-results-entries {
+  @extend .col;
+}
+.conv-search-filters {
+  @extend .col-2, .float-right;
+}
+.conv-search-filters-checkbox {
+  @extend .float-right;
+}
 
 .conv-tab-nav-pills {
   @extend .nav, .nav-pills;
