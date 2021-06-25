@@ -51,12 +51,12 @@ export const SearchPage = ({
   location
 }) => {
   const searchText = location.pathname.split('/')[2]
-  const getFilter = (entry) =>
-    R.innerJoin(
-      (filter, entry) => filter.modelName === entry.modelName,
-      filters,
-      [entry]
-    )[0]
+  const shouldShow = (entry) =>
+    R.propOr(
+      true,
+      'checked',
+      R.find(R.propEq('modelName', entry.modelName))(filters)
+    )
   return (
     <div className="conv-search-page">
       <div className="conv-search-results-desc">
@@ -82,9 +82,9 @@ export const SearchPage = ({
           )}
         </div>
         <div className="conv-search-results-items">
-          {R.map((entry) => {
-            if (getFilter(entry).checked) {
-              return (
+          {R.map(
+            (entry) =>
+              shouldShow(entry) ? (
                 <Link
                   key={entry.name}
                   onClick={() => onLinkClick()}
@@ -99,9 +99,9 @@ export const SearchPage = ({
                     {entry.modelLabel}
                   </div>
                 </Link>
-              )
-            }
-          }, entries)}
+              ) : null,
+            entries
+          )}
         </div>
       </div>
     </div>
