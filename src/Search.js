@@ -73,7 +73,7 @@ export const SearchPage = ({
                 type={inputTypes.BOOLEAN_TYPE}
                 id={`${filter.modelName}-filter-checkbox`}
                 className="conv-search-filters-checkbox"
-                labelStr={`${filter.modelName}s`}
+                labelStr={`${filter.modelName}s (${filter.count})`}
                 value={filter.checked}
                 onChange={() => onFilterClick({ modelName: filter.modelName })}
               />
