@@ -51,14 +51,12 @@ export const SearchPage = ({
   location
 }) => {
   const searchText = location.pathname.split('/')[2]
-  const getFilterObj = (entry) =>
+  const getFilter = (entry) =>
     R.innerJoin(
       (filter, entry) => filter.modelName === entry.modelName,
       filters,
       [entry]
     )[0]
-  const filterEntries = (entries) =>
-    R.filter((entry) => getFilterObj(entry).checked)(entries)
   return (
     <div className="conv-search-page">
       <div className="conv-search-results-desc">
@@ -84,25 +82,26 @@ export const SearchPage = ({
           )}
         </div>
         <div className="conv-search-results-items">
-          {R.map(
-            (entry) => (
-              <Link
-                key={entry.name}
-                onClick={() => onLinkClick()}
-                className="conv-dropdown-item"
-                to={entry.detailURL}
-              >
-                <HighlightString
-                  searchText={searchText}
-                  textToHighlight={entry.name}
-                />
-                <div className="conv-search-dropdown-model-label">
-                  {entry.modelLabel}
-                </div>
-              </Link>
-            ),
-            filterEntries(entries)
-          )}
+          {R.map((entry) => {
+            if (getFilter(entry).checked) {
+              return (
+                <Link
+                  key={entry.name}
+                  onClick={() => onLinkClick()}
+                  className="conv-dropdown-item"
+                  to={entry.detailURL}
+                >
+                  <HighlightString
+                    searchText={searchText}
+                    textToHighlight={entry.name}
+                  />
+                  <div className="conv-search-dropdown-model-label">
+                    {entry.modelLabel}
+                  </div>
+                </Link>
+              )
+            }
+          }, entries)}
         </div>
       </div>
     </div>
