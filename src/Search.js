@@ -1,7 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useCallback } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
+import { debounce } from 'lodash'
 
 /* returns empty span tag if we're at the end of the string */
 const Highlight = ({ searchText, rowLen, idx }) => {
@@ -75,16 +76,27 @@ export const QuickSearch = ({
   onTextChange,
   onLinkClick,
   searchDropdown,
-  searchOnChange = true,
   onTriggerSearch,
   onBlur
 }) => {
   const showResults = queryText && entries.length > 0
+  const history = useHistory()
+  const debouncedOnTriggerSearch = useCallback(
+    debounce((queryText) => onTriggerSearch({ queryText }), 500),
+    []
+  )
   return (
     <div
       className="conv-search"
       onKeyPress={(evt) => {
         if (evt.key === 'Enter') {
+          history.push(`/Search/${queryText}`)
+          onTriggerSearch({ queryText, isOnSearchPage: true })
+          onBlur()
+        }
+      }}
+      onFocus={() => {
+        if (queryText !== '') {
           onTriggerSearch({ queryText })
         }
       }}
@@ -94,11 +106,8 @@ export const QuickSearch = ({
         id="searchbox"
         className="conv-search-box"
         onChange={(evt) => {
-          const triggeredActions = [onTextChange({ queryText: evt })]
-          if (searchOnChange === true) {
-            triggeredActions.push(onTriggerSearch())
-          }
-          return triggeredActions
+          onTextChange({ queryText: evt })
+          debouncedOnTriggerSearch(evt)
         }}
         value={queryText}
         customInput={{
