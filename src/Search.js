@@ -76,7 +76,6 @@ export const QuickSearch = ({
   onTextChange,
   onLinkClick,
   searchDropdown,
-  searchOnChange = true,
   onTriggerSearch,
   onBlur
 }) => {
@@ -96,7 +95,7 @@ export const QuickSearch = ({
           onBlur()
         }
       }}
-      onFocus={(evt) => {
+      onFocus={() => {
         if (queryText !== '') {
           onTriggerSearch({ queryText })
         }
