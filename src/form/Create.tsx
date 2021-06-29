@@ -96,7 +96,6 @@ const FieldInputList = ({
   stackIndex,
   form,
   selectOptions,
-  failedValidation,
   customProps,
   onKeyDown,
   onChange,
@@ -108,7 +107,6 @@ const FieldInputList = ({
   stackIndex: any
   form: any
   selectOptions: any
-  failedValidation: any
   customProps: any
   onKeyDown: any
   onChange: any
@@ -156,7 +154,6 @@ const FieldInputList = ({
             value,
             error,
             selectOptions,
-            failedValidation,
             onChange,
             disabled,
             formStack,
@@ -183,8 +180,6 @@ const FieldInputList = ({
  * @param modelName the name of the model
  * @param formStack information about calling page and also information about errors
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
@@ -193,7 +188,6 @@ type DefaultCreateProps = {
   modelName: string
   formStack: any
   selectOptions: any
-  failedValidation: any
   customProps: any
 }
 export const DefaultCreatePage = ({
@@ -201,7 +195,6 @@ export const DefaultCreatePage = ({
   modelName,
   formStack,
   selectOptions,
-  failedValidation,
   customProps
 }: DefaultCreateProps) => {
   const stackIndex = R.prop('index', formStack)
@@ -244,7 +237,6 @@ export const DefaultCreatePage = ({
             stackIndex,
             form,
             selectOptions,
-            failedValidation,
             customProps,
             onKeyDown,
             onChange,
@@ -285,8 +277,6 @@ export const DefaultCreatePage = ({
  * @param modelName the name of the model
  * @param formStack information about calling page
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
@@ -295,7 +285,6 @@ export const DefaultCreate = ({
   modelName,
   formStack,
   selectOptions,
-  failedValidation,
   customProps
 }: DefaultCreateProps) => {
   const CreateTitleOverride = schema.getCreateTitleOverride(modelName)
@@ -328,7 +317,6 @@ export const DefaultCreate = ({
           modelName,
           formStack,
           selectOptions,
-          failedValidation,
           customProps
         }}
       />
@@ -342,8 +330,6 @@ export const DefaultCreate = ({
  * @param modelName the name of the model
  * @param formStack information about calling page
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
@@ -352,7 +338,6 @@ const Create = ({
   modelName,
   formStack,
   selectOptions,
-  failedValidation,
   customProps
 }: DefaultCreateProps) => {
   const CreateOverride = schema.getCreateOverride(modelName)
@@ -370,7 +355,6 @@ const Create = ({
         modelName,
         formStack,
         selectOptions,
-        failedValidation,
         customProps
       }}
     />

@@ -214,8 +214,6 @@ export const TableButtonGroup = ({
  * @param editData information on what is being edited, current state and any errors
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param parentNode object data of the parent object, if being shown from Detail page
  * @param customProps user defined props and customization
  * @return Rendered React Component
@@ -229,7 +227,6 @@ type TableRowWithEditProps = {
   editData: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   parentNode: any
   customProps: any
 }
@@ -242,7 +239,6 @@ export const TableRowWithEdit = ({
   editData,
   tooltipData,
   selectOptions,
-  failedValidation,
   parentNode,
   customProps
 }: TableRowWithEditProps) => {
@@ -273,7 +269,6 @@ export const TableRowWithEdit = ({
           editData: fieldEditData,
           error,
           selectOptions,
-          failedValidation,
           customProps
         }}
       />
@@ -429,7 +424,6 @@ type TDListProps = {
   tooltipData: any
   editData: any
   selectOptions: any
-  failedValidation: any
   parentNode: any
   node: any
   fromIndex: any
@@ -443,7 +437,6 @@ const TDList = ({
   tooltipData,
   editData,
   selectOptions,
-  failedValidation,
   parentNode,
   node,
   fromIndex,
@@ -475,7 +468,6 @@ const TDList = ({
             editData,
             tooltipData,
             selectOptions,
-            failedValidation,
             parentNode,
             customProps
           }}
@@ -502,7 +494,6 @@ type TRListProps = {
   tableEditable: boolean
   deletable: boolean
   selectOptions: any
-  failedValidation: any
   parentNode: any
   fromIndex: any
   customProps: any
@@ -526,7 +517,6 @@ const TRList = ({
   tableEditable,
   deletable,
   selectOptions,
-  failedValidation,
   parentNode,
   fromIndex,
   customProps,
@@ -558,7 +548,6 @@ const TRList = ({
             tableEditable,
             deletable,
             selectOptions,
-            failedValidation,
             parentNode,
             node,
             fromIndex,
@@ -613,7 +602,6 @@ type TBodyProps = {
   tableEditable: any
   deletable: boolean
   selectOptions: any
-  failedValidation: any
   parentNode: any
   fromIndex: any
   customProps: any
@@ -636,7 +624,6 @@ export const TBody = ({
   tableEditable,
   deletable,
   selectOptions,
-  failedValidation,
   parentNode,
   fromIndex,
   customProps,
@@ -664,7 +651,6 @@ export const TBody = ({
           tableEditable,
           deletable,
           selectOptions,
-          failedValidation,
           parentNode,
           fromIndex,
           customProps,
@@ -689,8 +675,6 @@ export const TBody = ({
  * @param modalData delete detail modal information
  * @param editData information on what is being edited, current state and any errors
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param parentId id of parent, if being shown from Detail page
  * @param parentModelName name of parent model, if being shown from Detail page
  * @param parentFieldName name of parent field, if being shown from Detail page
@@ -717,7 +701,6 @@ type TableProps = {
   modalData: any
   editData: any
   selectOptions: any
-  failedValidation: any
   parentId: string
   parentModelName: string
   parentFieldName: string
@@ -742,7 +725,6 @@ export const Table = ({
   modalData,
   editData,
   selectOptions,
-  failedValidation,
   parentId,
   parentModelName,
   parentFieldName,
@@ -833,7 +815,6 @@ export const Table = ({
             parentFieldName,
             modalData,
             selectOptions,
-            failedValidation,
             editData,
             deletable,
             tableEditable: editable,
