@@ -4,6 +4,15 @@ import { Tooltip } from 'react-tippy'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
 
+type GotoToolTipProps = {
+  modelName: string
+  fieldName: string
+  onChangePage: any
+  onChangeGoto: any
+  lastIndex: number
+  goto: any
+  canGoto: any
+}
 const GotoTooltip = ({
   modelName,
   fieldName,
@@ -12,7 +21,7 @@ const GotoTooltip = ({
   lastIndex,
   goto,
   canGoto
-}) => {
+}: GotoToolTipProps) => {
   return (
     <div
       id={`${modelName}${fieldName ? '-' + fieldName : ''}-pg-tooltip`}
@@ -30,7 +39,7 @@ const GotoTooltip = ({
               type: inputTypes.INT_TYPE,
               id: `${modelName}${fieldName ? '-' + fieldName : ''}-goto`,
               value: goto,
-              onChange: (evt) =>
+              onChange: (evt: any) =>
                 onChangeGoto({ modelName, fieldName, pageIndex: evt }),
               customInput: {
                 placeholder: 'Go to page...'
@@ -61,6 +70,18 @@ const GotoTooltip = ({
   )
 }
 
+type PaginationLinkProps = {
+  modelName: string
+  fieldName: any
+  onChangePage: any
+  onChangeGoto?: any
+  lastIndex?: any
+  goto?: any
+  canGoto?: any
+  text: any
+  updatedPageIndex: number
+}
+
 const PaginationLink = ({
   modelName,
   fieldName,
@@ -71,7 +92,7 @@ const PaginationLink = ({
   canGoto,
   text,
   updatedPageIndex
-}) => {
+}: PaginationLinkProps) => {
   const link = (
     <a
       className="page-link"
@@ -114,6 +135,19 @@ const PaginationLink = ({
   )
 }
 
+type PaginationProps = {
+  modelName: string
+  fieldName?: any
+  idx: any
+  lastIndex: any
+  goto: any
+  canGoto: any
+  onChangePage: any
+  onChangeGoto: any
+  totalDataLength: number
+  amtPerPage: number
+}
+
 export const Pagination = ({
   modelName,
   fieldName = null,
@@ -125,7 +159,7 @@ export const Pagination = ({
   onChangeGoto,
   totalDataLength,
   amtPerPage
-}) => {
+}: PaginationProps) => {
   // get previous & last conditions; 'lastIndex' can be null or '0' value
   const hasFirst = idx > 2
   const hasPrev = idx > 1
@@ -210,11 +244,21 @@ export const Pagination = ({
   )
 }
 
-export const IndexPagination = ({ schema, modelName, tableView }) => {
+type IndexPaginationProps = {
+  schema: any
+  modelName: any
+  tableView: any
+}
+
+export const IndexPagination = ({
+  schema,
+  modelName,
+  tableView
+}: IndexPaginationProps) => {
   const actions = schema.getActions(modelName)
   const onChangePage = R.path(['tableOptions', 'changePage'], actions)
   const onChangeGoto = R.path(['tableOptions', 'changeGotoPage'], actions)
-  const page = R.path([modelName, 'page'], tableView)
+  const page: any = R.path([modelName, 'page'], tableView)
   const goto = R.prop('goto', page)
   const canGoto = R.propOr(true, 'canGoto', page)
 
@@ -252,16 +296,23 @@ export const IndexPagination = ({ schema, modelName, tableView }) => {
  * @param tableView has sort and pagination information, as well as filtering info
  * @return Rendered React Component
  */
+type DetailPaginationProps = {
+  schema: any
+  modelName: string
+  fieldName: any
+  tableView: any
+}
+
 export const DetailPagination = ({
   schema,
   modelName,
   fieldName,
   tableView
-}) => {
+}: DetailPaginationProps) => {
   const actions = schema.getActions(modelName)
   const onChangePage = R.path(['tableOptions', 'changeRelTablePage'], actions)
   const onChangeGoto = R.path(['tableOptions', 'changeRelGotoPage'], actions)
-  const page = R.path([modelName, 'fields', fieldName, 'page'], tableView)
+  const page: any = R.path([modelName, 'fields', fieldName, 'page'], tableView)
   const goto = R.prop('goto', page)
   const canGoto = R.propOr(true, 'canGoto', page)
 
