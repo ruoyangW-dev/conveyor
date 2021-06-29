@@ -85,8 +85,7 @@ const TabFields = ({
           selectOptions,
           tableView,
           customProps,
-          summary: undefined,
-          failedValidation: undefined
+          summary: undefined
         }}
       />
     </div>
