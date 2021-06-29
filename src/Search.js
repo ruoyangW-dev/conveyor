@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import FlexibleInput from './input'
 import { inputTypes } from './consts'
 import { debounce } from 'lodash'
+import { GoSearch } from 'react-icons/go'
 
 /* returns empty span tag if we're at the end of the string */
 const Highlight = ({ searchText, rowLen, idx }) => {
@@ -54,12 +55,14 @@ export const SearchPage = ({ entries, onLinkClick, location }) => {
         <Link
           key={entry.name}
           onClick={() => onLinkClick()}
-          className="conv-dropdown-item"
+          className=""
           to={entry.detailURL}
         >
-          {entry.name}
-          <div className="conv-search-dropdown-model-label">
-            {entry.modelLabel}
+          <div>
+            <span className="conv-search-dropdown-model-label">
+              {entry.modelLabel}
+            </span>
+            : {entry.name}
           </div>
         </Link>
       ))}
@@ -142,7 +145,7 @@ export const QuickSearch = ({
         }}
         className="nav-link"
       >
-        Search
+        <GoSearch />
       </Link>
     </div>
   )
