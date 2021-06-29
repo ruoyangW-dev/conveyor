@@ -5,15 +5,26 @@ import FlexibleInput from './input'
 import { inputTypes } from './consts'
 import { debounce } from 'lodash'
 
+type HighlightProps = {
+  searchText: string
+  rowLen: number
+  idx: number
+}
 /* returns empty span tag if we're at the end of the string */
-const Highlight = ({ searchText, rowLen, idx }) => {
+const Highlight = ({ searchText, rowLen, idx }: HighlightProps) => {
   if (rowLen !== idx + 1) {
     return <span className="conv-highlight">{searchText}</span>
   }
   return <span />
 }
 
-const HighlightString = ({ searchText, textToHighlight }) => {
+const HighlightString = ({
+  searchText,
+  textToHighlight
+}: {
+  searchText: string
+  textToHighlight: string
+}) => {
   if (!textToHighlight) return <></>
   const escapedText = searchText.replace(/\[|\]|[\\^$*+?.|()]/g, '\\$&')
   const insensitiveSplit = new RegExp(escapedText, 'i')
@@ -42,16 +53,22 @@ const HighlightString = ({ searchText, textToHighlight }) => {
     </div>
   )
 }
-
+type SearchPageProps = {
+  entries: any
+  onLinkClick: CallableFunction
+  onFilterClick: CallableFunction
+  filters: any
+  location: any
+}
 export const SearchPage = ({
   entries,
   onLinkClick,
   onFilterClick,
   filters,
   location
-}) => {
+}: SearchPageProps) => {
   const searchText = location.pathname.split('/')[2]
-  const shouldShow = (entry) =>
+  const shouldShow = (entry: any) =>
     R.propOr(
       true,
       'checked',
@@ -108,6 +125,17 @@ export const SearchPage = ({
   )
 }
 
+type QuickSearchProps = {
+  queryText: string
+  entries: any[]
+  onTextChange: any
+  onLinkClick: any
+  searchDropdown: boolean
+  searchOnChange: boolean
+  onTriggerSearch: any
+  onBlur: any
+}
+
 export const QuickSearch = ({
   queryText,
   entries,
@@ -116,7 +144,7 @@ export const QuickSearch = ({
   searchDropdown,
   onTriggerSearch,
   onBlur
-}) => {
+}: QuickSearchProps) => {
   const showResults = queryText && entries.length > 0
   const history = useHistory()
   const debouncedOnTriggerSearch = useCallback(
@@ -143,7 +171,7 @@ export const QuickSearch = ({
         type={inputTypes.STRING_TYPE}
         id="searchbox"
         className="conv-search-box"
-        onChange={(evt) => {
+        onChange={(evt: any) => {
           onTextChange({ queryText: evt })
           debouncedOnTriggerSearch(evt)
         }}
