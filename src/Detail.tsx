@@ -126,8 +126,6 @@ export const DefaultDetailLabel = ({
  * @param editData information on what is being edited, current state and any errors
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param id id of the object
  * @param path relative path to current page
  * @param customProps user defined props and customization
@@ -141,7 +139,6 @@ type DefaultDetailAttributeProps = {
   editData: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   id: string
   path: string
   customProps: any
@@ -154,7 +151,6 @@ export const DefaultDetailAttribute = ({
   editData,
   tooltipData,
   selectOptions,
-  failedValidation,
   id,
   path,
   customProps
@@ -225,8 +221,7 @@ export const DefaultDetailAttribute = ({
                 node,
                 editData: fieldEditData,
                 error,
-                selectOptions,
-                failedValidation
+                selectOptions
               }}
             />
           </div>
@@ -606,8 +601,6 @@ export const DefaultDetailM2MFieldLabel = ({
  * @param path relative path to current page
  * @param editData information on what is being edited, current state and any errors
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param tableView has sort and pagination information, as well as filtering info
  * @param modalData delete detail modal information
@@ -625,7 +618,6 @@ type DefaultDetailTableProps = {
   path: string
   editData: any
   selectOptions: any
-  failedValidation: any
   tooltipData: any
   tableView: any
   modalData: any
@@ -641,7 +633,6 @@ export const DefaultDetailTable = ({
   path,
   editData,
   selectOptions,
-  failedValidation,
   tooltipData,
   tableView,
   modalData,
@@ -714,7 +705,6 @@ export const DefaultDetailTable = ({
             modelName: targetModelName,
             editData,
             selectOptions,
-            failedValidation,
             tooltipData,
             node,
             data,
@@ -777,7 +767,6 @@ export const DefaultDetailTable = ({
               value: getFieldEditData(editData, modelName, fieldName, id),
               error: getFieldErrorEdit(editData, modelName, fieldName, id),
               selectOptions,
-              failedValidation,
               customLabel: DetailLabel,
               onChange: ({ ...props }) =>
                 onEditInputChange({
@@ -852,7 +841,6 @@ export const DefaultDetailTable = ({
             modelName: targetModelName,
             editData,
             selectOptions,
-            failedValidation,
             tooltipData,
             node,
             data,
@@ -986,7 +974,6 @@ type DetailAttributeListProps = {
   editData: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   path: string
   tableView: any
   customProps: any
@@ -1001,7 +988,6 @@ const DetailAttributeList = ({
   editData,
   tooltipData,
   selectOptions,
-  failedValidation,
   path,
   tableView,
   customProps
@@ -1030,7 +1016,6 @@ const DetailAttributeList = ({
           fieldName,
           node,
           selectOptions,
-          failedValidation,
           editData,
           tooltipData,
           modalData,
@@ -1054,7 +1039,6 @@ type DetailTableListProps = {
   editData: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   path: string
   tableView: any
   customProps: any
@@ -1070,7 +1054,6 @@ const DetailTableList = ({
   editData,
   tooltipData,
   selectOptions,
-  failedValidation,
   path,
   tableView,
   customProps,
@@ -1100,7 +1083,6 @@ const DetailTableList = ({
           fieldName,
           node,
           selectOptions,
-          failedValidation,
           editData,
           tooltipData,
           modalData,
@@ -1127,8 +1109,6 @@ const DetailTableList = ({
  * @param editData information on what is being edited, current state and any errors
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param path relative path to current page
  * @param tableView has sort and pagination information, as well as filtering info
  * @param customProps user defined props and customization
@@ -1147,7 +1127,6 @@ type DetailFieldsProps = {
   editData: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   path: string
   tableView: any
   customProps: any
@@ -1164,7 +1143,6 @@ export const DetailFields = ({
   editData,
   tooltipData,
   selectOptions,
-  failedValidation,
   path,
   tableView,
   customProps,
@@ -1200,7 +1178,6 @@ export const DetailFields = ({
             editData,
             tooltipData,
             selectOptions,
-            failedValidation,
             path,
             tableView,
             customProps,
@@ -1220,7 +1197,6 @@ export const DetailFields = ({
           editData,
           tooltipData,
           selectOptions,
-          failedValidation,
           path,
           tableView,
           customProps,
@@ -1256,8 +1232,6 @@ const Wrapper = ({ children, modelName }: WrapperProps) => (
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param tableView has sort and pagination information, as well as filtering info
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param customProps user defined props and customization
  * @param summary summary information for the footer
  * > ex: sum of table column, optional if no footer
@@ -1274,7 +1248,6 @@ type DefaultDetailProps = {
   match: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   tableView: any
   customProps: any
   summary: any
@@ -1291,7 +1264,6 @@ export const DefaultDetail = ({
   tooltipData,
   tableView,
   selectOptions,
-  failedValidation,
   customProps,
   summary
 }: DefaultDetailProps) => {
@@ -1356,7 +1328,6 @@ export const DefaultDetail = ({
           fields: [],
           tableView,
           selectOptions,
-          failedValidation,
           customProps,
           summary
         }}
@@ -1378,8 +1349,6 @@ export const DefaultDetail = ({
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param tableView has sort and pagination information, as well as filtering info
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param customProps user defined props and customization
  * @param summary summary information for the footer
  * > ex: sum of table column, optional if no footer
@@ -1396,7 +1365,6 @@ type DetailProps = {
   match: any
   tooltipData: any
   selectOptions: any
-  failedValidation: any
   tableView: any
   customProps: any
   summary: any
@@ -1413,7 +1381,6 @@ const Detail = ({
   tooltipData,
   tableView,
   selectOptions,
-  failedValidation,
   customProps,
   summary
 }: DetailProps) => {
@@ -1436,7 +1403,6 @@ const Detail = ({
         tooltipData,
         tableView,
         selectOptions,
-        failedValidation,
         customProps,
         summary
       }}

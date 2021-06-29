@@ -91,8 +91,6 @@ const PageNotFound = () => (
  * @param modalData delete detail modal information
  * @param editData information on what is being edited, current state and any errors
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param path relative path to current page
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param tableView has sort and pagination information, as well as filtering info
@@ -108,7 +106,6 @@ type DefaultIndexProps = {
   modalData: any
   editData: any
   selectOptions: any[]
-  failedValidation: any
   path: string
   tooltipData: any
   tableView: any
@@ -122,7 +119,6 @@ export const DefaultIndex = ({
   modalData,
   editData,
   selectOptions,
-  failedValidation,
   path,
   tooltipData,
   tableView,
@@ -176,7 +172,6 @@ export const DefaultIndex = ({
           modalData,
           editData,
           selectOptions,
-          failedValidation,
           tooltipData,
           tableView,
           customProps,
@@ -199,8 +194,6 @@ export const DefaultIndex = ({
  * @param modalData delete detail modal information
  * @param editData information on what is being edited, current state and any errors
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param path relative path to current page
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param tableView has sort and pagination information, as well as filtering info
@@ -216,7 +209,6 @@ type IndexProps = {
   modalData: any
   editData: any
   selectOptions: any
-  failedValidation: any
   path: string
   tooltipData: any
   tableView: any
@@ -230,7 +222,6 @@ const Index = ({
   modalData,
   editData,
   selectOptions,
-  failedValidation,
   path,
   tooltipData,
   tableView,
@@ -279,7 +270,6 @@ const Index = ({
         modalData,
         editData,
         selectOptions,
-        failedValidation,
         path,
         tooltipData,
         tableView,

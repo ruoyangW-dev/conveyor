@@ -76,8 +76,6 @@ export const DisabledInput = ({ value, label }: DisabledInputType) => (
  * > field label only used on create page
  * @param onChange function called when the input value is changed
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param disabled boolean if the input is disabled
  * @param customLabel react component for a specialized type of label
  * @param formStack information about calling page and also information about errors, if on a create page
@@ -97,7 +95,6 @@ type InputType = {
   inline?: any
   onChange: any
   selectOptions: any
-  failedValidation?: any
   disabled?: boolean
   customLabel?: any
   customInput?: any
@@ -116,7 +113,6 @@ const Input = ({
   inline = undefined, //false
   onChange,
   selectOptions,
-  failedValidation,
   disabled = undefined, //false
   customLabel,
   formStack = undefined,
@@ -142,7 +138,6 @@ const Input = ({
         inline,
         onChange,
         selectOptions,
-        failedValidation,
         disabled,
         customLabel,
         formStack,
@@ -202,8 +197,6 @@ export const getOnChange = ({
  * > field label only used on create page
  * @param onChange function called when the input value is changed
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param disabled boolean if the input is disabled
  * @param customLabel react component for a specialized type of label
  * @param formStack information about calling page, if on a create page
@@ -226,7 +219,6 @@ export const InputCore = ({
   inline,
   onChange,
   selectOptions,
-  failedValidation,
   disabled,
   customLabel,
   formStack,
@@ -248,13 +240,9 @@ export const InputCore = ({
   }
 
   const fieldHelp = schema.getFieldHelpText(modelName, fieldName)
-  let failed = ''
-  if (failedValidation && failedValidation(modelName, fieldName)) {
-    failed = ' conv-failed-validation'
-  }
 
   return (
-    <div className={'conv-input conv-input-model-' + modelName + failed}>
+    <div className={'conv-input conv-input-model-' + modelName}>
       <InputInnerCore
         {...{
           schema,
