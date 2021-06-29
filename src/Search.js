@@ -57,10 +57,7 @@ export const SearchPage = ({ entries, onLinkClick, location }) => {
           className="conv-dropdown-item"
           to={entry.detailURL}
         >
-          <HighlightString
-            searchText={searchText}
-            textToHighlight={entry.name}
-          />
+          {entry.name}
           <div className="conv-search-dropdown-model-label">
             {entry.modelLabel}
           </div>
