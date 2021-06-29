@@ -18,7 +18,13 @@ import {
 } from '../Edit'
 import { IndexPagination, DetailPagination } from '../Pagination'
 
-export const DetailViewButton = ({ modelName, id }) => (
+export const DetailViewButton = ({
+  modelName,
+  id
+}: {
+  modelName: string
+  id: string
+}) => (
   <Link to={`/${modelName}/${id}`} className="conv-btn-outline-primary">
     View
   </Link>
@@ -32,7 +38,18 @@ export const DetailViewButton = ({ modelName, id }) => (
  * @param id id of the object to be deleted
  * @return Rendered React Component
  */
-export const DeleteButton = ({ modalId, onDeleteWarning, modelName, id }) => {
+type DeleteButtonProps = {
+  modalId: string
+  onDeleteWarning: any
+  modelName: string
+  id: string
+}
+export const DeleteButton = ({
+  modalId,
+  onDeleteWarning,
+  modelName,
+  id
+}: DeleteButtonProps) => {
   return (
     <button
       className="conv-btn-outline-danger"
@@ -45,7 +62,7 @@ export const DeleteButton = ({ modalId, onDeleteWarning, modelName, id }) => {
   )
 }
 
-export const RemoveButton = ({ modalId }) => {
+export const RemoveButton = ({ modalId }: { modalId: string }) => {
   return (
     <button
       className="conv-btn-outline-warning"
@@ -57,11 +74,36 @@ export const RemoveButton = ({ modalId }) => {
   )
 }
 
-export const showButtonColumn = ({ deletable, editable, detailField }) => {
+type showButtonColumnProps = {
+  deletable: boolean
+  editable: boolean
+  detailField: any
+}
+export const showButtonColumn = ({
+  deletable,
+  editable,
+  detailField
+}: showButtonColumnProps) => {
   /* Check if any of the possible buttons are being displayed */
   return deletable || editable || R.isNil(detailField)
 }
 
+type TableButtonGroupProps = {
+  schema: any
+  modelName: string
+  node: any
+  detailField: any
+  editable: boolean
+  parentId: string
+  idx: number
+  modalData: any
+  parentModelName: string
+  parentFieldName: string
+  deletable: boolean
+  onDelete: any
+  fromIndex: any
+  customProps: any
+}
 export const TableButtonGroup = ({
   schema,
   modelName,
@@ -77,7 +119,7 @@ export const TableButtonGroup = ({
   onDelete,
   fromIndex,
   customProps
-}) => {
+}: TableButtonGroupProps) => {
   const parentFieldType = schema.getType(parentModelName, parentFieldName)
   const m2m = parentFieldType === 'ManyToMany'
   const actions = schema.getActions(modelName)
@@ -172,12 +214,22 @@ export const TableButtonGroup = ({
  * @param editData information on what is being edited, current state and any errors
  * @param tooltipData displayed tooltip data for objects referenced by the table.
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param parentNode object data of the parent object, if being shown from Detail page
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type TableRowWithEditProps = {
+  modelName: string
+  fieldName: string
+  node: any
+  schema: any
+  detailField: any
+  editData: any
+  tooltipData: any
+  selectOptions: any
+  parentNode: any
+  customProps: any
+}
 export const TableRowWithEdit = ({
   modelName,
   fieldName,
@@ -187,10 +239,9 @@ export const TableRowWithEdit = ({
   editData,
   tooltipData,
   selectOptions,
-  failedValidation,
   parentNode,
   customProps
-}) => {
+}: TableRowWithEditProps) => {
   if (
     isEditing(editData, modelName, node.id) &&
     schema.isFieldEditable({
@@ -218,7 +269,6 @@ export const TableRowWithEdit = ({
           editData: fieldEditData,
           error,
           selectOptions,
-          failedValidation,
           customProps
         }}
       />
@@ -291,6 +341,25 @@ export const TableRowWithEdit = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type TableButtonCellProps = {
+  modelName: string
+  parentModelName: string
+  node: any
+  schema: any
+  detailField: any
+  editData: any
+  onEditSubmit: any
+  onEditCancel: any
+  deletable: boolean
+  editable: boolean
+  parentId: string
+  modalData: any
+  parentFieldName: string
+  onDelete: any
+  idx: number
+  fromIndex: any
+  customProps: any
+}
 export const TableButtonCell = ({
   modelName,
   parentModelName,
@@ -309,7 +378,7 @@ export const TableButtonCell = ({
   idx,
   fromIndex,
   customProps
-}) => {
+}: TableButtonCellProps) => {
   return isEditing(editData, modelName, node.id) ? (
     <div className="table-btn-group">
       <div className="conv-btn-group">
@@ -347,6 +416,19 @@ export const TableButtonCell = ({
   )
 }
 
+type TDListProps = {
+  schema: any
+  modelName: string
+  fieldOrder: any
+  detailField: any
+  tooltipData: any
+  editData: any
+  selectOptions: any
+  parentNode: any
+  node: any
+  fromIndex: any
+  customProps: any
+}
 const TDList = ({
   schema,
   modelName,
@@ -355,13 +437,12 @@ const TDList = ({
   tooltipData,
   editData,
   selectOptions,
-  failedValidation,
   parentNode,
   node,
   fromIndex,
   customProps
-}) => {
-  return fieldOrder.map((fieldName, headerIdx) => {
+}: TDListProps) => {
+  return fieldOrder.map((fieldName: string, headerIdx: number) => {
     if (fromIndex === true) {
       if (
         schema.shouldDisplayIndex({
@@ -387,7 +468,6 @@ const TDList = ({
             editData,
             tooltipData,
             selectOptions,
-            failedValidation,
             parentNode,
             customProps
           }}
@@ -397,6 +477,29 @@ const TDList = ({
   })
 }
 
+type TRListProps = {
+  schema: any
+  modelName: string
+  data: any
+  fieldOrder: any
+  onDelete: any
+  onEditSubmit: any
+  parentId: string
+  parentModelName: string
+  parentFieldName: string
+  detailField: any
+  tooltipData: any
+  modalData: any
+  editData: any
+  tableEditable: boolean
+  deletable: boolean
+  selectOptions: any
+  parentNode: any
+  fromIndex: any
+  customProps: any
+  onEditCancel: any
+  buttonColumnExists: boolean
+}
 const TRList = ({
   schema,
   modelName,
@@ -414,14 +517,13 @@ const TRList = ({
   tableEditable,
   deletable,
   selectOptions,
-  failedValidation,
   parentNode,
   fromIndex,
   customProps,
   onEditCancel,
   buttonColumnExists
-}) => {
-  return data.map((node, idx) => {
+}: TRListProps) => {
+  return data.map((node: any, idx: number) => {
     const editable = schema.isRowEditable({
       modelName,
       node,
@@ -446,7 +548,6 @@ const TRList = ({
             tableEditable,
             deletable,
             selectOptions,
-            failedValidation,
             parentNode,
             node,
             fromIndex,
@@ -484,7 +585,28 @@ const TRList = ({
     )
   })
 }
-
+type TBodyProps = {
+  schema: any
+  modelName: string
+  data: any
+  fieldOrder: any
+  onDelete: any
+  onEditSubmit: any
+  parentId: string
+  parentModelName: string
+  parentFieldName: string
+  detailField: any
+  tooltipData: any
+  modalData: any
+  editData: any
+  tableEditable: any
+  deletable: boolean
+  selectOptions: any
+  parentNode: any
+  fromIndex: any
+  customProps: any
+  buttonColumnExists: boolean
+}
 export const TBody = ({
   schema,
   modelName,
@@ -502,12 +624,11 @@ export const TBody = ({
   tableEditable,
   deletable,
   selectOptions,
-  failedValidation,
   parentNode,
   fromIndex,
   customProps,
   buttonColumnExists
-}) => {
+}: TBodyProps) => {
   const actions = schema.getActions(modelName)
   const onEditCancel = R.path(['edit', 'onTableEditCancel'], actions)
   return (
@@ -530,7 +651,6 @@ export const TBody = ({
           tableEditable,
           deletable,
           selectOptions,
-          failedValidation,
           parentNode,
           fromIndex,
           customProps,
@@ -555,8 +675,6 @@ export const TBody = ({
  * @param modalData delete detail modal information
  * @param editData information on what is being edited, current state and any errors
  * @param selectOptions options used by the select input type
- * @param failedValidation a function that determines if a field has failed validation
- * > run with `failedValidation(modelName, fieldName)`
  * @param parentId id of parent, if being shown from Detail page
  * @param parentModelName name of parent model, if being shown from Detail page
  * @param parentFieldName name of parent field, if being shown from Detail page
@@ -572,6 +690,30 @@ export const TBody = ({
  * > ex: sum of table column, optional if no footer
  * @return Rendered React Component
  */
+type TableProps = {
+  schema: any
+  modelName: string
+  node: any
+  data: any
+  fieldOrder: any
+  onDelete: any
+  onEditSubmit: any
+  modalData: any
+  editData: any
+  selectOptions: any
+  parentId: string
+  parentModelName: string
+  parentFieldName: string
+  tooltipData: any
+  tableView: any
+  Head: any
+  Body: any
+  Foot: any
+  collapse: any
+  fromIndex: any
+  customProps: any
+  summary: any
+}
 export const Table = ({
   schema,
   modelName,
@@ -583,7 +725,6 @@ export const Table = ({
   modalData,
   editData,
   selectOptions,
-  failedValidation,
   parentId,
   parentModelName,
   parentFieldName,
@@ -596,7 +737,7 @@ export const Table = ({
   fromIndex,
   customProps,
   summary
-}) => {
+}: TableProps) => {
   const paginateIndex = R.propOr(true, 'paginate', schema.getModel(modelName))
   const paginateDetail = R.pathOr(
     true,
@@ -674,7 +815,6 @@ export const Table = ({
             parentFieldName,
             modalData,
             selectOptions,
-            failedValidation,
             editData,
             deletable,
             tableEditable: editable,

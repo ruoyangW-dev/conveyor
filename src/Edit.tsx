@@ -167,7 +167,6 @@ type EditInputProps = {
   editData: any
   error: any
   selectOptions: any
-  failedValidation: any
   customProps?: any
 }
 export const EditInput = ({
@@ -178,7 +177,6 @@ export const EditInput = ({
   editData,
   error,
   selectOptions,
-  failedValidation,
   customProps = undefined
 }: EditInputProps) => {
   const actions = schema.getActions(modelName)
@@ -191,7 +189,6 @@ export const EditInput = ({
       key={fieldName}
       {...{
         selectOptions,
-        failedValidation,
         schema,
         onChange: ({ ...props }) =>
           onEditInputChange({ id: node.id, modelName, ...props }),

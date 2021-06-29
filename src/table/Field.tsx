@@ -9,7 +9,15 @@ import Tooltip from '../Tooltip'
 import { validColorCheck } from '../utils/colorHelper'
 
 // gets the schema of the relationship model, based on field meta
-export const getRelSchemaEntry = ({ schema, modelName, fieldName }) => {
+export const getRelSchemaEntry = ({
+  schema,
+  modelName,
+  fieldName
+}: {
+  schema: any
+  modelName: string
+  fieldName: string
+}) => {
   const fieldTargetModel = R.path(
     ['type', 'target'],
     schema.getField(modelName, fieldName)
@@ -18,7 +26,15 @@ export const getRelSchemaEntry = ({ schema, modelName, fieldName }) => {
   return schema.getModel(fieldTargetModel)
 }
 
-const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
+const FieldString = ({
+  fieldName,
+  node,
+  noDataDisplayValue
+}: {
+  fieldName: string
+  node: any
+  noDataDisplayValue: any
+}) => {
   const value = R.prop(fieldName, node)
   const displayString =
     R.isNil(value) || value === '' ? noDataDisplayValue : value
@@ -26,7 +42,7 @@ const FieldString = ({ fieldName, node, noDataDisplayValue }) => {
   return <span className="text-area-display">{displayString}</span>
 }
 
-const FieldColor = ({ fieldName, node }) => {
+const FieldColor = ({ fieldName, node }: { fieldName: string; node: any }) => {
   const value = R.prop(fieldName, node)
   if (R.isNil(value) || !validColorCheck(value)) {
     return <span className="text-area-display">N/A</span>
@@ -37,7 +53,13 @@ const FieldColor = ({ fieldName, node }) => {
   }
 }
 
-const FieldBoolean = ({ fieldName, node }) => {
+const FieldBoolean = ({
+  fieldName,
+  node
+}: {
+  fieldName: string
+  node: any
+}) => {
   return (
     <span>
       <IconContext.Provider value={{ className: 'checkbox-icon' }}>
@@ -58,6 +80,11 @@ const FieldLink = ({
   node,
   prefix = ['https://', 'http://'],
   noDataDisplayValue
+}: {
+  fieldName: string
+  node: any
+  prefix?: string | string[]
+  noDataDisplayValue: any
 }) => {
   // Ensure prefix is a list, allowing a single string instead of a list.
   prefix = R.pipe(R.prepend(prefix), R.flatten)([])
@@ -75,7 +102,13 @@ const FieldLink = ({
   return <a href={href}>{displayString}</a>
 }
 
-const FieldCurrency = ({ fieldName, node }) => {
+const FieldCurrency = ({
+  fieldName,
+  node
+}: {
+  fieldName: string
+  node: any
+}) => {
   const num = R.prop(fieldName, node)
   const displayString = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -85,13 +118,20 @@ const FieldCurrency = ({ fieldName, node }) => {
   return <span>{displayString}</span>
 }
 
+type FieldEnumProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  node: any
+  noDataDisplayValue: any
+}
 const FieldEnum = ({
   schema,
   modelName,
   fieldName,
   node,
   noDataDisplayValue
-}) => {
+}: FieldEnumProps) => {
   const value = R.prop(fieldName, node)
   if (value) {
     return <span>{schema.getEnumLabel(modelName, fieldName, value)}</span>
@@ -99,6 +139,14 @@ const FieldEnum = ({
   return <span>{noDataDisplayValue}</span>
 }
 
+type FieldImageModalProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  id: string
+  node: any
+  customProps: any
+}
 const FieldImageModal = ({
   schema,
   modelName,
@@ -106,7 +154,7 @@ const FieldImageModal = ({
   id,
   node,
   customProps
-}) => {
+}: FieldImageModalProps) => {
   const url = R.prop(fieldName, node)
   const label = schema.getFieldLabel({
     modelName,
@@ -119,6 +167,15 @@ const FieldImageModal = ({
   return <ImageLinkModal {...{ id: modalId, title: label, url }} />
 }
 
+type FieldToOneProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  node: any
+  tooltipData: any
+  noDataDisplayValue?: any
+  customProps?: any
+}
 export const FieldToOne = ({
   schema,
   modelName,
@@ -127,7 +184,7 @@ export const FieldToOne = ({
   tooltipData,
   noDataDisplayValue,
   customProps
-}) => {
+}: FieldToOneProps) => {
   const relSchemaEntry = getRelSchemaEntry({ schema, modelName, fieldName })
 
   const relModelName = R.prop('modelName', relSchemaEntry)
@@ -180,6 +237,14 @@ export const FieldToOne = ({
   }
 }
 
+type FieldToManyProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  tooltipData: any
+  node: any
+  noDataDisplayValue: any
+}
 export const FieldToMany = ({
   schema,
   modelName,
@@ -187,10 +252,10 @@ export const FieldToMany = ({
   tooltipData,
   node,
   noDataDisplayValue
-}) => {
+}: FieldToManyProps) => {
   const multiRelField = R.prop(fieldName, node)
 
-  const relListWithLink = (field, idx, obj) => (
+  const relListWithLink = (field: any, idx: number, obj: any) => (
     <React.Fragment key={`fragment-${field.id}`}>
       <FieldToOne
         key={`field-m2o-${field.id}`}
@@ -220,6 +285,15 @@ export const FieldToMany = ({
  * @param customProps user defined props and customization
  * @return Rendered React Component
  */
+type FieldProps = {
+  schema: any
+  modelName: string
+  fieldName: string
+  tooltipData: any
+  node: any
+  id: any
+  customProps: any
+}
 export const Field = ({
   schema,
   modelName,
@@ -228,7 +302,7 @@ export const Field = ({
   node,
   id,
   customProps
-}) => {
+}: FieldProps) => {
   const props = {
     schema,
     modelName,

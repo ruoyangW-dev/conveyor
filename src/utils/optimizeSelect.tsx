@@ -29,7 +29,7 @@ const OptimizedMenuList = (props: OptimizedMenuList) => {
       itemSize={height}
       initialScrollOffset={initialOffset}
     >
-      {({ index, style }) => (
+      {({ index, style }: { index: number; style: any }) => (
         <div
           className="select-option-wrapper"
           style={{
