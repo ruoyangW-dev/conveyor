@@ -43,11 +43,56 @@ const HighlightString = ({ searchText, textToHighlight }) => {
   )
 }
 
-export const SearchPage = ({ entries, onLinkClick, location }) => {
+export const SearchPage = ({
+  entries,
+  onLinkClick,
+  location,
+  queryText,
+  onTextChange,
+  onTriggerSearch,
+  onBlur
+}) => {
   const searchText = location.pathname.split('/')[2]
-
+  const history = useHistory()
   return (
     <div>
+      <div
+        className="conv-search"
+        onKeyPress={(evt) => {
+          if (evt.key === 'Enter') {
+            history.push(`/Search/${queryText}`)
+            onTriggerSearch({ queryText, isOnSearchPage: true })
+            onBlur()
+          }
+        }}
+      >
+        <FlexibleInput
+          type={inputTypes.STRING_TYPE}
+          id="searchpagebox"
+          className="conv-search-box"
+          onChange={(evt) => {
+            onTextChange({ queryText: evt })
+            onTriggerSearch(evt)
+          }}
+          value={queryText}
+          customInput={{
+            type: 'search',
+            placeholder: 'Search...',
+            //'data-toggle': 'dropdown',
+            onBlur: () => setTimeout(onBlur, 300)
+          }}
+        />
+        <Link
+          to={`/Search/${queryText}`}
+          onClick={() => {
+            onTriggerSearch({ queryText, isOnSearchPage: true })
+            onBlur()
+          }}
+          className="nav-link"
+        >
+          <GoSearch />
+        </Link>
+      </div>
       <p style={{ textAlign: 'center' }}>
         {entries.length} results found for "{searchText}".
       </p>
@@ -55,7 +100,7 @@ export const SearchPage = ({ entries, onLinkClick, location }) => {
         <Link
           key={entry.name}
           onClick={() => onLinkClick()}
-          className=""
+          className="" // to be added later
           to={entry.detailURL}
         >
           <div>
