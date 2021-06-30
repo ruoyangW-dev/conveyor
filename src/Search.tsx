@@ -54,6 +54,7 @@ const HighlightString = ({
     </div>
   )
 }
+
 const handleSearchOnEnter = (
   evt: any,
   queryText: string,
@@ -64,10 +65,10 @@ const handleSearchOnEnter = (
   if (evt.key === 'Enter' && queryText !== '') {
     history.push(`/Search/${queryText}`)
     onTriggerSearch({ queryText, isOnSearchPage: true })
-    onBlur()
-    console.log('ayayay')
+    setTimeout(onBlur, 500)
   }
 }
+
 const handleSearchOnClick = (
   queryText: string,
   onTriggerSearch: CallableFunction,
@@ -78,6 +79,7 @@ const handleSearchOnClick = (
     onBlur()
   }
 }
+
 type SearchPageProps = {
   entries: any
   onLinkClick: CallableFunction
@@ -89,6 +91,7 @@ type SearchPageProps = {
   onTriggerSearch: CallableFunction
   onBlur: CallableFunction
 }
+
 export const SearchPage = ({
   entries,
   onLinkClick,
@@ -127,7 +130,6 @@ export const SearchPage = ({
           customInput={{
             type: 'search',
             placeholder: 'Search...',
-            //'data-toggle': 'dropdown',
             onBlur: () => setTimeout(onBlur, 300)
           }}
         />
@@ -218,9 +220,10 @@ export const QuickSearch = ({
   return (
     <div
       className="conv-search"
-      onKeyPress={(evt) =>
+      onKeyPress={(evt) => {
         handleSearchOnEnter(evt, queryText, history, onTriggerSearch, onBlur)
-      }
+        debouncedOnTriggerSearch.cancel()
+      }}
       onFocus={() => {
         if (queryText !== '') {
           onTriggerSearch({ queryText })
@@ -265,7 +268,10 @@ export const QuickSearch = ({
       )}
       <Link
         to={`/Search/${queryText}`}
-        onClick={() => handleSearchOnClick(queryText, onTriggerSearch, onBlur)}
+        onClick={() => {
+          handleSearchOnClick(queryText, onTriggerSearch, onBlur)
+          debouncedOnTriggerSearch.cancel()
+        }}
         className="nav-link"
       >
         <GoSearch />
