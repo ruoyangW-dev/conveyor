@@ -54,6 +54,30 @@ const HighlightString = ({
     </div>
   )
 }
+const handleSearchOnEnter = (
+  evt: any,
+  queryText: string,
+  history: any,
+  onTriggerSearch: CallableFunction,
+  onBlur: CallableFunction
+) => {
+  if (evt.key === 'Enter' && queryText !== '') {
+    history.push(`/Search/${queryText}`)
+    onTriggerSearch({ queryText, isOnSearchPage: true })
+    onBlur()
+    console.log('ayayay')
+  }
+}
+const handleSearchOnClick = (
+  queryText: string,
+  onTriggerSearch: CallableFunction,
+  onBlur: CallableFunction
+) => {
+  if (queryText !== '') {
+    onTriggerSearch({ queryText, isOnSearchPage: true })
+    onBlur()
+  }
+}
 type SearchPageProps = {
   entries: any
   onLinkClick: CallableFunction
@@ -88,22 +112,16 @@ export const SearchPage = ({
     <div className="conv-search-page">
       <div
         className="conv-search"
-        onKeyPress={(evt) => {
-          if (evt.key === 'Enter') {
-            history.push(`/Search/${queryText}`)
-            onTriggerSearch({ queryText, isOnSearchPage: true })
-            onBlur()
-          }
-        }}
+        onKeyPress={(evt) =>
+          handleSearchOnEnter(evt, queryText, history, onTriggerSearch, onBlur)
+        }
       >
         <FlexibleInput
           type={inputTypes.STRING_TYPE}
           id="searchpagebox"
           className="conv-search-box"
-          onChange={(evt: any) => {
-            //change to string later
+          onChange={(evt: string) => {
             onTextChange({ queryText: evt })
-            onTriggerSearch(evt)
           }}
           value={queryText}
           customInput={{
@@ -115,10 +133,9 @@ export const SearchPage = ({
         />
         <Link
           to={`/Search/${queryText}`}
-          onClick={() => {
-            onTriggerSearch({ queryText, isOnSearchPage: true })
-            onBlur()
-          }}
+          onClick={() =>
+            handleSearchOnClick(queryText, onTriggerSearch, onBlur)
+          }
           className="nav-link"
         >
           <GoSearch />
@@ -201,13 +218,9 @@ export const QuickSearch = ({
   return (
     <div
       className="conv-search"
-      onKeyPress={(evt) => {
-        if (evt.key === 'Enter') {
-          history.push(`/Search/${queryText}`)
-          onTriggerSearch({ queryText, isOnSearchPage: true })
-          onBlur()
-        }
-      }}
+      onKeyPress={(evt) =>
+        handleSearchOnEnter(evt, queryText, history, onTriggerSearch, onBlur)
+      }
       onFocus={() => {
         if (queryText !== '') {
           onTriggerSearch({ queryText })
@@ -216,7 +229,7 @@ export const QuickSearch = ({
     >
       <FlexibleInput
         type={inputTypes.STRING_TYPE}
-        id="searchbox"
+        id="quicksearchbox"
         className="conv-search-box"
         onChange={(evt: any) => {
           onTextChange({ queryText: evt })
@@ -252,10 +265,7 @@ export const QuickSearch = ({
       )}
       <Link
         to={`/Search/${queryText}`}
-        onClick={() => {
-          onTriggerSearch({ queryText, isOnSearchPage: true })
-          onBlur()
-        }}
+        onClick={() => handleSearchOnClick(queryText, onTriggerSearch, onBlur)}
         className="nav-link"
       >
         <GoSearch />
