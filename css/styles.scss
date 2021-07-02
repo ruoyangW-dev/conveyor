@@ -41,7 +41,7 @@
 .disabled-input-value {
   @extend .border, .rounded;
   padding: 7px 7px 7px 12px;
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   min-height: 40px;
 }
 
@@ -251,6 +251,14 @@
 }
 .conv-search-page {
   @extend .container;
+
+  .conv-input-component.conv-input-type-string {
+    width: 80%;
+  }
+
+  #searchpagebox {
+    width: 100%;
+  }
 }
 .conv-search-results-desc {
   @extend .row, .justify-content-center;
@@ -290,7 +298,7 @@
   display: flex;
 }
 .conv-tree-table-header-label {
-  flexGrow: 1;
+  flexgrow: 1;
 }
 
 .conv-btn-group {

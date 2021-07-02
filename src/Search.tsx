@@ -65,7 +65,7 @@ const handleSearchOnEnter = (
   if (evt.key === 'Enter' && queryText !== '') {
     history.push(`/Search/${queryText}`)
     onTriggerSearch({ queryText, isOnSearchPage: true })
-    setTimeout(onBlur, 500)
+    onBlur()
   }
 }
 
@@ -114,7 +114,7 @@ export const SearchPage = ({
   return (
     <div className="conv-search-page">
       <div
-        className="conv-search"
+        className="conv-search conv-search-results-desc m-3"
         onKeyPress={(evt) =>
           handleSearchOnEnter(evt, queryText, history, onTriggerSearch, onBlur)
         }
