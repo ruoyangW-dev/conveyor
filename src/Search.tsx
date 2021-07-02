@@ -170,9 +170,8 @@ export const SearchPage = ({
             (entry) =>
               shouldShow(entry) ? (
                 <Link
-                  key={entry.name}
+                  key={entry.modelName + entry.id}
                   onClick={() => onLinkClick()}
-                  className="" // to be added later
                   to={entry.detailURL}
                 >
                   <div>
@@ -250,7 +249,7 @@ export const QuickSearch = ({
         <div className={`conv-search-dropdown ${entries.length > 0 && 'show'}`}>
           {entries.map((entry) => (
             <Link
-              key={entry.name}
+              key={entry.modelName + entry.id}
               onClick={() => onLinkClick()}
               className="conv-dropdown-item"
               to={entry.detailURL}
