@@ -11311,7 +11311,7 @@ h3 {
 }
 .disabled-input-value {
   padding: 7px 7px 7px 12px;
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   min-height: 40px;
 }
 
@@ -11345,6 +11345,13 @@ h3 {
   font-size: 14px;
 }
 
+.conv-search-page .conv-input-component.conv-input-type-string {
+  width: 80%;
+}
+.conv-search-page #searchpagebox {
+  width: 100%;
+}
+
 .tooltip-table {
   margin: 0px !important;
 }
@@ -11362,5 +11369,5 @@ h3 {
 }
 
 .conv-tree-table-header-label {
-  flexGrow: 1;
+  flexgrow: 1;
 }
