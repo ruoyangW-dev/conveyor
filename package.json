@@ -16,7 +16,7 @@
     "docs:watch": "npx typedoc --watch --out docs src/main.js"
   },
   "dependencies": {
-    "@autoinvent/conveyor-schema": "^0.4.0",
+    "@autoinvent/conveyor-schema": "^0.4.2",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

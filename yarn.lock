@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@autoinvent/conveyor-schema@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@autoinvent/conveyor-schema/-/conveyor-schema-0.4.0.tgz#e85a9b76c125a634ee86d3358ef7d5f00c8178eb"
-  integrity sha512-QQohfUFDuXktdejQqW9Uaw9+CZ1LawFvUcUhVk93YI+SilCwVn4dmUd1i5qPa0vtBmX2lz5AuLXpaLCOgwphnw==
+"@autoinvent/conveyor-schema@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@autoinvent/conveyor-schema/-/conveyor-schema-0.4.2.tgz#89dc276a08f3669c5c74309eb258036308adaa05"
+  integrity sha512-hHSKAil7GpyB+jPYWUF9XN9rYhOgs3JMffF7yivwc6a6fYxV/nxlzap+CprfRhbyw2nWxolxXYYGc2Uj7JfgxA==
   dependencies:
     core-js "^3.12.1"
     pluralize "^8.0.0"

@@ -1,12 +1,15 @@
 #Conveyor Changelog
 
-## Unreleased
+## Version 0.9.0
+
+Released 7-6-21
 
 Change rc-switch to checkbox
 Most files converted to TypeScript
 Improved quick search
 Add filters to search page
 Search page cleanup
+Fix jest tests
 
 ## Version 0.8.0
 

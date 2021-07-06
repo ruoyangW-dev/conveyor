@@ -75,7 +75,7 @@ describe('isDeletable function', () => {
       })
     ).toBe(false)
   })
-  
+
   it('Return false w/ deletable=NOT FUNC OR BOOLEAN', () => {
     expect(
       schema.isDeletable({
@@ -123,7 +123,7 @@ describe('getDisplayValue function', () => {
     expect(
       schema.getDisplayValue({
         modelName: 'DefaultsTest',
-        node: { name: 'name' }
+        node: { __typename: 'DefaultsTest', name: 'name' }
       })
     ).toBe('name')
   })
@@ -132,14 +132,14 @@ describe('getDisplayValue function', () => {
     expect(
       schema.getDisplayValue({
         modelName: 'PredefinedTest',
-        node: { foo: 'foo' }
+        node: { __typename: 'PredefinedTest', foo: 'foo' }
       })
     ).toBe('foo')
     // displayField: () => 'bar'
     expect(
       schema.getDisplayValue({
         modelName: 'ValidCasesTest',
-        node: { bar: 'bar' }
+        node: { __typename: 'ValidCasesTest', bar: 'bar' }
       })
     ).toBe('bar')
   })
@@ -310,11 +310,7 @@ describe('getTooltipFields function', () => {
       schema.getTooltipFields({
         modelName: 'PredefinedTest'
       })
-    ).toStrictEqual([
-      'id',
-      'foo',
-      'bar'
-    ])
+    ).toStrictEqual(['id', 'foo', 'bar'])
   })
 })
 

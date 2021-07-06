@@ -19,7 +19,9 @@ describe('FlexibleInput component', () => {
   it('InputDate w/ type=DATE_TYPE w/ defaulted props', () => {
     const { wrapper } = setupFlexibleInput({ type: inputTypes.DATE_TYPE })
     expect(wrapper.find('.date-picker-container')).toHaveLength(1)
-    expect(wrapper.find('.date-picker-container').childAt(0).prop('isClearable')).toBe(true)
+    expect(
+      wrapper.find('.date-picker-container').childAt(0).prop('isClearable')
+    ).toBe(true)
   })
   it('InputString w/ type=STRING_TYPE w/ defaulted props', () => {
     const { wrapper } = setupFlexibleInput({ type: inputTypes.STRING_TYPE })
@@ -117,8 +119,7 @@ describe('FlexibleInput component', () => {
     })
     expect(wrapper.find('MdCheckBoxOutlineBlank')).toHaveLength(1)
     expect(
-      wrapper.exists('.form-check') &&
-        wrapper.exists('.form-check-inline')
+      wrapper.exists('.form-check') && wrapper.exists('.form-check-inline')
     ).toBe(true)
   })
   it('InputSelect w/ type=SELECT_TYPE w/ defaulted props', () => {
@@ -167,7 +168,9 @@ describe('isAutoFocusInput function', () => {
     expect(isAutoFocusInput(inputTypes.FILE_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.RADIO_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.SELECT_TYPE)).toBe(false)
-    expect(isAutoFocusInput(inputTypes.CREATABLE_STRING_SELECT_TYPE)).toBe(false)
+    expect(isAutoFocusInput(inputTypes.CREATABLE_STRING_SELECT_TYPE)).toBe(
+      false
+    )
     expect(isAutoFocusInput(inputTypes.CHECKBOX_TYPE)).toBe(false)
     expect(isAutoFocusInput(inputTypes.BOOLEAN_TYPE)).toBe(false)
   })
