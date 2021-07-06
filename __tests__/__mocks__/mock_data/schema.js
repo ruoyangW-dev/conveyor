@@ -1,10 +1,12 @@
 import React from 'react'
+import {SchemaJSON} from '@autoinvent/conveyor-schema'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
 const DefaultsTest = {
   fields: {
     id: {
       fieldName: 'id',
-      type: 'ID'
+      type: 'ID',
     },
     name: {
       fieldName: 'name',
@@ -66,6 +68,64 @@ const PredefinedTest = {
   modelName: 'PredefinedTest',
   tableLinkField: 'name',
   fieldOrder: ['id', 'name', 'foo', 'bar']
+}
+
+const ValidCasesTest = {
+  fields: {
+    id: {
+      fieldName: 'id',
+      type: 'ID',
+    },
+    name: {
+      fieldName: 'name',
+      type: 'string'
+    }
+  },
+  hasIndex: true,
+  displayName: () => 'Pre Test',
+  displayNamePlural: () => 'Pre Tests',
+  deletable: () => false,
+  creatable: () => false,
+  displayField: () => 'bar',
+  modelName: 'titleize test',
+  tableLinkField: 'name',
+  fieldOrder: ['name']
+}
+
+const InvalidCasesTest = {
+  fields: {
+    id: {
+      fieldName: 'id',
+      type: 'ID',
+    },
+    name: {
+      fieldName: 'name',
+      type: 'string'
+    }
+  },
+  fieldName: "titleize test",
+  deletable: 42,
+  creatable: 42,
+  modelName: 'titleize test',
+  tableLinkField: 'name',
+  fieldOrder: ['name']
+}
+
+const titleizeTest = {
+  fields: {
+    id: {
+      fieldName: 'id',
+      type: 'ID',
+    },
+    name: {
+      fieldName: 'name',
+      type: 'string'
+    }
+  },
+  fieldName: "titleize test",
+  modelName: 'titleize test',
+  tableLinkField: 'name',
+  fieldOrder: ['name']
 }
 
 const NoModelOverride = {
@@ -145,9 +205,14 @@ const ModelOverride = {
   }
 }
 
-export const schema = {
+const schemaJSON = {
   DefaultsTest,
   PredefinedTest,
+  ValidCasesTest,
+  InvalidCasesTest,
+  titleizeTest,
   NoModelOverride,
   ModelOverride
 }
+
+export const schema = new SchemaBuilder(schemaJSON)
