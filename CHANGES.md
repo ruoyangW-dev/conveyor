@@ -3,7 +3,10 @@
 ## Unreleased
 
 Change rc-switch to checkbox
+Most files converted to TypeScript
 Improved quick search
+Add filters to search page
+Search page cleanup
 
 ## Version 0.8.0
 
