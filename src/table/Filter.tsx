@@ -152,20 +152,15 @@ const formatFilter = ({
               fieldName,
               modelName,
               schema,
-              onFilterChange: () =>
+              onFilterChange: (evt: any) =>
                 onFilterChange({
                   modelName,
-                  schema,
-                  onFilterChange: (evt: any) =>
-                    onFilterChange({
-                      modelName,
-                      ...evt
-                    }),
-                  onFilterSubmit,
-                  onFilterDropdown,
-                  filterInput,
-                  selectOptions
-                })
+                  ...evt
+                }),
+              onFilterSubmit,
+              onFilterDropdown,
+              filterInput,
+              selectOptions
             }}
           />
         </div>
