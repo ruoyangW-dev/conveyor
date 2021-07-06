@@ -14,3 +14,5 @@ docs
 documentation
 jest.config.js
 __tests__
+.babelrc
+babel.config.js
