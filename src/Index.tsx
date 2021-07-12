@@ -71,7 +71,9 @@ export const DefaultIndexTitle = ({
         {filterable && (
           <FilterModalButton {...{ modelName, filtersAreActive }} />
         )}
-        {creatable && <CreateButton {...{ onClick, to: modelName }} />}
+        {creatable && (
+          <CreateButton {...{ onClick, to: modelName, fromIndex: true }} />
+        )}
       </div>
     </div>
   )
@@ -250,7 +252,8 @@ const Index = ({
           <CreateButton
             {...{
               onClick: () => onCreateClick({ modelName }),
-              to: modelName
+              to: modelName,
+              fromIndex: true
             }}
           />
         </h1>
