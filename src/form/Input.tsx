@@ -37,7 +37,7 @@ export const relationshipLabelFactory = ({
           {...{
             onClick,
             to: relModelName,
-            fromIndex: false
+            replaceEntry: true
           }}
         />
       )}

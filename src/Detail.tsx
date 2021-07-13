@@ -345,7 +345,7 @@ export const DetailCreateButton = ({
       node
     })
   return (
-    <CreateButton {...{ onClick, to: targetModelName, fromIndex: false }} />
+    <CreateButton {...{ onClick, to: targetModelName, replaceEntry: false }} />
   )
 }
 
