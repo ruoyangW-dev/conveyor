@@ -1,5 +1,10 @@
 #Conveyor Changelog
 
+## Unreleased
+Removal of babel dependencies
+Using ts-jest for jest tests
+Moved some tests to conveyor-schema
+
 ## Version 0.9.0
 
 Released 7-6-21

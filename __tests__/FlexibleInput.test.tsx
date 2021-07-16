@@ -8,7 +8,7 @@ import { inputTypes } from '../src/consts'
 configure({ adapter: new Adapter() })
 
 // Mount component
-const setupFlexibleInput = (props) => {
+const setupFlexibleInput = (props: any) => {
   const wrapper = mount(<FlexibleInput {...props} />)
 
   return { props, wrapper }
@@ -130,7 +130,7 @@ describe('FlexibleInput component', () => {
     expect(
       wrapper.find('Select').prop('isClearable') === true &&
         wrapper.find('Select').prop('isMulti') === false &&
-        wrapper.find('Select').prop('noOptionsMessage')() === 'No Options' &&
+        (wrapper.find('Select').prop('noOptionsMessage') as CallableFunction)() === 'No Options' &&
         wrapper.find('Select').hasClass('basic-single')
     ).toBe(true)
   })

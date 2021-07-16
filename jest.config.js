@@ -1,4 +1,10 @@
 module.exports = {
-  modulePathIgnorePatterns: ['__tests__/__mocks__/'],
-  transformIgnorePatterns: ['node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)']
+  preset: 'ts-jest/presets/js-with-ts',
+  testEnvironment: 'jsdom',
+  transformIgnorePatterns: ['node_modules/?!@autoinvent/conveyor-schema'],
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
+  }
 }
